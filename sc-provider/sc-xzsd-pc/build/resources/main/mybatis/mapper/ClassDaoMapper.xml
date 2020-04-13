@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xzsd.pc.goodsClassification.dao.ClassDao">
+
+
+    <resultMap id="BaseTreeResultMap" type="com.xzsd.pc.goodsClassification.entity.ClassInfo">
+        <result column="class_id" property="classId"/>
+        <result column="parent_id" property="parentId"/>
+        <result column="class_name" property="className"/>
+        <collection column="class_id" property="treeNode" javaType="java.util.ArrayList"
+                    ofType="com.xzsd.pc.goodsClassification.dao.ClassDao" select="getNextNodeTree"/>
+    </resultMap>
+
+    <resultMap id="NextTreeResultMap" type="com.xzsd.pc.goodsClassification.entity.ClassInfo">
+        <result column="class_id" property="classId"/>
+        <result column="parent_id" property="parentId"/>
+        <result column="class_name" property="className"/>
+        <collection column="class_id" property="treeNode" javaType="java.util.ArrayList"
+                    ofType="com.xzsd.pc.goodsClassification.dao.ClassDao" select="getNextNodeTree"/>
+    </resultMap>
+
+
+    <!--新增商品分类-->
+    <insert id="addClass" parameterType="com.xzsd.pc.goodsClassification.entity.ClassInfo">
+        insert into t_sys_goodsclassification
+        (
+        class_id,
+        class_name,
+        remark,
+        parent_id,
+        is_deleted,
+        gmt_create,
+        create_by,
+        gmt_modified,
+        last_modified_by,
+        version
+        )
+        values
+           (#{classId},
+            #{className},
+            #{remark},
+            #{parentId},
+            #{isDeleted},
+            now(),
+            #{createBy},
+            now(),
+            #{lastModifiedBy},
+            0)
+    </insert>
+
+    <!--获取商品分类详情-->
+    <select id="getClassById" parameterType="java.lang.String" resultType="com.xzsd.pc.goodsClassification.entity.ClassInfo">
+        select
+        class_name className,
+        remark
+        from
+        t_sys_goodsclassification
+        where
+        class_id = #{classId}
+        and
+        is_deleted = 0
+    </select>
+
+    <!--修改商品分类信息-->
+    <update id = "updateClass" parameterType="com.xzsd.pc.goodsClassification.entity.ClassInfo">
+        update
+        t_sys_goodsclassification
+        set
+        class_name = #{className},
+        remark = #{remark},
+        gmt_modified = now(),
+        last_modified_by = #{lastModifiedBy},
+        version = version + 1
+        where
+        class_id = #{classId}
+        and
+        version = #{version}
+    </update>
+
+    <!--删除商品分类-->
+    <update id = "deleteClass" parameterType="com.xzsd.pc.goodsClassification.entity.ClassInfo">
+        update
+        t_sys_goodsclassification
+        set
+        is_deleted = 1,
+        gmt_modified = now(),
+        last_modified_by = #{userCode},
+        version = version + 1
+        where class_id in
+        <foreach item="item" index="index" collection="listCode" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </update>
+
+    <!--获取商品分类列表-->
+    <select id="getNextNodeTree" resultMap="NextTreeResultMap">
+        SELECT
+        *
+        FROM t_sys_goodsclassification
+        WHERE parent_id = #{classId}
+    </select>
+
+    <select id="getNodeTree" resultMap="BaseTreeResultMap">
+        SELECT
+        *
+        FROM t_sys_goodsclassification
+        WHERE parent_id in ('',null)
+    </select>
+
+</mapper>

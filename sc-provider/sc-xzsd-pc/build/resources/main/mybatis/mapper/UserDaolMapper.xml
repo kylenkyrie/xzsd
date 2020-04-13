@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xzsd.pc.user.dao.UserDao">
+
+    <!--统计用户账号数量-->
+    <select id="countUserAcct" parameterType="com.xzsd.pc.user.entity.UserInfo" resultType="int">
+        select
+        count(user_acct)
+        from
+        t_sys_user
+        where
+        is_deleted = 0
+        and user_acct = #{userAcct}
+        <if test="userId != null and userId != ''">
+            and user_id != #{userId}
+        </if>
+    </select>
+
+    <!--新增用户-->
+    <insert id="addUser" parameterType="com.xzsd.pc.user.entity.UserInfo">
+        insert into t_sys_user
+        (user_id,
+         user_name,
+         user_acct,
+         user_pwd,
+         id_card,
+         sex,
+         phone,
+         email,
+         is_deleted,
+         gmt_create,
+         create_by,
+         gmt_modified,
+         last_modified_by,
+         version
+         role)
+        values
+           (#{userId},
+            #{userName},
+            #{userAcct},
+            #{userPwd},
+            #{idCard},
+            #{sex},
+            #{phone},
+            #{email},
+            #{isDeleted},
+            now(),
+            #{createBy},
+            now(),
+            #{lastModifiedBy},
+            0,
+            #{role})
+    </insert>
+    <!--查询用户列表分页-->
+    <select id = "listUsersByPage" parameterType="com.xzsd.pc.user.entity.UserInfo" resultType="com.xzsd.pc.user.entity.UserInfo">
+        select
+        user_id userId,
+        user_name userName,
+        user_acct userAcct,
+        role,
+        sex,
+        phone,
+        email,
+        id_card
+        FROM
+        t_sys_user
+        where is_deleted = 0
+        and
+        role != 3
+        <if test="userAcct != null and userAcct != ''">
+            and user_acct like concat('%', #{userAcct}, '%')
+        </if>
+        <if test="userName != null and userName != ''">
+            and user_name like concat('%', #{userName}, '%')
+        </if>
+        order by gmt_create desc
+    </select>
+    <!--删除用户-->
+    <update id = "deleteUser" parameterType="com.xzsd.pc.user.entity.UserInfo">
+        update
+        t_sys_user
+        set
+        is_deleted = 1,
+        gmt_modified = now(),
+        last_modified_by = #{userCode},
+        version = version + 1
+        where user_id in
+        <foreach item="item" index="index" collection="listCode" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </update>
+
+    <!--修改用户信息-->
+    <update id = "updateUser" parameterType="com.xzsd.pc.user.entity.UserInfo">
+        update
+        t_sys_user
+        set
+        user_name = #{userName},
+        user_acct = #{userAcct},
+        sex = #{sex},
+        phone = #{phone},
+        email = #{email},
+        id_card = #{idCard},
+        user_pwd = #{userPwd},
+        gmt_modified = now(),
+        last_modified_by = #{lastModifiedBy},
+        version = version + 1
+        where
+        user_id = #{userId}
+        and
+        version = #{version}
+    </update>
+
+    <!--获取用户信息-->
+    <select id="getUserByUserId" parameterType="java.lang.String" resultType="com.xzsd.pc.user.entity.UserInfo">
+        select
+            user_id userId,
+            user_name userName,
+            user_acct userAcct,
+            user_pwd userPwd,
+            id_card idCard,
+            sex,
+            phone,
+            email,
+            version
+        from t_sys_user
+        where user_id = #{userId}
+        and is_deleted = 0
+    </select>
+</mapper>

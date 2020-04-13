@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xzsd.pc.goods.dao.GoodsDao">
+
+    <!--新增商品-->
+    <insert id="addGoods" parameterType="com.xzsd.pc.goods.entity.GoodsInfo">
+        insert into t_sys_goodsinfo
+        (
+        goods_id,
+        goods_name,
+        book_id,
+        class_one,
+        class_two,
+        goods_adv,
+        goods_intro,
+        business_name,
+        inventory,
+        cost_price,
+        sales_price,
+        goods_picture,
+        is_deleted,
+        gmt_create,
+        create_by,
+        gmt_modified,
+        last_modified_by,
+        version,
+        goods_status
+        )
+        values
+           (#{goodsId},
+            #{goodsName},
+            #{bookId},
+            #{classOne},
+            #{classTwo},
+            #{goodsAdv},
+            #{goodsIntroduce},
+            #{businessName},
+            #{inventory},
+            #{costPrice},
+            #{salesPrice},
+            #{goodsPicture},
+            #{isDeleted},
+            now(),
+            #{createBy},
+            now(),
+            #{lastModifiedBy},
+            0,
+            2)
+    </insert>
+
+    <!--获取商品列表-->
+    <select id="listGoodsByPage" parameterType="com.xzsd.pc.goods.entity.GoodsInfo" resultType="com.xzsd.pc.goods.entity.GoodsInfo">
+        select
+        goods_id goodsId,
+        goods_name goodsName,
+        book_id bookId,
+        class_one classOne,
+        press,
+        author,
+        class_two classTwo,
+        goods_adv goodsAdv,
+        goods_intro goodsIntro,
+        business_name businessName,
+        inventory,
+        cost_price costPrice,
+        sales_price salesPrice
+        FROM
+        t_sys_goodsinfo
+        where
+        is_deleted = 0
+        <if test="goodsName != null and goodsName != ''">
+            and goods_name like concat('%', #{goodsName}, '%')
+        </if>
+        <if test="goodsAdv != null and goodsAdv != ''">
+            and goods_adv like concat('%', #{goodsAdv}, '%')
+        </if>
+        <if test="press != null and press != ''">
+            and press like concat('%', #{press}, '%')
+        </if>
+        <if test="author != null and author != ''">
+            and author like concat('%', #{author}, '%')
+        </if>
+    </select>
+    <!--修改商品信息-->
+    <update id = "updateGoods" parameterType="com.xzsd.pc.goods.entity.GoodsInfo">
+        update
+        t_sys_goodsinfo
+        set
+        goods_name = #{goodsName},
+        book_id = #{bookId},
+        class_one = #{classOne},
+        class_two = #{classTwo},
+        goods_adv = #{goodsAdv},
+        goods_intro = #{goodsIntroduce},
+        inventory = #{inventory},
+        cost_price = #{costPrice},
+        sales_price = #{salesPrice},
+        author = #{author},
+        press = #{press},
+        business_name = #{businessName},
+        goods_picture = #{goodsPicture},
+        gmt_modified = now(),
+        last_modified_by = #{lastModifiedBy},
+        version = version + 1
+        where
+        goods_id = #{goodsId}
+        and
+        version = #{version}
+    </update>
+    <!--获取商品详情-->
+    <select id="getGoodsByGoodsId" parameterType="java.lang.String" resultType="com.xzsd.pc.goods.entity.GoodsInfo">
+        select
+        goods_name goodsName,
+        book_id bookId,
+        class_one classOne,
+        class_two classTwo,
+        goods_adv goodsAdv,
+        goods_intro goodsIntroduce,
+        inventory,
+        cost_price costPrice,
+        sales_price salesPrice,
+        author,
+        press,
+        business_name  businessName,
+        goods_picture  goodsPicture
+        from
+        t_sys_goodsinfo
+        where
+        goods_id = #{goodsId}
+        and
+        is_deleted = 0
+    </select>
+
+    <!--删除商品-->
+    <update id = "deleteGoods" parameterType="com.xzsd.pc.goods.entity.GoodsInfo">
+        update
+        t_sys_goodsinfo
+        set
+        is_deleted = 1,
+        gmt_modified = now(),
+        last_modified_by = #{userCode},
+        version = version + 1
+        where goods_id in
+        <foreach item="item" index="index" collection="listCode" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </update>
+
+    <!--修改商品状态-->
+    <update id = "updateGoodsStatus" parameterType="com.xzsd.pc.goods.entity.GoodsInfo">
+        update
+        t_sys_goodsinfo
+        set
+        goods_status = #{goodsStatus},
+        shelf_time = #{shelfTime},
+        gmt_modified = now(),
+        last_modified_by = #{lastModifiedBy},
+        version = version + 1
+        where
+        goods_id = #{goodsId}
+        and
+        version = #{version}
+    </update>
+
+    <!--获取商品分类信息-->
+    <select id="listClass" parameterType="com.xzsd.pc.goodsClassification.entity.ClassInfo" resultType="com.xzsd.pc.goodsClassification.entity.ClassInfo">
+        select
+        class_id classId,
+        class_name className
+        FROM
+        t_sys_goodsclassification
+        where
+        is_deleted = 0
+        <if test="parentId == null or parentId == ''">
+            and parent_id in (null,'')
+        </if>
+        <if test="parentId != null and parentId != ''">
+            and parent_id = #{parentId}
+        </if>
+    </select>
+
+</mapper>
