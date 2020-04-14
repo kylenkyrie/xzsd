@@ -6,7 +6,7 @@
 
     <select id="getUserInfoByUsername" resultType="com.neusoft.oauth.entity.SysUser">
         SELECT
-            t.user_code as id,
+            t.user_id as id,
             t.user_acct as account,
             t.user_pwd as password,
             t.user_name as name,
