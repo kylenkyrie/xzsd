@@ -13,7 +13,7 @@
         </if>
     </select>
 
-    <!--客户-->
+    <!--新增客户-->
     <insert id="addCustomer" parameterType="com.xzsd.app.register.entity.RegisterInfo">
         insert into
         t_sys_customer
@@ -48,7 +48,7 @@
             0)
     </insert>
 
-    <!--用户表新增司机-->
+    <!--用户表新增用户-->
     <insert id="addUser" parameterType="com.xzsd.app.register.entity.RegisterInfo">
         insert into
         t_sys_user
