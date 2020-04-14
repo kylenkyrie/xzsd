@@ -2,6 +2,7 @@ package com.xzsd.pc.user.controller;
 
 
 import com.neusoft.core.restful.AppResponse;
+import com.neusoft.security.client.utils.SecurityUtils;
 import com.neusoft.util.AuthUtils;
 import com.xzsd.pc.user.entity.UserInfo;
 import com.xzsd.pc.user.service.UserService;
@@ -39,7 +40,7 @@ public class UserController {
     public AppResponse saveUser(UserInfo userInfo) {
         try {
             //获取用户id
-            String userId = AuthUtils.getCurrentUserId();
+            String userId = SecurityUtils.getCurrentUserId();
             userInfo.setCreateBy(userId);
             AppResponse appResponse = userService.addUser(userInfo);
             return appResponse;
@@ -79,7 +80,7 @@ public class UserController {
     public AppResponse deleteUser(String userId){
         try{
             //获取用户id
-            String userCode = AuthUtils.getCurrentUserId();
+            String userCode = SecurityUtils.getCurrentUserId();
             return userService.deleteUser(userId,userCode);
         } catch (Exception e) {
             logger.error("用户删除错误", e);
@@ -99,7 +100,7 @@ public class UserController {
     public AppResponse updateUser(UserInfo userInfo) {
         try {
             //获取用户id
-            String userCode = AuthUtils.getCurrentUserId();
+            String userCode = SecurityUtils.getCurrentUserId();
             userInfo.setCreateBy(userCode);
             userInfo.setLastModifiedBy(userCode);
             return userService.updateUser(userInfo);
