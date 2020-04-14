@@ -5,14 +5,14 @@
     <!--查询订单列表分页-->
     <select id = "listOrderByPage" parameterType="com.xzsd.pc.order.entity.OrderInfo" resultType="com.xzsd.pc.order.entity.OrderInfo">
         select
-        order_id orderId,
-        order_cus_id orderCusId,
-        order_cus_name orderCusName,
-        order_total_price orderTotalPrice,
-        order_status orderStatus,
-        store_id storeId,
-        order_cus_phone orderCusPhone,
-        pay_time payTime
+        order_id,
+        order_cus_id,
+        order_cus_name,
+        order_total_price,
+        order_status,
+--         store_id,
+        order_cus_phone,
+        pay_time
         FROM
         t_sys_order
         where is_deleted = 0
@@ -30,6 +30,9 @@
         </if>
         <if test="payTimeStart != null and payTimeStart != '' and payTimeEnd != null and payTimeEnd != ''">
             and pay_time between #{payTimeStart} and #{payTimeEnd}
+        </if>
+        <if test="role != '' and role != null and role == 2">
+            and store_id in (select store_id from t_sys_store where manager_id = #{loginUserId})
         </if>
         order by gmt_create desc
     </select>

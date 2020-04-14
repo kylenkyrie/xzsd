@@ -35,7 +35,7 @@ public class OrderInfo {
     /**
      * 门店编号
      */
-    private int storeId;
+    private String storeId;
     /**
      * 下单人手机号码
      */
@@ -52,6 +52,14 @@ public class OrderInfo {
      * 付款时间止
      */
     private Date payTimeEnd;
+    /**
+     * 角色
+     */
+    private int role;
+    /**
+     * 当前登录用户id
+     */
+    private String loginUserId;
     /**
      * 作废标记 0为存在，1为作废
      */
@@ -133,11 +141,11 @@ public class OrderInfo {
         this.orderStatus = orderStatus;
     }
 
-    public int getStoreId() {
+    public String getStoreId() {
         return storeId;
     }
 
-    public void setStoreId(int storeId) {
+    public void setStoreId(String storeId) {
         this.storeId = storeId;
     }
 
@@ -172,6 +180,14 @@ public class OrderInfo {
     public void setPayTimeEnd(Date payTimeEnd) {
         this.payTimeEnd = payTimeEnd;
     }
+
+    public int getRole() { return role; }
+
+    public void setRole(int role) { this.role = role; }
+
+    public String getLoginUserId() { return loginUserId; }
+
+    public void setLoginUserId(String loginUserId) { this.loginUserId = loginUserId; }
 
     public int getIsDeleted() {
         return isDeleted;

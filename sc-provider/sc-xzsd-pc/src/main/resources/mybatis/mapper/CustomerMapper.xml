@@ -21,6 +21,9 @@
         <if test="customerName != null and customerName != ''">
             and cus_name like concat('%', #{customerName}, '%')
         </if>
+        <if test="role != '' and role != null and role == 2">
+            and invite_code in (select invite_code from t_sys_store where manager_id = #{loginUserId})
+        </if>
         order by gmt_create desc
     </select>
 </mapper>

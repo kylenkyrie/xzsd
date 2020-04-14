@@ -40,6 +40,14 @@ public class CustomerInfo {
      */
     private String email;
     /**
+     * 角色
+     */
+    private int role;
+    /**
+     * 当前登录用户id
+     */
+    private String loginUserId;
+    /**
      * 作废标记 0为存在，1为作废
      */
     private int isDeleted;
@@ -135,6 +143,14 @@ public class CustomerInfo {
     public void setEmail(String email) {
         this.email = email;
     }
+
+    public int getRole() { return role; }
+
+    public void setRole(int role) { this.role = role; }
+
+    public String getUserId() { return loginUserId; }
+
+    public void setUserId(String userId) { this.loginUserId = userId; }
 
     public int getIsDeleted() {
         return isDeleted;
