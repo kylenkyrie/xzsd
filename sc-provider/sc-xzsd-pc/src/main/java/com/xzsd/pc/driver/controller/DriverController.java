@@ -35,7 +35,7 @@ public class DriverController {
      * @Date 2020-04-10
      */
     @PostMapping("addDriver")
-    public AppResponse addGoods(DriverInfo driverInfo){
+    public AppResponse addDriver(DriverInfo driverInfo){
         try{
 
             //获取当前登录用户id
@@ -80,7 +80,7 @@ public class DriverController {
      * @Date 2020-04-13
      */
     @RequestMapping(value = "getDriverByDriverId")
-    public AppResponse getStoreByStoreId(String driverId) {
+    public AppResponse getDriverByDriverId(String driverId) {
         try {
             return driverService.getDriverByDriverId(driverId);
         } catch (Exception e) {
