@@ -214,5 +214,6 @@
     <orderEntry type="library" name="Gradle: io.netty:netty-buffer:4.0.27.Final" level="project" />
     <orderEntry type="library" name="Gradle: io.netty:netty-common:4.0.27.Final" level="project" />
     <orderEntry type="library" name="Gradle: org.bouncycastle:bcprov-jdk15on:1.56" level="project" />
+    <orderEntry type="module" module-name="sc2019.sc-provider.sc-web-auth.main" />
   </component>
 </module>

@@ -32,7 +32,7 @@
          create_by,
          gmt_modified,
          last_modified_by,
-         version
+         version,
          role)
         values
            (#{userId},

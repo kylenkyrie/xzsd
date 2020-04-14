@@ -6,6 +6,7 @@ import com.neusoft.core.restful.AppResponse;
 import com.neusoft.util.StringUtil;
 import com.xzsd.pc.user.dao.UserDao;
 import com.xzsd.pc.user.entity.UserInfo;
+import com.xzsd.pc.utils.PasswordUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -41,6 +42,9 @@ public class UserService {
         if(0 != countUserAcct) {
             return AppResponse.bizError("用户账号已存在，请重新输入！");
         }
+        // 密码加密 默认为123456
+        String pwd = PasswordUtils.generatePassword("123456");
+        userInfo.setUserPwd(pwd);
         userInfo.setUserId(StringUtil.getCommonCode(2));
         userInfo.setIsDeleted(0);
         // 新增用户
