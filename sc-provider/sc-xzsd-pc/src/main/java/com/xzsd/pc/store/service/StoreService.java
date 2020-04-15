@@ -17,6 +17,7 @@ import static com.neusoft.core.page.PageUtils.getPageInfo;
 public class StoreService {
     @Resource
     private StoreDao storeDao;
+
     /**
      * demo 新增门店
      * @param storeInfo
@@ -96,13 +97,8 @@ public class StoreService {
         if(0 != countManagerId) {
             return AppResponse.bizError("店长id重复，请重新输入！");
         }
-        // 校验门店名称是否重复
-//        int countStoreName = storeDao.countStoreName(storeInfo);
-//        if(0 != countStoreName) {
-//            return AppResponse.bizError("门店名称重复，请重新输入！");
-//        }
         AppResponse appResponse = AppResponse.success("修改成功");
-        // 修改商品信息
+        // 修改门店信息
         int count = storeDao.updateStore(storeInfo);
         if (0 == count) {
             appResponse = AppResponse.versionError("数据有变化，请刷新！");
@@ -128,7 +124,6 @@ public class StoreService {
      * 作者：yangmingzhen
      * 时间：2020—04—11
      */
-    //@SystemLog(operation = "获取热门商品列表。。。。。")
     public AppResponse listStoreByPage(StoreInfo storeInfo) {
         List<StoreInfo> storeInfoList = storeDao.listStoreByPage(storeInfo);
         return AppResponse.success("查询成功！", getPageInfo(storeInfoList));

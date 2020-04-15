@@ -32,7 +32,6 @@ public class HotGoodsService {
      * @Author yangmingzhen
      * @Date 2020-04-08
      */
-
     @Transactional(rollbackFor = Exception.class)
     public AppResponse addHotGoods(HotGoodsInfo hotGoodsInfo){
 
@@ -43,7 +42,7 @@ public class HotGoodsService {
         }
         hotGoodsInfo.setGoodsId(StringUtil.getCommonCode(3));
         hotGoodsInfo.setIsDeleted(0);
-        //新增商品
+        //新增热门商品
         int count = hotGoodsDao.addHotGoods(hotGoodsInfo);
         if(count == 0){
             return AppResponse.bizError("新增失败，请重试！");
@@ -69,7 +68,6 @@ public class HotGoodsService {
      * @Author yangmingzhen
      * @Date 2020-04-08
      */
-
     public AppResponse listGoods(GoodsInfo goodsInfo){
         PageHelper.startPage(goodsInfo.getPageNum(),goodsInfo.getPageSize());
         List<GoodsInfo> goodsInfoList = hotGoodsDao.listGoodsByPage(goodsInfo);
@@ -87,7 +85,7 @@ public class HotGoodsService {
     @Transactional(rollbackFor = Exception.class)
     public AppResponse updateGoods(HotGoodsInfo hotGoodsInfo) {
         AppResponse appResponse = AppResponse.success("修改成功");
-        // 修改商品信息
+        // 修改热门商品信息
         int count = hotGoodsDao.updateHotGoods(hotGoodsInfo);
         if (0 == count) {
             appResponse = AppResponse.versionError("数据有变化，请刷新！");

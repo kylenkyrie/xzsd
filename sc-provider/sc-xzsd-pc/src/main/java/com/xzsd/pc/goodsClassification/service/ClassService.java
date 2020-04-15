@@ -23,12 +23,11 @@ public class ClassService {
      * @Author yangmingzhen
      * @Date 2020-04-04
      */
-
     @Transactional(rollbackFor = Exception.class)
     public AppResponse addClass(ClassInfo classInfo){
         classInfo.setClassId(StringUtil.getCommonCode(3));
         classInfo.setIsDeleted(0);
-        //新增轮播图片
+        //新增商品分类
         int count = classDao.addClass(classInfo);
         if(count == 0){
             return AppResponse.bizError("新增失败，请重试！");
@@ -57,7 +56,7 @@ public class ClassService {
     @Transactional(rollbackFor = Exception.class)
     public AppResponse updateClass(ClassInfo classInfo) {
         AppResponse appResponse = AppResponse.success("修改成功");
-        // 修改商品信息
+        // 修改商品分类信息
         int count = classDao.updateClass(classInfo);
         if (0 == count) {
             appResponse = AppResponse.versionError("数据有变化，请刷新！");
@@ -77,7 +76,7 @@ public class ClassService {
     public AppResponse deleteClass(String classId,String userCode){
         List<String> listCode = Arrays.asList(classId.split(","));
         AppResponse appResponse = AppResponse.success("删除成功！");
-        // 删除商品
+        // 删除商品分类
         int count = classDao.deleteClass(listCode,userCode);
         if(0 == count) {
             appResponse = AppResponse.bizError("删除失败，请重试！");
@@ -92,7 +91,6 @@ public class ClassService {
      * @Author yangmingzhen
      * @Date 2020-04-11
      */
-
     public AppResponse getNodeTree(){
         List<ClassInfo> classInfoList = classDao.getNodeTree();
         return AppResponse.success("查询成功！",classInfoList);

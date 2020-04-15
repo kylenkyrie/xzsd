@@ -103,6 +103,11 @@ public class GoodsService {
     public AppResponse deleteGoods(String goodsId,String userCode){
         List<String> listCode = Arrays.asList(goodsId.split(","));
         AppResponse appResponse = AppResponse.success("删除成功！");
+        //校验商品是否被绑定
+        int countGoodsId = goodsDao.countGoodsId(listCode);
+        if(0 != countGoodsId) {
+            appResponse = AppResponse.bizError("商品已被绑定无法删除！");
+        }
         // 删除商品
         int count = goodsDao.deleteGoods(listCode,userCode);
         if(0 == count) {
@@ -135,7 +140,6 @@ public class GoodsService {
      * @Author yangmingzhen
      * @Date 2020-03-28
      */
-
     public AppResponse listClass(ClassInfo classInfo){
         List<ClassInfo> classInfoList = goodsDao.listClass(classInfo);
         return AppResponse.success("查询成功！",classInfoList);

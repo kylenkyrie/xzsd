@@ -48,7 +48,7 @@ public class OrderService {
     @Transactional(rollbackFor = Exception.class)
     public AppResponse updateOrderStatus(OrderInfo orderInfo) {
         AppResponse appResponse = AppResponse.success("修改成功");
-        // 修改商品状态
+        // 修改订单状态
         int count = orderDao.updateOrderStatus(orderInfo);
         if (0 == count) {
             appResponse = AppResponse.versionError("数据有变化，请刷新！");

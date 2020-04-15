@@ -81,6 +81,7 @@
             and author like concat('%', #{author}, '%')
         </if>
     </select>
+
     <!--修改商品信息-->
     <update id = "updateGoods" parameterType="com.xzsd.pc.goods.entity.GoodsInfo">
         update
@@ -107,6 +108,7 @@
         and
         version = #{version}
     </update>
+
     <!--获取商品详情-->
     <select id="getGoodsByGoodsId" parameterType="java.lang.String" resultType="com.xzsd.pc.goods.entity.GoodsInfo">
         select
@@ -131,6 +133,35 @@
         is_deleted = 0
     </select>
 
+    <!--校验商品是否被绑定-->
+    <select id="countGoodsId" parameterType="com.xzsd.pc.goods.entity.GoodsInfo" resultType="int">
+        select count(*)
+        from
+        (
+        select goods_id
+        from
+        t_sys_carousel_figure
+        where
+        is_deleted = 0
+        and
+        goods_id in
+        <foreach item="item" index="index" collection="listCode" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+        union
+        select goods_id
+        from
+        t_sys_hotgoods
+        where
+        is_deleted = 0
+        and
+        goods_id in
+        <foreach item="item" index="index" collection="listCode" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+        ) num
+    </select>
+
     <!--删除商品-->
     <update id = "deleteGoods" parameterType="com.xzsd.pc.goods.entity.GoodsInfo">
         update
@@ -140,7 +171,8 @@
         gmt_modified = now(),
         last_modified_by = #{userCode},
         version = version + 1
-        where goods_id in
+        where
+        goods_id in
         <foreach item="item" index="index" collection="listCode" open="(" separator="," close=")">
             #{item}
         </foreach>

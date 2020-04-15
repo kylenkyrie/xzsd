@@ -44,6 +44,13 @@ public interface GoodsDao {
     GoodsInfo getGoodsByGoodsId(@Param("goodsId") String goodsId);
 
     /**
+     * 校验商品是否被绑定
+     * @param listCode 选中的商品编号集合
+     * @return
+     */
+    int countGoodsId(@Param("listCode") List<String> listCode);
+
+    /**
      * 删除商品信息
      * @param listCode 选中的商品编号集合
      * @param userCode 更新人
