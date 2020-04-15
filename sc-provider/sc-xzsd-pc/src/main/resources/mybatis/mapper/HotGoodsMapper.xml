@@ -123,23 +123,14 @@
     </update>
 
     <!--展示数设置-->
-    <select id="updateShowCnt" parameterType="com.xzsd.pc.hotgoods.entity.HotGoodsInfo" resultType="com.xzsd.pc.hotgoods.entity.HotGoodsInfo">
-        select
-        goods_id,
-        goods_name,
-        sort_id,
-        goods_intro,
-        price,
-        is_deleted,
-        gmt_create,
-        create_by,
-        gmt_modified,
-        last_modified_by,
-        version
-        from t_sys_hotgoods
-        where is_deleted = 0
-        order by sort_id
-        asc
-        limit #{showCnt}
-    </select>
+    <update id = "updateShowCnt" parameterType="com.xzsd.pc.hotgoods.entity.HotGoodsInfo">
+        update
+        t_sys_region
+        set
+        value = #{showCnt}
+        where
+        id = '9999'
+        and
+        version = #{version}
+    </update>
 </mapper>

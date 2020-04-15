@@ -29,7 +29,6 @@ public class HotGoodsController {
      * @author 杨明镇
      * @Date 2020-04-08
      */
-
     @PostMapping("addHotGoods")
     public AppResponse addGoods(HotGoodsInfo hotGoodsInfo){
         try{

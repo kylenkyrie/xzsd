@@ -102,8 +102,13 @@ public class HotGoodsService {
      * @Date 2020-04-08
      */
     public AppResponse updateShowCnt(HotGoodsInfo hotGoodsInfo){
-        List<HotGoodsInfo> hotGoodsInfoList = hotGoodsDao.updateShowCnt(hotGoodsInfo);
-        //包装对象g
-        return AppResponse.success("查询成功！",hotGoodsInfoList);
+        AppResponse appResponse = AppResponse.success("修改成功");
+        // 修改热门商品展示数
+        int count = hotGoodsDao.updateShowCnt(hotGoodsInfo);
+        if (0 == count) {
+            appResponse = AppResponse.versionError("数据有变化，请刷新！");
+            return appResponse;
+        }
+        return appResponse;
     }
 }

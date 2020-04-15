@@ -49,5 +49,5 @@ public interface HotGoodsDao {
      * @param hotgoodsInfo 热门商品信息
      * @return 修改结果
      */
-    List<HotGoodsInfo> updateShowCnt(HotGoodsInfo hotgoodsInfo);
+    int updateShowCnt(HotGoodsInfo hotgoodsInfo);
 }
