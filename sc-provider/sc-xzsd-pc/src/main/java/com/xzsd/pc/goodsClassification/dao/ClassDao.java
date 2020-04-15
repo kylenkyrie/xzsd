@@ -31,11 +31,11 @@ public interface ClassDao {
 
     /**
      * 删除商品分类信息
-     * @param listCode 选中的分类编号集合
+     * @param classId 选中的分类编号
      * @param userCode 更新人
      * @return
      */
-    int deleteClass(@Param("listCode") List<String> listCode, @Param("userCode") String userCode);
+    int deleteClass(@Param("classId") String classId, @Param("userCode") String userCode);
 
     /**
      * 查询商品分类列表

@@ -74,10 +74,9 @@ public class ClassService {
      */
     @Transactional(rollbackFor = Exception.class)
     public AppResponse deleteClass(String classId,String userCode){
-        List<String> listCode = Arrays.asList(classId.split(","));
         AppResponse appResponse = AppResponse.success("删除成功！");
         // 删除商品分类
-        int count = classDao.deleteClass(listCode,userCode);
+        int count = classDao.deleteClass(classId,userCode);
         if(0 == count) {
             appResponse = AppResponse.bizError("删除失败，请重试！");
         }

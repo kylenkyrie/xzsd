@@ -86,10 +86,8 @@
         gmt_modified = now(),
         last_modified_by = #{userCode},
         version = version + 1
-        where class_id in
-        <foreach item="item" index="index" collection="listCode" open="(" separator="," close=")">
-            #{item}
-        </foreach>
+        where
+        class_id = #{classId}
     </update>
 
     <!--获取商品分类列表-->
