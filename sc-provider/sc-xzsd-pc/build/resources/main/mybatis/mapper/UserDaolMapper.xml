@@ -27,6 +27,7 @@
          sex,
          phone,
          email,
+         image_path,
          is_deleted,
          gmt_create,
          create_by,
@@ -43,6 +44,7 @@
             #{sex},
             #{phone},
             #{email},
+            #{imagePath},
             #{isDeleted},
             now(),
             #{createBy},
@@ -51,17 +53,19 @@
             0,
             #{role})
     </insert>
+
     <!--查询用户列表分页-->
     <select id = "listUsersByPage" parameterType="com.xzsd.pc.user.entity.UserInfo" resultType="com.xzsd.pc.user.entity.UserInfo">
         select
-        user_id userId,
-        user_name userName,
-        user_acct userAcct,
+        user_id,
+        user_name,
+        user_acct,
         role,
         sex,
         phone,
         email,
-        id_card
+        id_card,
+        version
         FROM
         t_sys_user
         where is_deleted = 0
@@ -75,6 +79,7 @@
         </if>
         order by gmt_create desc
     </select>
+
     <!--删除用户-->
     <update id = "deleteUser" parameterType="com.xzsd.pc.user.entity.UserInfo">
         update
@@ -100,6 +105,7 @@
         sex = #{sex},
         phone = #{phone},
         email = #{email},
+        image_path = #{imagePath},
         id_card = #{idCard},
         user_pwd = #{userPwd},
         gmt_modified = now(),
@@ -111,17 +117,18 @@
         version = #{version}
     </update>
 
-    <!--获取用户信息-->
+    <!--获取用户信息详情-->
     <select id="getUserByUserId" parameterType="java.lang.String" resultType="com.xzsd.pc.user.entity.UserInfo">
         select
-            user_id userId,
-            user_name userName,
-            user_acct userAcct,
-            user_pwd userPwd,
-            id_card idCard,
+            user_id,
+            user_name,
+            user_acct,
+            user_pwd,
+            id_card,
             sex,
             phone,
             email,
+            image_path,
             version
         from t_sys_user
         where user_id = #{userId}

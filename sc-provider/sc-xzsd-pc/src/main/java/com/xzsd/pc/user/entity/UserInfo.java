@@ -46,6 +46,10 @@ public class UserInfo {
      */
     private String email;
     /**
+     * 用户头像
+     */
+    private String imagePath;
+    /**
      * 作废标记 0为存在，1为作废
      */
     private int isDeleted;
@@ -122,7 +126,6 @@ public class UserInfo {
         this.userPwd = userPwd;
     }
 
-
     public String getIdCard() {
         return idCard;
     }
@@ -147,6 +150,9 @@ public class UserInfo {
         this.email = email;
     }
 
+    public String getImagePath() { return imagePath; }
+
+    public void setImagePath(String imagePath) { this.imagePath = imagePath; }
 
     public int getIsDeleted() {
         return isDeleted;

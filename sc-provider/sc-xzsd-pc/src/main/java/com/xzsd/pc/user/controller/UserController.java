@@ -30,7 +30,7 @@ public class UserController {
     private UserService userService;
 
     /**
-     * demo 新增
+     * demo 新增用户
      * @param userInfo
      * @return AppResponse
      * @author 杨明镇
@@ -57,7 +57,6 @@ public class UserController {
      * @author 杨明镇
      * @Date 2020-03-25
      */
-
     @RequestMapping(value = "listUsers")
     public AppResponse listUsers (UserInfo userInfo){
         try{
@@ -118,7 +117,6 @@ public class UserController {
      * @author 杨明镇
      * @Date 2020-03-26
      */
-
     @RequestMapping(value = "getUserByUserId")
     public AppResponse getUserByUserId(String userId) {
         try {
@@ -129,22 +127,4 @@ public class UserController {
             throw e;
         }
     }
-
-    /**
-     * demo redis增加
-     * @author 杨明镇
-     * @Date 2020-03-30
-     */
-
-    @RequestMapping(value = "redisSet")
-    public AppResponse redisSet(String userId) {
-        try {
-            return userService.getUserByUserId(userId);
-        } catch (Exception e) {
-            logger.error("用户查询错误", e);
-            System.out.println(e.toString());
-            throw e;
-        }
-    }
-
 }
