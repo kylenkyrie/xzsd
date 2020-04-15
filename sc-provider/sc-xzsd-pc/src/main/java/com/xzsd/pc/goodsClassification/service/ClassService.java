@@ -25,6 +25,11 @@ public class ClassService {
      */
     @Transactional(rollbackFor = Exception.class)
     public AppResponse addClass(ClassInfo classInfo){
+        //检验商品分类是否存在
+        int countGoodsClass = classDao.countGoodsClass(classInfo);
+        if (0 != countGoodsClass) {
+            return AppResponse.bizError("商品分类已存在，请重新输入！");
+        }
         classInfo.setClassId(StringUtil.getCommonCode(3));
         classInfo.setIsDeleted(0);
         //新增商品分类
@@ -56,6 +61,11 @@ public class ClassService {
     @Transactional(rollbackFor = Exception.class)
     public AppResponse updateClass(ClassInfo classInfo) {
         AppResponse appResponse = AppResponse.success("修改成功");
+        //检验商品分类是否存在
+        int countGoodsClass = classDao.countGoodsClass(classInfo);
+        if (0 != countGoodsClass) {
+            return AppResponse.bizError("商品分类已存在，请重新输入！");
+        }
         // 修改商品分类信息
         int count = classDao.updateClass(classInfo);
         if (0 == count) {
@@ -75,6 +85,10 @@ public class ClassService {
     @Transactional(rollbackFor = Exception.class)
     public AppResponse deleteClass(String classId,String userCode){
         AppResponse appResponse = AppResponse.success("删除成功！");
+        int counts = classDao.countGoodsClassSon(classId);
+        if(counts != 0){
+            appResponse = AppResponse.bizError("删除的分类有子分类，删除失败！");
+        }
         // 删除商品分类
         int count = classDao.deleteClass(classId,userCode);
         if(0 == count) {

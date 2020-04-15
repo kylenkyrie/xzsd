@@ -67,6 +67,9 @@ public class DriverService {
             return AppResponse.bizError("司机账号已存在，请重新输入！");
         }
         AppResponse appResponse = AppResponse.success("修改成功");
+        // 密码加密 默认为123456
+        String pwd = PasswordUtils.generatePassword(driverInfo.getDriverPwd());
+        driverInfo.setDriverPwd(pwd);
         // 修改司机表司机信息
         int count = driverDao.updateDriver(driverInfo);
         if (0 == count) {

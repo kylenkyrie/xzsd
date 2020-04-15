@@ -33,7 +33,7 @@ public class ClassController {
      * @Date 2020-04-04
      */
     @PostMapping("addClass")
-    public AppResponse addPicture(ClassInfo classInfo){
+    public AppResponse addClass(ClassInfo classInfo){
         try{
             //获取当前登录用户id
             String userId = SecurityUtils.getCurrentUserId();

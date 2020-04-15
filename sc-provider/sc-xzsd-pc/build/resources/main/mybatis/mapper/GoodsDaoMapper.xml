@@ -18,6 +18,7 @@
         cost_price,
         sales_price,
         goods_picture,
+        view,
         is_deleted,
         gmt_create,
         create_by,
@@ -39,6 +40,7 @@
             #{costPrice},
             #{salesPrice},
             #{goodsPicture},
+            0,
             #{isDeleted},
             now(),
             #{createBy},
@@ -51,19 +53,20 @@
     <!--获取商品列表-->
     <select id="listGoodsByPage" parameterType="com.xzsd.pc.goods.entity.GoodsInfo" resultType="com.xzsd.pc.goods.entity.GoodsInfo">
         select
-        goods_id goodsId,
-        goods_name goodsName,
-        book_id bookId,
-        class_one classOne,
+        goods_id,
+        goods_name,
+        book_id,
+        class_one,
         press,
         author,
-        class_two classTwo,
-        goods_adv goodsAdv,
-        goods_intro goodsIntro,
-        business_name businessName,
+        class_two,
+        view,
+        goods_adv,
+        goods_intro,
+        business_name,
         inventory,
-        cost_price costPrice,
-        sales_price salesPrice
+        cost_price,
+        sales_price
         FROM
         t_sys_goodsinfo
         where
@@ -91,6 +94,7 @@
         book_id = #{bookId},
         class_one = #{classOne},
         class_two = #{classTwo},
+        view = #{view},
         goods_adv = #{goodsAdv},
         goods_intro = #{goodsIntroduce},
         inventory = #{inventory},
@@ -112,19 +116,20 @@
     <!--获取商品详情-->
     <select id="getGoodsByGoodsId" parameterType="java.lang.String" resultType="com.xzsd.pc.goods.entity.GoodsInfo">
         select
-        goods_name goodsName,
-        book_id bookId,
-        class_one classOne,
-        class_two classTwo,
-        goods_adv goodsAdv,
-        goods_intro goodsIntroduce,
+        goods_name,
+        book_id,
+        class_one,
+        class_two,
+        view,
+        goods_adv,
+        goods_intro,
         inventory,
-        cost_price costPrice,
-        sales_price salesPrice,
+        cost_price,
+        sales_price,
         author,
         press,
-        business_name  businessName,
-        goods_picture  goodsPicture
+        business_name,
+        goods_picture
         from
         t_sys_goodsinfo
         where

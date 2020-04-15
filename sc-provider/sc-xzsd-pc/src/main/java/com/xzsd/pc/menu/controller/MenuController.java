@@ -42,7 +42,7 @@ public class MenuController {
      * @Date 2020-04-11
      */
     @RequestMapping(value = "listMenus")
-    public AppResponse listGoods(Menu menu) {
+    public AppResponse listMenus(Menu menu) {
         try {
             return menuService.listMenus(menu);
 
@@ -60,7 +60,7 @@ public class MenuController {
      * @Date 2020-04-11
      */
     @RequestMapping(value = "listRoleMenus")
-    public AppResponse listRoleGoods(Menu menu) {
+    public AppResponse listRoleMenus(Menu menu) {
         try {
             return menuService.listRoleMenus(menu);
 
@@ -119,7 +119,7 @@ public class MenuController {
      * @Date 2020-04-11
      */
     @PostMapping("updateMenu")
-    public AppResponse updateUser(Menu menu) {
+    public AppResponse updateMenu(Menu menu) {
         try {
             //获取当前登录用户id
             String userId = SecurityUtils.getCurrentUserId();

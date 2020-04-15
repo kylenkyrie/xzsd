@@ -8,6 +8,22 @@ import java.util.List;
 
 @Mapper
 public interface ClassDao {
+
+    /**
+     * 统计商品分类数量
+     * @param classInfo 商品分类信息
+     * @return
+     */
+    int countGoodsClass(ClassInfo classInfo);
+
+    /**
+     * 统计删除商品目录子类数量
+     *
+     * @param classId 分类id
+     * @return
+     */
+    int countGoodsClassSon(@Param("classId") String classId);
+
     /**
      * 新增商品分类
      * @param classInfo 分类信息

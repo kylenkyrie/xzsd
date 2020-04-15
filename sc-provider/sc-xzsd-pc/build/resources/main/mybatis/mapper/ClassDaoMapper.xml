@@ -19,6 +19,21 @@
                     ofType="com.xzsd.pc.goodsClassification.dao.ClassDao" select="getNextNodeTree"/>
     </resultMap>
 
+    <!--统计商品分类数量-->
+    <select id="countGoodsClass" parameterType="com.xzsd.pc.goodsClassification.entity.ClassInfo" resultType="int">
+        select count(class_name)
+        from t_sys_goodsclassification
+        where is_deleted = 0
+        and class_name = #{className}
+    </select>
+
+    <!--统计删除商品分类子类数量-->
+    <select id="countGoodsClassSon" parameterType="com.xzsd.pc.goodsClassification.entity.ClassInfo" resultType="int">
+        select count(*)
+        from t_sys_goodsclassification
+        where is_deleted = 0
+        and parent_id= #{classId}
+    </select>
 
     <!--新增商品分类-->
     <insert id="addClass" parameterType="com.xzsd.pc.goodsClassification.entity.ClassInfo">

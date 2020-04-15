@@ -98,6 +98,9 @@ public class UserService {
     @Transactional(rollbackFor = Exception.class)
     public AppResponse updateUser(UserInfo userInfo) {
         AppResponse appResponse = AppResponse.success("修改成功");
+        // 密码加密 默认为123456
+        String pwd = PasswordUtils.generatePassword(userInfo.getUserPwd());
+        userInfo.setUserPwd(pwd);
         //检验账号是否存在
         int countUserAcct = userDao.countUserAcct(userInfo);
         if(0 != countUserAcct) {
