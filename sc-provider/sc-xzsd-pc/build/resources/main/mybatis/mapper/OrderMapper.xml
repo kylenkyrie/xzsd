@@ -10,7 +10,6 @@
         order_cus_name,
         order_total_price,
         order_status,
---         store_id,
         order_cus_phone,
         pay_time
         FROM
@@ -30,6 +29,12 @@
         </if>
         <if test="payTimeStart != null and payTimeStart != '' and payTimeEnd != null and payTimeEnd != ''">
             and pay_time between #{payTimeStart} and #{payTimeEnd}
+        </if>
+        <if test="(payTimeStart == null or payTimeStart == '') and payTimeEnd != null and payTimeEnd != ''">
+            and pay_time &lt;= #{payTimeEnd}
+        </if>
+        <if test="payTimeStart != null and payTimeStart != '' and (payTimeEnd == null or payTimeEnd == '')">
+            and pay_time >= #{payTimeStart}
         </if>
         <if test="role != '' and role != null and role == 2">
             and store_id in (select store_id from t_sys_store where manager_id = #{loginUserId})

@@ -43,15 +43,15 @@ public class OrderInfo {
     /**
      * 付款时间
      */
-    private Date payTime;
+    private String payTime;
     /**
      * 付款时间起
      */
-    private Date payTimeStart;
+    private String payTimeStart;
     /**
      * 付款时间止
      */
-    private Date payTimeEnd;
+    private String payTimeEnd;
     /**
      * 角色
      */
@@ -157,27 +157,27 @@ public class OrderInfo {
         this.orderCusPhone = orderCusPhone;
     }
 
-    public Date getPayTime() {
+    public String getPayTime() {
         return payTime;
     }
 
-    public void setPayTime(Date payTime) {
+    public void setPayTime(String payTime) {
         this.payTime = payTime;
     }
 
-    public Date getPayTimeStart() {
+    public String getPayTimeStart() {
         return payTimeStart;
     }
 
-    public void setPayTimeStart(Date payTimeStart) {
+    public void setPayTimeStart(String payTimeStart) {
         this.payTimeStart = payTimeStart;
     }
 
-    public Date getPayTimeEnd() {
+    public String getPayTimeEnd() {
         return payTimeEnd;
     }
 
-    public void setPayTimeEnd(Date payTimeEnd) {
+    public void setPayTimeEnd(String payTimeEnd) {
         this.payTimeEnd = payTimeEnd;
     }
 

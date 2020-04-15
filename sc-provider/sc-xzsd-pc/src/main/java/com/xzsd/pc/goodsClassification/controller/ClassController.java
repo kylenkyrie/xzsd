@@ -32,7 +32,6 @@ public class ClassController {
      * @author 杨明镇
      * @Date 2020-04-04
      */
-
     @PostMapping("addClass")
     public AppResponse addPicture(ClassInfo classInfo){
         try{
@@ -56,7 +55,6 @@ public class ClassController {
      * @author 杨明镇
      * @Date 2020-04-04
      */
-
     @RequestMapping(value = "getClassById")
     public AppResponse getClassById(String classId) {
         try {
