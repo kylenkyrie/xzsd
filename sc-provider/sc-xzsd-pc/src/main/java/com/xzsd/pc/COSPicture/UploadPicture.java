@@ -4,7 +4,6 @@ package com.xzsd.pc.COSPicture;
 import java.io.File;
 import java.net.URL;
 import java.util.Date;
-
 import com.qcloud.cos.COSClient;
 import com.qcloud.cos.ClientConfig;
 import com.qcloud.cos.auth.BasicCOSCredentials;
@@ -34,19 +33,16 @@ public class UploadPicture {
         putObjectRequest.setStorageClass(StorageClass.Standard_IA);
         try {
             PutObjectResult putObjectResult = cosclient.putObject(putObjectRequest);
-
             Date expiration = new Date(new Date().getTime() + 5 * 60 * 10000);
             URL url = cosclient.generatePresignedUrl(bucketName, key, expiration);
             System.out.println("图片在COS服务器上的url:"+url);
             // putobjectResult会返回文件的etag
             String etag = putObjectResult.getETag();
-
         } catch (CosServiceException e) {
             e.printStackTrace();
         } catch (CosClientException e) {
             e.printStackTrace();
         }
-
         // 关闭客户端
         cosclient.shutdown();
     }
