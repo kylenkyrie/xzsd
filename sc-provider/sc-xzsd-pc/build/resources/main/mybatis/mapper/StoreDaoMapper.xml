@@ -152,22 +152,25 @@
         and
         s.manager_id = u.user_id
         <if test="storeName != null and storeName != ''">
-            and store_name like concat('%', #{storeName}, '%')
+            and s.store_name like concat('%', #{storeName}, '%')
         </if>
         <if test="storeId != null and storeId != ''">
-            and store_id like concat('%', #{storeId}, '%')
+            and s.store_id like concat('%', #{storeId}, '%')
         </if>
         <if test="managerName != null and managerName != ''">
-            and user_name like concat('%', #{managerName}, '%')
+            and s.user_name like concat('%', #{managerName}, '%')
         </if>
         <if test="province != null and province != ''">
-            and province like concat('%', #{province}, '%')
+            and s.province like concat('%', #{province}, '%')
         </if>
         <if test="city != null and city != ''">
-            and city like concat('%', #{city}, '%')
+            and s.city like concat('%', #{city}, '%')
         </if>
         <if test="area != null and area != ''">
-            and area like concat('%', #{area}, '%')
+            and s.area like concat('%', #{area}, '%')
+        </if>
+        <if test="role == 2">
+            and s.store_id in (select store_id from t_sys_store where manager_id = #{loginUserId})
         </if>
     </select>
 </mapper>

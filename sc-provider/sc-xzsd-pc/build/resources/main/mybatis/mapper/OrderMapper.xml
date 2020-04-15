@@ -36,7 +36,7 @@
         <if test="payTimeStart != null and payTimeStart != '' and (payTimeEnd == null or payTimeEnd == '')">
             and pay_time >= #{payTimeStart}
         </if>
-        <if test="role != '' and role != null and role == 2">
+        <if test="role == 2">
             and store_id in (select store_id from t_sys_store where manager_id = #{loginUserId})
         </if>
         order by gmt_create desc

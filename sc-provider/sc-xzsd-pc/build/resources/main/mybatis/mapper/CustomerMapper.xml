@@ -5,9 +5,9 @@
     <!--查询客户列表分页-->
     <select id = "listCustomerByPage" parameterType="com.xzsd.pc.customer.entity.CustomerInfo" resultType="com.xzsd.pc.customer.entity.CustomerInfo">
         select
-        cus_id customerId,
-        cus_name customerName,
-        cus_acct customerAcct,
+        cus_id,
+        cus_name,
+        cus_acct,
         sex,
         phone,
         email,
@@ -21,7 +21,7 @@
         <if test="customerName != null and customerName != ''">
             and cus_name like concat('%', #{customerName}, '%')
         </if>
-        <if test="role != '' and role != null and role == 2">
+        <if test="role == 2">
             and invite_code in (select invite_code from t_sys_store where manager_id = #{loginUserId})
         </if>
         order by gmt_create desc

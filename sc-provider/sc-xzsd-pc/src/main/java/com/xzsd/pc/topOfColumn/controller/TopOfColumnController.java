@@ -18,7 +18,7 @@ import javax.annotation.Resource;
  * @Date 2020-03-25
  */
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/topOfColumn")
 public class TopOfColumnController {
 
     private static final Logger logger = LoggerFactory.getLogger(TopOfColumnController.class);
@@ -38,7 +38,7 @@ public class TopOfColumnController {
             String userId = SecurityUtils.getCurrentUserId();
             return topOfColumnService.getTopOfColumn(userId);
         } catch (Exception e) {
-            logger.error("用户查询错误", e);
+            logger.error("顶部栏信息查询错误", e);
             System.out.println(e.toString());
             throw e;
         }
