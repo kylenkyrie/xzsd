@@ -22,7 +22,7 @@
         from t_sys_menu
         where is_deleted = 0
         <if test="role == 2">
-            and menu_name in ('客户管理','订单管理','门店管理','司机管理')
+            and role = 2
         </if>
     </select>
 
