@@ -105,7 +105,7 @@
         sex = #{sex},
         phone = #{phone},
         email = #{email},
-        image_path = #{imagePath},
+        image_path = #{imagePath},、
         id_card = #{idCard},
         user_pwd = #{userPwd},
         gmt_modified = now(),
