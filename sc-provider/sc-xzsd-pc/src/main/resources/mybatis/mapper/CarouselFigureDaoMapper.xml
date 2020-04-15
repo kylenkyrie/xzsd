@@ -106,7 +106,7 @@
         version = #{version}
     </update>
 
-    <!--删除商品-->
+    <!--删除轮播图-->
     <update id = "deletePicture" parameterType="com.xzsd.pc.CarouselFigure.entity.CarouselFigureInfo">
         update
         t_sys_carousel_figure
