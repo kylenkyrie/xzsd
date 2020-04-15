@@ -44,6 +44,10 @@ public class GoodsInfo {
      */
     private String classTwo;
     /**
+     * 浏览量
+     */
+    private int view;
+    /**
      * 商品介绍
      */
     private String goodsIntroduce;
@@ -187,6 +191,10 @@ public class GoodsInfo {
     public String getClassTwo() {
         return classTwo;
     }
+
+    public int getView() { return view; }
+
+    public void setView(int view) { this.view = view; }
 
     public void setClassTwo(String classTwo) {
         this.classTwo = classTwo;
