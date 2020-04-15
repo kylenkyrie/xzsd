@@ -17,8 +17,7 @@
     <select id="listRoleMenus" parameterType="com.xzsd.pc.menu.entity.Menu" resultType="com.xzsd.pc.menu.entity.Menu">
         select
             menu_code,
-            menu_name,
-        	version
+            menu_name
         from t_sys_menu
         where is_deleted = 0
         <if test="role == 2">
@@ -54,8 +53,6 @@
             menu_code,
             menu_name,
             menu_url,
-            type,
-            sort_no,
             is_deleted,
             remark,
             gmt_create,
@@ -67,8 +64,6 @@
             #{menuCode},
             #{menuName},
             #{menuUrl},
-            #{type},
-            #{sortNo},
             #{isDeleted},
             #{remark},
             now(),
@@ -85,8 +80,6 @@
         set
             menu_name = #{menuName},
             menu_url = #{menuUrl},
-            sort_no = #{sortNo},
-            type = #{type},
             version = version + 1,
             remark = #{remark},
             gmt_modified = now(),
@@ -103,8 +96,6 @@
             menu_code,
             menu_name,
             menu_url,
-            type,
-            sort_no,
             is_deleted,
             remark,
             gmt_create,

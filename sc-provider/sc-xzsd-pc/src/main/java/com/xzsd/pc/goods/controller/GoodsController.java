@@ -136,7 +136,7 @@ public class GoodsController {
             String userId = SecurityUtils.getCurrentUserId();
             goodsInfo.setCreateBy(userId);
             goodsInfo.setLastModifiedBy(userId);
-            return goodsService.updateGoodsStatus(goodsInfo);
+            return goodsService.updateGoodsStatus(goodsInfo.getGoodsId(),goodsInfo.getGoodsStatus());
         } catch (Exception e) {
             logger.error("修改商品状态错误", e);
             System.out.println(e.toString());

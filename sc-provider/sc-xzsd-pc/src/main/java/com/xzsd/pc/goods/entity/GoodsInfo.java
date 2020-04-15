@@ -40,9 +40,17 @@ public class GoodsInfo {
      */
     private String classOne;
     /**
+     * 一级分类
+     */
+    private String classOneId;
+    /**
      * 二级分类
      */
     private String classTwo;
+    /**
+     * 二级分类
+     */
+    private String classTwoId;
     /**
      * 浏览量
      */
@@ -190,6 +198,16 @@ public class GoodsInfo {
 
     public String getClassTwo() {
         return classTwo;
+    }
+
+    public String getClassOneId() { return classOneId; }
+
+    public void setClassOneId(String classOneId) { this.classOneId = classOneId; }
+
+    public String getClassTwoId() { return classTwoId; }
+
+    public void setClassTwoId(String classTwoId) {
+        this.classTwoId = classTwoId;
     }
 
     public int getView() { return view; }

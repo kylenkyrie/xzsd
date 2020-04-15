@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -118,18 +119,18 @@ public class GoodsService {
 
     /**
      * demo 修改商品状态
-     * @param goodsInfo
+     * @param goodsId status 商品编号和状态
      * @Author yangmingzhen
      * @Date 2020-03-28
      */
     @Transactional(rollbackFor = Exception.class)
-    public AppResponse updateGoodsStatus(GoodsInfo goodsInfo) {
+    public AppResponse updateGoodsStatus(String goodsId,int goodsStatus) {
+        List<String> listGoodsId = Arrays.asList(goodsId.split(","));
         AppResponse appResponse = AppResponse.success("修改成功");
-        // 修改商品状态
-        int count = goodsDao.updateGoodsStatus(goodsInfo);
+        // 修改商品信息
+        int count = goodsDao.updateGoodsStatus(listGoodsId,goodsStatus);
         if (0 == count) {
-            appResponse = AppResponse.versionError("数据有变化，请刷新！");
-            return appResponse;
+            appResponse = AppResponse.bizError("删除失败，请重试！");
         }
         return appResponse;
     }

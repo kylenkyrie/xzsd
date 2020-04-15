@@ -9,8 +9,8 @@
         goods_id,
         goods_name,
         book_id,
-        class_one,
-        class_two,
+        class_one_id,
+        class_two_id,
         goods_adv,
         goods_intro,
         business_name,
@@ -18,6 +18,8 @@
         cost_price,
         sales_price,
         goods_picture,
+        press,
+        author,
         view,
         is_deleted,
         gmt_create,
@@ -31,8 +33,8 @@
            (#{goodsId},
             #{goodsName},
             #{bookId},
-            #{classOne},
-            #{classTwo},
+            #{classOneId},
+            #{classTwoId},
             #{goodsAdv},
             #{goodsIntroduce},
             #{businessName},
@@ -40,6 +42,8 @@
             #{costPrice},
             #{salesPrice},
             #{goodsPicture},
+            #{press},
+            #{author},
             0,
             #{isDeleted},
             now(),
@@ -53,24 +57,28 @@
     <!--获取商品列表-->
     <select id="listGoodsByPage" parameterType="com.xzsd.pc.goods.entity.GoodsInfo" resultType="com.xzsd.pc.goods.entity.GoodsInfo">
         select
-        goods_id,
-        goods_name,
-        book_id,
-        class_one,
-        press,
-        author,
-        class_two,
-        view,
-        goods_adv,
-        goods_intro,
-        business_name,
-        inventory,
-        cost_price,
-        sales_price
+        a.goods_id,
+        a.goods_name,
+        a.book_id,
+        b.class_name classTwo,
+        a.press,
+        a.author,
+        c.class_name classOne,
+        a.view,
+        a.goods_adv,
+        a.goods_intro,
+        a.business_name,
+        a.inventory,
+        a.cost_price,
+        a.sales_price
         FROM
-        t_sys_goodsinfo
+        t_sys_goodsinfo a,
+        t_sys_goodsclassification b,
+        t_sys_goodsclassification c
         where
-        is_deleted = 0
+        a.is_deleted = 0
+        and a.class_one_id = b.class_id
+        and a.class_two_id = c.class_id
         <if test="goodsName != null and goodsName != ''">
             and goods_name like concat('%', #{goodsName}, '%')
         </if>
@@ -92,8 +100,8 @@
         set
         goods_name = #{goodsName},
         book_id = #{bookId},
-        class_one = #{classOne},
-        class_two = #{classTwo},
+        class_one_id = #{classOneId},
+        class_two_id = #{classTwoId},
         view = #{view},
         goods_adv = #{goodsAdv},
         goods_intro = #{goodsIntroduce},
@@ -116,26 +124,30 @@
     <!--获取商品详情-->
     <select id="getGoodsByGoodsId" parameterType="java.lang.String" resultType="com.xzsd.pc.goods.entity.GoodsInfo">
         select
-        goods_name,
-        book_id,
-        class_one,
-        class_two,
-        view,
-        goods_adv,
-        goods_intro,
-        inventory,
-        cost_price,
-        sales_price,
-        author,
-        press,
-        business_name,
-        goods_picture
+        a.goods_name,
+        a.book_id,
+        b.class_name classOne,
+        c.class_name classTwo,
+        a.view,
+        a.goods_adv,
+        a.goods_intro,
+        a.inventory,
+        a.cost_price,
+        a.sales_price,
+        a.author,
+        a.press,
+        a.business_name,
+        a.goods_picture
         from
-        t_sys_goodsinfo
+        t_sys_goodsinfo a,
+        t_sys_goodsclassification b,
+        t_sys_goodsclassification c
         where
-        goods_id = #{goodsId}
+        a.goods_id = #{goodsId}
         and
-        is_deleted = 0
+        a.is_deleted = 0
+        and a.class_one_id = b.class_id
+        and a.class_two_id = c.class_id
     </select>
 
     <!--校验商品是否被绑定-->
@@ -184,19 +196,18 @@
     </update>
 
     <!--修改商品状态-->
-    <update id = "updateGoodsStatus" parameterType="com.xzsd.pc.goods.entity.GoodsInfo">
-        update
-        t_sys_goodsinfo
-        set
-        goods_status = #{goodsStatus},
-        shelf_time = #{shelfTime},
-        gmt_modified = now(),
-        last_modified_by = #{lastModifiedBy},
-        version = version + 1
-        where
-        goods_id = #{goodsId}
-        and
-        version = #{version}
+    <update id="updateGoodsStatus" parameterType="com.xzsd.pc.goods.entity.GoodsInfo">
+            update
+            t_sys_goodsInfo
+            set
+            goods_status = #{goodsStatus},
+            gmt_modified = now(),
+            version = version + 1
+            where
+            goods_id in
+        <foreach collection="listGoodsId" item="goodsId" index="index" open="(" separator="," close=")">
+            #{goodsId}
+        </foreach>
     </update>
 
     <!--获取商品分类信息-->
@@ -208,11 +219,11 @@
         t_sys_goodsclassification
         where
         is_deleted = 0
-        <if test="parentId == null or parentId == ''">
+        <if test="classId == null or classId == ''">
             and parent_id in (null,'')
         </if>
-        <if test="parentId != null and parentId != ''">
-            and parent_id = #{parentId}
+        <if test="classId != null and classId != ''">
+            and parent_id = #{classId}
         </if>
     </select>
 
