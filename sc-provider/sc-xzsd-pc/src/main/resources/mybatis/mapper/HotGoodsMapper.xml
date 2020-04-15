@@ -86,10 +86,10 @@
     <!--获取商品所有信息-->
     <select id="listGoodsByPage" parameterType="com.xzsd.pc.goods.entity.GoodsInfo" resultType="com.xzsd.pc.goods.entity.GoodsInfo">
         select
-        goods_id goodsId,
-        goods_name goodsName,
-        class_one classOne,
-        class_two classTwo,
+        goods_id,
+        goods_name,
+        class_one,
+        class_two,
         goods_status
         FROM
         t_sys_goodsinfo
@@ -101,6 +101,8 @@
         <if test="goodsId != null and goodsId != ''">
             and goods_id like concat('%', #{goodsId}, '%')
         </if>
+        and
+        goods_id not in (select goods_id from t_sys_hotgoods)
     </select>
 
     <!--修改热门商品信息-->

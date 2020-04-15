@@ -85,6 +85,11 @@ public class HotGoodsService {
     @Transactional(rollbackFor = Exception.class)
     public AppResponse updateGoods(HotGoodsInfo hotGoodsInfo) {
         AppResponse appResponse = AppResponse.success("修改成功");
+        // 校验序号是否存在
+        int countSortId = hotGoodsDao.countSortId(hotGoodsInfo);
+        if(0 != countSortId) {
+            return AppResponse.bizError("热门位序号已存在，请重新输入！");
+        }
         // 修改热门商品信息
         int count = hotGoodsDao.updateHotGoods(hotGoodsInfo);
         if (0 == count) {

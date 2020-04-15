@@ -34,7 +34,6 @@ public class CarouselFigureService {
      */
     @Transactional(rollbackFor = Exception.class)
     public AppResponse addPicture(CarouselFigureInfo carouselFigureInfo){
-
         // 校验序号是否存在
         int countSortId = carouselFigureDao.countSortId(carouselFigureInfo);
         if(0 != countSortId) {
@@ -89,7 +88,7 @@ public class CarouselFigureService {
     @Transactional(rollbackFor = Exception.class)
     public AppResponse updatePictureStatus(CarouselFigureInfo carouselFigureInfo) {
         AppResponse appResponse = AppResponse.success("修改成功");
-        // 修改商品信息
+        // 修改轮播图状态
         int count = carouselFigureDao.updatePictureStatus(carouselFigureInfo);
         if (0 == count) {
             appResponse = AppResponse.versionError("数据有变化，请刷新！");
