@@ -40,6 +40,10 @@ public class DriverInfo {
      */
     private String area;
     /**
+     * 司机头像
+     */
+    private String imagePath;
+    /**
      * 作废标记 0为存在，1为作废
      */
     private int isDeleted;
@@ -135,6 +139,10 @@ public class DriverInfo {
     public void setArea(String area) {
         this.area = area;
     }
+
+    public String getImagePath() { return imagePath; }
+
+    public void setImagePath(String imagePath) { this.imagePath = imagePath; }
 
     public int getIsDeleted() {
         return isDeleted;
