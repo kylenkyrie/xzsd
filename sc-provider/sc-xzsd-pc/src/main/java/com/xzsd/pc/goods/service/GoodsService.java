@@ -34,7 +34,6 @@ public class GoodsService {
      * @Author yangmingzhen
      * @Date 2020-03-27
      */
-
     @Transactional(rollbackFor = Exception.class)
     public AppResponse addGoods(GoodsInfo goodsInfo){
         goodsInfo.setGoodsId(StringUtil.getCommonCode(3));
@@ -54,7 +53,6 @@ public class GoodsService {
      * @Author yangmingzhen
      * @Date 2020-03-27
      */
-
     public AppResponse listGoods(GoodsInfo goodsInfo){
         PageHelper.startPage(goodsInfo.getPageNum(),goodsInfo.getPageSize());
         List<GoodsInfo> goodsInfoList = goodsDao.listGoodsByPage(goodsInfo);
@@ -127,13 +125,14 @@ public class GoodsService {
     public AppResponse updateGoodsStatus(String goodsId,int goodsStatus) {
         List<String> listGoodsId = Arrays.asList(goodsId.split(","));
         AppResponse appResponse = AppResponse.success("修改成功");
-        // 修改商品信息
+        // 修改商品状态
         int count = goodsDao.updateGoodsStatus(listGoodsId,goodsStatus);
         if (0 == count) {
             appResponse = AppResponse.bizError("删除失败，请重试！");
         }
         return appResponse;
     }
+
     /**
      * demo 查询所有商品分类信息
      * @param classInfo
