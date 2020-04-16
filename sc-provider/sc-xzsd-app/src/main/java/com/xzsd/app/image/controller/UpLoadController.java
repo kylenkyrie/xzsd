@@ -1,8 +1,8 @@
 
-package com.xzsd.pc.imageUpload.controller;
+package com.xzsd.app.image.controller;
 
 import com.neusoft.core.restful.AppResponse;
-import com.xzsd.pc.imageUpload.service.UpLoadService;
+import com.xzsd.app.image.service.UpLoadService;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
@@ -10,7 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.annotation.Resource;
 
 @RestController
-@RequestMapping("imageUpload")
+@RequestMapping("image")
 public class UpLoadController {
     @Resource
     private UpLoadService upLoadService;

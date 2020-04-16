@@ -128,6 +128,8 @@
         a.book_id,
         b.class_name classOne,
         c.class_name classTwo,
+        a.class_one_id,
+        a.class_two_id,
         a.view,
         a.goods_adv,
         a.goods_intro,

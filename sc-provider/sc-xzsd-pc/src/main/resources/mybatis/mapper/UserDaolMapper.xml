@@ -77,6 +77,15 @@
         <if test="userName != null and userName != ''">
             and user_name like concat('%', #{userName}, '%')
         </if>
+        <if test="role == 0">
+            and role in (1,2)
+        </if>
+        <if test="role == 1">
+            and role = 1
+        </if>
+        <if test="role == 2">
+            and role = 2
+        </if>
         order by gmt_create desc
     </select>
 
