@@ -27,7 +27,7 @@ public class HotGoodsService {
 
     /**
      * demo 新增热门商品
-     * @param hotGoodsInfo
+     * @param hotGoodsInfo 热门商品信息
      * @return
      * @Author yangmingzhen
      * @Date 2020-04-08
@@ -63,7 +63,7 @@ public class HotGoodsService {
 
     /**
      * demo 所有商品信息
-     * @param goodsInfo
+     * @param goodsInfo 在售商品信息
      * @return
      * @Author yangmingzhen
      * @Date 2020-04-08
@@ -78,7 +78,7 @@ public class HotGoodsService {
 
     /**
      * demo 修改热门商品信息
-     * @param hotGoodsInfo
+     * @param hotGoodsInfo 热门商品信息
      * @Author yangmingzhen
      * @Date 2020-04-08
      */
@@ -101,7 +101,7 @@ public class HotGoodsService {
 
     /**
      * demo 展示数设置
-     * @param hotGoodsInfo
+     * @param hotGoodsInfo 热门商品信息
      * @return
      * @Author yangmingzhen
      * @Date 2020-04-08
