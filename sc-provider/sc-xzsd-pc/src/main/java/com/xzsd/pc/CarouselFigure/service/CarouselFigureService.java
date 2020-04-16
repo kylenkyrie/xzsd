@@ -65,7 +65,7 @@ public class CarouselFigureService {
     }
 
     /**
-     * demo 所有商品信息
+     * demo 新增轮播图中所有在售商品信息
      * @param goodsInfo
      * @return
      * @Author yangmingzhen

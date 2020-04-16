@@ -123,23 +123,9 @@ public class DriverService {
         if(0 == count) {
             appResponse = AppResponse.bizError("删除失败，请重试！");
         }
-        return appResponse;
-    }
-
-    /**
-     * demo 删除用户表司机
-     * @param driverId
-     * @return
-     * @Author yangmingzhen
-     * @Date 2020-04-13
-     */
-    @Transactional(rollbackFor = Exception.class)
-    public AppResponse deleteUserDriver(String driverId,String userCode){
-        List<String> listCode = Arrays.asList(driverId.split(","));
-        AppResponse appResponse = AppResponse.success("删除成功！");
-        // 删除司机信息
-        int count = driverDao.deleteUserDriver(listCode,userCode);
-        if(0 == count) {
+        //删除用户表司机
+        int count1 = driverDao.deleteUserDriver(listCode,userCode);
+        if(0 == count1) {
             appResponse = AppResponse.bizError("删除失败，请重试！");
         }
         return appResponse;

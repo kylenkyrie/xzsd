@@ -109,7 +109,7 @@ public class DriverController {
     }
 
     /**
-     * demo 删除司机表司机信息
+     * demo 删除司机信息
      * @return AppResponse
      * @author 杨明镇
      * @Date 2020-04-13
@@ -127,22 +127,4 @@ public class DriverController {
         }
     }
 
-    /**
-     * demo 删除用户表司机信息
-     * @return AppResponse
-     * @author 杨明镇
-     * @Date 2020-04-13
-     */
-    @PostMapping("deleteUserDriver")
-    public AppResponse deleteUserDriver(String driverId){
-        try{
-            //获取登录用户id
-            String userId = SecurityUtils.getCurrentUserId();
-            return driverService.deleteUserDriver(driverId,userId);
-        } catch (Exception e) {
-            logger.error("司机删除错误", e);
-            System.out.println(e.toString());
-            throw e;
-        }
-    }
 }

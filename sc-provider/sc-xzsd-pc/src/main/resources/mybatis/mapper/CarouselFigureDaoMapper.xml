@@ -13,7 +13,7 @@
         </if>
     </select>
 
-    <!--新增图片-->
+    <!--新增轮播图-->
     <insert id="addPicture" parameterType="com.xzsd.pc.CarouselFigure.entity.CarouselFigureInfo">
         insert into t_sys_carousel_figure
         (
@@ -67,7 +67,7 @@
         order by sort_id asc
     </select>
 
-    <!--获取商品所有信息-->
+    <!--获取在售商品所有信息-->
     <select id="listGoodsByPage" parameterType="com.xzsd.pc.goods.entity.GoodsInfo" resultType="com.xzsd.pc.goods.entity.GoodsInfo">
         select
         goods_id goodsId,
