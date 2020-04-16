@@ -20,7 +20,6 @@ public class TopOfColumnService {
     @Resource
     private TopOfColumnDao topOfColumnDao;
 
-
     /**
      * demo 查询用户详情
      * @param userId
