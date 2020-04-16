@@ -13,7 +13,7 @@
         </if>
     </select>
 
-    <!--新增图片-->
+    <!--新增轮播图-->
     <insert id="addPicture" parameterType="com.xzsd.pc.CarouselFigure.entity.CarouselFigureInfo">
         insert into t_sys_carousel_figure
         (
@@ -67,7 +67,7 @@
         order by sort_id asc
     </select>
 
-    <!--获取商品所有信息-->
+    <!--获取在售商品所有信息-->
     <select id="listGoodsByPage" parameterType="com.xzsd.pc.goods.entity.GoodsInfo" resultType="com.xzsd.pc.goods.entity.GoodsInfo">
         select
         goods_id goodsId,
@@ -92,18 +92,20 @@
     </select>
 
     <!--修改轮播图状态-->
-    <update id = "updatePictureStatus" parameterType="com.xzsd.pc.CarouselFigure.entity.CarouselFigureInfo">
-        update
-        t_sys_carousel_figure
-        set
-        picture_status = #{pictureStatus},
-        gmt_modified = now(),
-        last_modified_by = #{lastModifiedBy},
-        version = version + 1
-        where
-        picture_id = #{pictureId}
-        and
-        version = #{version}
+    <update id="updatePictureStatus" parameterType="java.util.List">
+        <foreach collection="listUpdate" item="item" index="index" open="" separator=";" close="">
+            update t_sys_carousel_figure
+            <set>
+                picture_status = #{item.pictureStatus},
+                gmt_modified = now(),
+                last_modified_by = #{item.lastModifiedBy,jdbcType=VARCHAR},
+                version = version + 1
+            </set>
+            <where>
+                picture_id = #{item.pictureId,jdbcType=VARCHAR}
+                AND version = #{item.version}
+            </where>
+        </foreach>
     </update>
 
     <!--删除轮播图-->

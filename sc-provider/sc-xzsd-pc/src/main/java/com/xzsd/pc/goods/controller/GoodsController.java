@@ -130,13 +130,11 @@ public class GoodsController {
      * @Date 2020-03-28
      */
     @PostMapping("updateGoodsStatus")
-    public AppResponse updateUserStatus(GoodsInfo goodsInfo) {
+    public AppResponse updateGoodsStatus(GoodsInfo goodsInfo) {
+        String userId = SecurityUtils.getCurrentUserId();
+        goodsInfo.setLastModifiedBy(userId);
         try {
-            //获取用户id
-            String userId = SecurityUtils.getCurrentUserId();
-            goodsInfo.setCreateBy(userId);
-            goodsInfo.setLastModifiedBy(userId);
-            return goodsService.updateGoodsStatus(goodsInfo.getGoodsId(),goodsInfo.getGoodsStatus());
+            return goodsService.updateGoodsStatus(goodsInfo);
         } catch (Exception e) {
             logger.error("修改商品状态错误", e);
             System.out.println(e.toString());

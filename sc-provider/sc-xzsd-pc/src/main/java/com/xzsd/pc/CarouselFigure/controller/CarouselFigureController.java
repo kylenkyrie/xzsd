@@ -85,7 +85,6 @@ public class CarouselFigureController {
         }
     }
 
-
     /**
      * demo 修改商品状态
      * @param carouselFigureInfo
@@ -95,11 +94,9 @@ public class CarouselFigureController {
      */
     @PostMapping("updatePictureStatus")
     public AppResponse updatePictureStatus(CarouselFigureInfo carouselFigureInfo) {
+        String userId = SecurityUtils.getCurrentUserId();
+        carouselFigureInfo.setLastModifiedBy(userId);
         try {
-            //获取用户id
-            String userId = SecurityUtils.getCurrentUserId();
-            carouselFigureInfo.setCreateBy(userId);
-            carouselFigureInfo.setLastModifiedBy(userId);
             return carouselFigureService.updatePictureStatus(carouselFigureInfo);
         } catch (Exception e) {
             logger.error("修改轮播图状态错误", e);

@@ -198,17 +198,19 @@
     </update>
 
     <!--修改商品状态-->
-    <update id="updateGoodsStatus" parameterType="com.xzsd.pc.goods.entity.GoodsInfo">
-            update
-            t_sys_goodsInfo
-            set
-            goods_status = #{goodsStatus},
-            gmt_modified = now(),
-            version = version + 1
-            where
-            goods_id in
-        <foreach collection="listGoodsId" item="goodsId" index="index" open="(" separator="," close=")">
-            #{goodsId}
+    <update id="updateGoodsStatus" parameterType="java.util.List">
+        <foreach collection="listUpdate" item="item" index="index" open="" separator=";" close="">
+            update t_sys_goodsinfo
+            <set>
+                goods_status = #{item.goodsStatus},
+                gmt_modified = now(),
+                last_modified_by = #{item.lastModifiedBy,jdbcType=VARCHAR},
+                version = version + 1
+            </set>
+            <where>
+                goods_id = #{item.goodsId,jdbcType=VARCHAR}
+                AND version = #{item.version}
+            </where>
         </foreach>
     </update>
 

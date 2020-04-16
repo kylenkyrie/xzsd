@@ -117,16 +117,28 @@ public class GoodsService {
 
     /**
      * demo 修改商品状态
-     * @param goodsId status 商品编号和状态
+     * @param goodsInfo 商品信息
      * @Author yangmingzhen
      * @Date 2020-03-28
      */
     @Transactional(rollbackFor = Exception.class)
-    public AppResponse updateGoodsStatus(String goodsId,int goodsStatus) {
-        List<String> listGoodsId = Arrays.asList(goodsId.split(","));
+    public AppResponse updateGoodsStatus(GoodsInfo goodsInfo) {
+        List<String> listGoodsId = Arrays.asList(goodsInfo.getGoodsId().split(","));
+        List<String> listVersion = Arrays.asList(goodsInfo.getVersion().split(","));
+        List<GoodsInfo> listUpdate = new ArrayList<>();
+        int goodStatus = goodsInfo.getGoodsStatus();
+        String updateUser =goodsInfo.getLastModifiedBy();
+        for (int i = 0 ; i < listGoodsId.size() ; i++){
+            GoodsInfo goodsInfo1 = new GoodsInfo();
+            goodsInfo1.setGoodsId(listGoodsId.get(i));
+            goodsInfo1.setVersion(listVersion.get(i));
+            goodsInfo1.setGoodsStatus(goodStatus);
+            goodsInfo1.setLastModifiedBy(updateUser);
+            listUpdate.add(goodsInfo1);
+        }
         AppResponse appResponse = AppResponse.success("修改成功");
-        // 修改商品状态
-        int count = goodsDao.updateGoodsStatus(listGoodsId,goodsStatus);
+        // 修改商品信息
+        int count = goodsDao.updateGoodsStatus(listUpdate);
         if (0 == count) {
             appResponse = AppResponse.bizError("删除失败，请重试！");
         }

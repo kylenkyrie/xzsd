@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -81,18 +82,30 @@ public class CarouselFigureService {
 
     /**
      * demo 修改轮播图状态
-     * @param carouselFigureInfo
+     * @param carouselFigureInfo 轮播图信息
      * @Author yangmingzhen
      * @Date 2020-03-30
      */
     @Transactional(rollbackFor = Exception.class)
     public AppResponse updatePictureStatus(CarouselFigureInfo carouselFigureInfo) {
+        List<String> listPictureId = Arrays.asList(carouselFigureInfo.getPictureId().split(","));
+        List<String> listVersion = Arrays.asList(carouselFigureInfo.getVersion().split(","));
+        List<CarouselFigureInfo> listUpdate = new ArrayList<>();
+        int pictureStatus = carouselFigureInfo.getPictureStatus();
+        String updateUser =carouselFigureInfo.getLastModifiedBy();
+        for (int i = 0 ; i < listPictureId.size() ; i++){
+            CarouselFigureInfo carouselFigureInfo1 =new CarouselFigureInfo();
+            carouselFigureInfo1.setPictureId(listPictureId.get(i));
+            carouselFigureInfo1.setVersion(listVersion.get(i));
+            carouselFigureInfo1.setPictureStatus(pictureStatus);
+            carouselFigureInfo1.setLastModifiedBy(updateUser);
+            listUpdate.add(carouselFigureInfo1);
+        }
         AppResponse appResponse = AppResponse.success("修改成功");
-        // 修改轮播图状态
-        int count = carouselFigureDao.updatePictureStatus(carouselFigureInfo);
+        // 修改轮播图状态信息
+        int count = carouselFigureDao.updatePictureStatus(listUpdate);
         if (0 == count) {
-            appResponse = AppResponse.versionError("数据有变化，请刷新！");
-            return appResponse;
+            appResponse = AppResponse.bizError("修改轮播图状态失败，请重试！");
         }
         return appResponse;
     }

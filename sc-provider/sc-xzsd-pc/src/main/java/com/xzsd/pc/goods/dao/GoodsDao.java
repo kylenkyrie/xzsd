@@ -62,7 +62,7 @@ public interface GoodsDao {
      * 修改商品状态
      * @return 修改结果
      */
-    int updateGoodsStatus(@Param("listGoodsId") List<String> listGoodsId, @Param("goodsStatus") int goodsStatus);
+    int updateGoodsStatus(@Param(value = "listUpdate") List<GoodsInfo> listUpdate);
 
     /**
      * 查询所有商品分类信息
