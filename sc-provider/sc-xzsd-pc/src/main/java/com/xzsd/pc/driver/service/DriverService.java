@@ -23,7 +23,7 @@ public class DriverService {
 
     /**
      * demo 新增司机
-     * @param driverInfo
+     * @param driverInfo 司机信息
      * @return
      * @Author yangmingzhen
      * @Date 2020-04-12
@@ -55,7 +55,7 @@ public class DriverService {
 
     /**
      * demo 修改司机信息
-     * @param driverInfo
+     * @param driverInfo  司机信息
      * @Author yangmingzhen
      * @Date 2020-04-12
      */
@@ -87,7 +87,7 @@ public class DriverService {
 
     /**
      * demo 查询司机详情
-     * @param driverId
+     * @param driverId 司机信息
      * @return
      * @Author yangmingzhen
      * @Date 2020-04-13
@@ -109,7 +109,7 @@ public class DriverService {
 
     /**
      * demo 删除司机表司机
-     * @param driverId
+     * @param driverId 司机编号 userCode 当前登录用户编号
      * @return
      * @Author yangmingzhen
      * @Date 2020-04-13
@@ -118,7 +118,7 @@ public class DriverService {
     public AppResponse deleteDriver(String driverId,String userCode){
         List<String> listCode = Arrays.asList(driverId.split(","));
         AppResponse appResponse = AppResponse.success("删除成功！");
-        // 删除司机信息
+        // 删除司机表司机信息
         int count = driverDao.deleteDriver(listCode,userCode);
         if(0 == count) {
             appResponse = AppResponse.bizError("删除失败，请重试！");
