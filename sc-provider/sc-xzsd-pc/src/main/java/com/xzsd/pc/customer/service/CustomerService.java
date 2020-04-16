@@ -17,7 +17,7 @@ public class CustomerService {
 
     /**
      * demo 查询客户列表（分页）
-     * @param customerInfo
+     * @param customerInfo 客户信息
      * @return
      * @Author yangmingzhen
      * @Date 2020-04-05

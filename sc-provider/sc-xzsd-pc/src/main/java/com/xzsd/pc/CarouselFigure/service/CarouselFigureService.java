@@ -15,7 +15,7 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * @DescriptionDemo 实现类
+ * @DescriptionDemo 轮播图实现类
  * @Author yangmingzhen
  * @Date 2020-03-30
  */
@@ -27,7 +27,7 @@ public class CarouselFigureService {
 
     /**
      * demo 新增轮播图片
-     * @param carouselFigureInfo
+     * @param carouselFigureInfo 轮播图信息
      * @return
      * @Author yangmingzhen
      * @Date 2020-03-30
@@ -51,7 +51,7 @@ public class CarouselFigureService {
 
     /**
      * demo 所有轮播图信息
-     * @param carouselFigureInfo
+     * @param carouselFigureInfo 轮播图信息
      * @return
      * @Author yangmingzhen
      * @Date 2020-03-30
@@ -66,7 +66,7 @@ public class CarouselFigureService {
 
     /**
      * demo 新增轮播图中所有在售商品信息
-     * @param goodsInfo
+     * @param goodsInfo 在售商品信息
      * @return
      * @Author yangmingzhen
      * @Date 2020-03-27
