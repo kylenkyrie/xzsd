@@ -20,7 +20,7 @@ public class StoreService {
 
     /**
      * demo 新增门店
-     * @param storeInfo
+     * @param storeInfo 门店信息
      * @return
      * @Author yangmingzhen
      * @Date 2020-04-10
@@ -50,7 +50,7 @@ public class StoreService {
 
     /**
      * demo 查询门店详情
-     * @param storeId
+     * @param storeId 门店编号
      * @return
      * @Author yangmingzhen
      * @Date 2020-04-10
@@ -62,7 +62,7 @@ public class StoreService {
 
     /**
      * demo 删除门店
-     * @param storeId
+     * @param storeId 门店编号
      * @return
      * @Author yangmingzhen
      * @Date 2020-04-10
@@ -81,7 +81,7 @@ public class StoreService {
 
     /**
      * demo 修改门店信息
-     * @param storeInfo
+     * @param storeInfo 门店信息
      * @Author yangmingzhen
      * @Date 2020-04-10
      */
@@ -109,7 +109,7 @@ public class StoreService {
 
     /**
      * demo 查询省市区信息
-     * @param regionInfo
+     * @param regionInfo 区域信息
      * @return
      * @Author yangmingzhen
      * @Date 2020-04-11
@@ -120,9 +120,10 @@ public class StoreService {
     }
 
     /**
-     * 功能：获取门店列表
-     * 作者：yangmingzhen
-     * 时间：2020—04—11
+     * demo 获取门店列表
+     * @param storeInfo 门店信息
+     * @Author yangmingzhen
+     * @Date 2020-04-10
      */
     public AppResponse listStoreByPage(StoreInfo storeInfo) {
         List<StoreInfo> storeInfoList = storeDao.listStoreByPage(storeInfo);

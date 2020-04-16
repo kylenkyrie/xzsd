@@ -25,7 +25,7 @@ public class MenuService {
 
     /**
      * demo 查询菜单
-     * @param menu
+     * @param menu 菜单信息
      * @return
      * @Author yangmingzhen
      * @Date 2020-04-11
@@ -49,7 +49,7 @@ public class MenuService {
 
     /**
      * demo 删除菜单
-     * @param menuCode
+     * @param menuCode 菜单编号
      * @return
      * @Author yangmingzhen
      * @Date 2020-04-11
@@ -67,7 +67,7 @@ public class MenuService {
 
     /**
      * demo 新增菜单
-     * @param menu
+     * @param menu 菜单信息
      * @return
      * @Author yangmingzhen
      * @Date 2020-04-11
@@ -91,7 +91,7 @@ public class MenuService {
 
     /**
      * demo 修改菜单信息
-     * @param menu
+     * @param menu 菜单信息
      * @Author yangmingzhen
      * @Date 2020-04-11
      */
@@ -114,7 +114,7 @@ public class MenuService {
 
     /**
      * demo 查询菜单详情
-     * @param menuCode
+     * @param menuCode 菜单编号
      * @return
      * @Author yangmingzhen
      * @Date 2020-04-11

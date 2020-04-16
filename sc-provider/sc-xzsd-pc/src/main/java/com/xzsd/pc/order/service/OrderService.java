@@ -26,7 +26,7 @@ public class OrderService {
 
     /**
      * demo 查询订单列表（分页）
-     * @param orderInfo
+     * @param orderInfo 订单信息
      * @return
      * @Author yangmingzhen
      * @Date 2020-04-04
@@ -41,7 +41,7 @@ public class OrderService {
 
     /**
      * demo 修改订单状态
-     * @param orderInfo
+     * @param orderInfo 订单信息
      * @Author yangmingzhen
      * @Date 2020-04-04
      */
@@ -59,7 +59,7 @@ public class OrderService {
 
     /**
      * demo 查询订单详情
-     * @param orderId
+     * @param orderId 订单信息
      * @return
      * @Author yangmingzhen
      * @Date 2020-04-04

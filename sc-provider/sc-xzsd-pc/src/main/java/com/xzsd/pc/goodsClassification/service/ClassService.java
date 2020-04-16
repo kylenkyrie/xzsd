@@ -18,7 +18,7 @@ public class ClassService {
 
     /**
      * demo 新增商品分类
-     * @param classInfo
+     * @param classInfo 商品分类信息
      * @return
      * @Author yangmingzhen
      * @Date 2020-04-04
@@ -42,7 +42,7 @@ public class ClassService {
 
     /**
      * demo 查询商品分类详情
-     * @param classId
+     * @param classId 商品分类id
      * @return
      * @Author yangmingzhen
      * @Date 2020-04-04
@@ -54,7 +54,7 @@ public class ClassService {
 
     /**
      * demo 修改商品分类信息
-     * @param classInfo
+     * @param classInfo 商品分类信息
      * @Author yangmingzhen
      * @Date 2020-04-04
      */
@@ -77,7 +77,7 @@ public class ClassService {
 
     /**
      * demo 删除商品分类
-     * @param classId
+     * @param classId 商品分类id
      * @return
      * @Author yangmingzhen
      * @Date 2020-04-04
