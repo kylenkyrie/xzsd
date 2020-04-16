@@ -99,8 +99,6 @@ public class ClassService {
 
     /**
      * demo 查询商品分类列表
-     * @param
-     * @return
      * @Author yangmingzhen
      * @Date 2020-04-11
      */
