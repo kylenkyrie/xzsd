@@ -117,6 +117,7 @@
         image_path = #{imagePath},
         id_card = #{idCard},
         user_pwd = #{userPwd},
+        role = #{role},
         gmt_modified = now(),
         last_modified_by = #{lastModifiedBy},
         version = version + 1
@@ -138,6 +139,7 @@
             phone,
             email,
             image_path,
+            role,
             version
         from t_sys_user
         where user_id = #{userId}

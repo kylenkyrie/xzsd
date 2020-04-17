@@ -111,7 +111,7 @@ public class StoreController {
      * @Date 2020-04-11
      */
     @RequestMapping(value = "listRegion")
-    public AppResponse listClass(RegionInfo regionInfo) {
+    public AppResponse listRegion(RegionInfo regionInfo) {
         try {
             return storeService.listRegion(regionInfo);
         } catch (Exception e) {

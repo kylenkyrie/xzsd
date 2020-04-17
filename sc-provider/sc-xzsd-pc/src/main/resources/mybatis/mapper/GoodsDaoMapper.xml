@@ -51,7 +51,7 @@
             now(),
             #{lastModifiedBy},
             0,
-            2)
+            3)
     </insert>
 
     <!--获取商品列表-->
@@ -65,6 +65,7 @@
         a.author,
         c.class_name classOne,
         a.view,
+        a.goods_status,
         a.goods_adv,
         a.goods_intro,
         a.business_name,
@@ -90,6 +91,9 @@
         </if>
         <if test="author != null and author != ''">
             and author like concat('%', #{author}, '%')
+        </if>
+        <if test="goodsStatus != null and goodsStatus != ''">
+            and goods_status = #{goodsStatus}
         </if>
     </select>
 
