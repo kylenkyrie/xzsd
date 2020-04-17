@@ -6,8 +6,8 @@
     <select id = "listCustomerByPage" parameterType="com.xzsd.pc.customer.entity.CustomerInfo" resultType="com.xzsd.pc.customer.entity.CustomerInfo">
         select
         cus_id,
-        cus_name,
-        cus_acct,
+        cus_name customerName,
+        cus_acct customerAcct,
         sex,
         phone,
         email,
