@@ -4,10 +4,10 @@
     <!--获取顶部栏信息详情-->
     <select id="getTopOfColumn" parameterType="java.lang.String" resultType="com.xzsd.pc.topOfColumn.entity.TopOfColumnInfo">
         select
-            user_id,
-            user_name,
+            user_id userId,
+            user_name userName,
             role,
-            image_path
+            image_path imagePath
         from t_sys_user
         where user_id = #{userId}
         and is_deleted = 0

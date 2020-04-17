@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.xzsd.app.userInfo.dao.UserInfoDao">
     <!--查询登录用户角色-->
-    <select id="getRole" parameterType="java.lang.String" resultType="java.lang.String">
+    <select id="getRole" parameterType="java.lang.String" resultType="int">
         select
         role
         from t_sys_user
@@ -10,23 +10,23 @@
     </select>
 
     <!--查询店长个人信息-->
-    <select id="getStore" parameterType="java.lang.String"
-            resultType="com.xzsd.app.userInfo.entity.UserInfo">
+    <select id="getStore" parameterType="java.lang.String" resultType="com.xzsd.app.userInfo.entity.UserInformation">
         select
             e.user_name userName,
             e.image_path imagePath,
             e.role,
-            b.area_name provinceName,
-            c.area_name cityName,
-            d.area_name areaName,
-            b.address,
+            b.value province,
+            c.value city,
+            d.value area,
+            a.store_address address,
             e.version
-        from t_sys_store a,
+        from
+        t_sys_store a,
         t_sys_region b,
         t_sys_region c,
         t_sys_region d,
         t_sys_user e
-        where a.user_id = e.user_id
+        where a.manager_id = e.user_id
         and a.province = b.id
         and a.city = c.id
         and a.area = d.id
@@ -34,8 +34,7 @@
     </select>
 
     <!--查询司机个人信息-->
-    <select id="getDriver" parameterType="java.lang.String"
-            resultType="com.xzsd.app.userInfo.entity.UserInfo">
+    <select id="getDriver" parameterType="java.lang.String" resultType="com.xzsd.app.userInfo.entity.UserInformation">
         select
             user_name userName,
             user_image userImage,
@@ -47,8 +46,7 @@
     </select>
 
     <!--查询客户个人信息-->
-    <select id="getCustomer" parameterType="java.lang.String"
-            resultType="com.xzsd.app.userInformation.entity.UserInformationInfo">
+    <select id="getCustomer" parameterType="java.lang.String" resultType="com.xzsd.app.userInfo.entity.UserInformation">
         select
             user_name userName,
             user_image userImage,
@@ -58,4 +56,24 @@
         where user_id = #{userId}
     </select>
 
+    <!--获取当前登录用户的密码-->
+    <select id="getUserPassword" parameterType="java.lang.String"
+            resultType="java.lang.String">
+        select
+            user_pwd
+        from t_sys_user
+        where user_id = #{userId}
+    </select>
+
+    <!--修改用户密码-->
+    <update id="updateUserPassword" parameterType="com.xzsd.app.userInfo.entity.UserInformation">
+        update t_sys_user
+        set
+            user_pwd = #{userNewPwd},
+            gmt_modified = now(),
+            last_modified_by = #{userId},
+            version = version +1
+        where user_id = #{userId}
+        and version = #{version}
+    </update>
 </mapper>

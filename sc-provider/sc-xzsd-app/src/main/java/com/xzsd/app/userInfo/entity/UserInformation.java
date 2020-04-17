@@ -2,7 +2,7 @@ package com.xzsd.app.userInfo.entity;
 
 import java.util.Date;
 
-public class UserInfo {
+public class UserInformation {
     /**
      * 用户代码
      */
@@ -11,6 +11,14 @@ public class UserInfo {
      * 用户名称
      */
     private String userName;
+    /**
+     * 用户旧密码
+     */
+    private String userPwd;
+    /**
+     * 用户新密码
+     */
+    private String userNewPwd;
     /**
      * 司机姓名
      */
@@ -35,6 +43,30 @@ public class UserInfo {
      * 门店邀请码
      */
     private String inviteCode;
+    /**
+     * 省编号
+     */
+    private String provinceId;
+    /**
+     * 市编号
+     */
+    private String cityId;
+    /**
+     * 区编号
+     */
+    private String areaId;
+    /**
+     * 省
+     */
+    private String province;
+    /**
+     * 市
+     */
+    private String city;
+    /**
+     * 区
+     */
+    private String area;
     /**
      * 门店地址
      */
@@ -92,6 +124,22 @@ public class UserInfo {
         this.driverName = driverName;
     }
 
+    public String getUserPwd() {
+        return userPwd;
+    }
+
+    public void setUserPwd(String userPwd) {
+        this.userPwd = userPwd;
+    }
+
+    public String getUserNewPwd() {
+        return userNewPwd;
+    }
+
+    public void setUserNewPwd(String userNewPwd) {
+        this.userNewPwd = userNewPwd;
+    }
+
     public String getPhone() {
         return phone;
     }
@@ -132,8 +180,56 @@ public class UserInfo {
         this.inviteCode = inviteCode;
     }
 
+    public String getProvince() {
+        return province;
+    }
+
+    public void setProvince(String province) {
+        this.province = province;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getArea() {
+        return area;
+    }
+
+    public void setArea(String area) {
+        this.area = area;
+    }
+
     public String getAddress() {
         return address;
+    }
+
+    public String getProvinceId() {
+        return provinceId;
+    }
+
+    public void setProvinceId(String provinceId) {
+        this.provinceId = provinceId;
+    }
+
+    public String getCityId() {
+        return cityId;
+    }
+
+    public void setCityId(String cityId) {
+        this.cityId = cityId;
+    }
+
+    public String getAreaId() {
+        return areaId;
+    }
+
+    public void setAreaId(String areaId) {
+        this.areaId = areaId;
     }
 
     public void setAddress(String address) {

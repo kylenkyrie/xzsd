@@ -42,7 +42,7 @@ public class UserService {
         if(0 != countUserAcct) {
             return AppResponse.bizError("用户账号已存在，请重新输入！");
         }
-        // 密码加密 默认为123456
+        // 密码加密
         String pwd = PasswordUtils.generatePassword(userInfo.getUserPwd());
         userInfo.setUserPwd(pwd);
         userInfo.setUserId(StringUtil.getCommonCode(2));

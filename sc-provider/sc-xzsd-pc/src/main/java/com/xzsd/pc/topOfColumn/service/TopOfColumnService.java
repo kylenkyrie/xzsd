@@ -29,6 +29,9 @@ public class TopOfColumnService {
      */
     public AppResponse getTopOfColumn(String userId) {
         TopOfColumnInfo topOfColumnInfo = topOfColumnDao.getTopOfColumn(userId);
+        if(null == topOfColumnInfo){
+            return AppResponse.bizError("查询顶部栏失败");
+        }
         return AppResponse.success("查询成功！", topOfColumnInfo);
     }
 }

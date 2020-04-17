@@ -1,6 +1,6 @@
 package com.xzsd.app.userInfo.dao;
 
-import com.xzsd.app.userInfo.entity.UserInfo;
+import com.xzsd.app.userInfo.entity.UserInformation;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -19,7 +19,7 @@ public interface UserInfoDao {
      * @param userId
      * @return
      */
-    UserInfo getStore(@Param("userId") String userId);
+    UserInformation getStore(@Param("userId") String userId);
 
     /**
      * 查询司机个人信息
@@ -27,12 +27,26 @@ public interface UserInfoDao {
      * @param userId
      * @return
      */
-    UserInfo getDriver(@Param("userId") String userId);
+    UserInformation getDriver(@Param("userId") String userId);
 
     /**
      * 查询客户个人信息
      * @param userId
      * @return
      */
-    UserInfo getCustomer(@Param("userId") String userId);
+    UserInformation getCustomer(@Param("userId") String userId);
+
+    /**
+     * 获取当前登录用户的密码
+     * @param userId
+     * @return
+     */
+    String getUserPassword(@Param("userId") String userId);
+
+    /**
+     * 修改用户密码
+     * @param userInformation
+     * @return
+     */
+    int updateUserPassword(UserInformation userInformation);
 }
