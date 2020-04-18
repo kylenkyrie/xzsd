@@ -41,7 +41,7 @@ public class GoodsService {
         //新增商品
         int count = goodsDao.addGoods(goodsInfo);
         if(count == 0){
-            return AppResponse.bizError("新增失败，请重试！");
+            return AppResponse.notFound("新增失败，请重试！");
         }
             return AppResponse.success("新增成功！");
     }
@@ -105,12 +105,12 @@ public class GoodsService {
         //校验商品是否被绑定
         int countGoodsId = goodsDao.countGoodsId(listCode);
         if(0 != countGoodsId) {
-            appResponse = AppResponse.bizError("商品已被绑定无法删除！");
+            appResponse = AppResponse.notFound("商品已被绑定无法删除！");
         }
         // 删除商品
         int count = goodsDao.deleteGoods(listCode,userCode);
         if(0 == count) {
-            appResponse = AppResponse.bizError("删除失败，请重试！");
+            appResponse = AppResponse.notFound("删除失败，请重试！");
         }
         return appResponse;
     }
@@ -140,7 +140,7 @@ public class GoodsService {
         // 修改商品信息
         int count = goodsDao.updateGoodsStatus(listUpdate);
         if (0 == count) {
-            appResponse = AppResponse.bizError("删除失败，请重试！");
+            appResponse = AppResponse.notFound("删除失败，请重试！");
         }
         return appResponse;
     }

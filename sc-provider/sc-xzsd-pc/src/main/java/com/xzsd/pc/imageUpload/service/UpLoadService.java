@@ -60,7 +60,7 @@ public class UpLoadService {
 
         // 关闭客户端
         cosclient.shutdown();
-        return AppResponse.bizError("图片上传失败");
+        return AppResponse.notFound("图片上传失败");
     }
 
     /**

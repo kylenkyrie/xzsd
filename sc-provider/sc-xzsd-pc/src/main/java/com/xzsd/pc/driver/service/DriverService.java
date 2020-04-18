@@ -33,7 +33,7 @@ public class DriverService {
         // 校验司机账户是否重复
         int countDriverId = driverDao.countDriverId(driverInfo);
         if(0 != countDriverId) {
-            return AppResponse.bizError("司机账号已存在，请重新输入！");
+            return AppResponse.notFound("司机账号已存在，请重新输入！");
         }
         // 密码加密 默认为123456
         String pwd = PasswordUtils.generatePassword(driverInfo.getDriverPwd());
@@ -43,12 +43,12 @@ public class DriverService {
         //司机表新增司机
         int count = driverDao.addDriver(driverInfo);
         if(count == 0){
-            return AppResponse.bizError("司机表新增失败，请重试！");
+            return AppResponse.notFound("司机表新增失败，请重试！");
         }
         //用户表新增司机
         int count1 = driverDao.addUserDriver(driverInfo);
         if(count1 == 0){
-            return AppResponse.bizError("用户表新增失败，请重试！");
+            return AppResponse.notFound("用户表新增失败，请重试！");
         }
         return AppResponse.success("新增成功！");
     }
@@ -64,7 +64,7 @@ public class DriverService {
         // 校验司机账户是否重复
         int countDriverId = driverDao.countDriverId(driverInfo);
         if(0 != countDriverId) {
-            return AppResponse.bizError("司机账号已存在，请重新输入！");
+            return AppResponse.notFound("司机账号已存在，请重新输入！");
         }
         AppResponse appResponse = AppResponse.success("修改成功");
         // 密码加密 默认为123456
@@ -121,12 +121,12 @@ public class DriverService {
         // 删除司机表司机信息
         int count = driverDao.deleteDriver(listCode,userCode);
         if(0 == count) {
-            appResponse = AppResponse.bizError("删除失败，请重试！");
+            appResponse = AppResponse.notFound("删除失败，请重试！");
         }
         //删除用户表司机
         int count1 = driverDao.deleteUserDriver(listCode,userCode);
         if(0 == count1) {
-            appResponse = AppResponse.bizError("删除失败，请重试！");
+            appResponse = AppResponse.notFound("删除失败，请重试！");
         }
         return appResponse;
     }

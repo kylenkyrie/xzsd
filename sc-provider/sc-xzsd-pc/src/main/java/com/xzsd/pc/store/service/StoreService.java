@@ -30,12 +30,12 @@ public class StoreService {
         // 校验店长id是否存在
         int existManagerId = storeDao.existManagerId(storeInfo);
         if(0 == existManagerId) {
-            return AppResponse.bizError("店长id不存在，请重新输入！");
+            return AppResponse.notFound("店长id不存在，请重新输入！");
         }
         // 校验店长id是否重复
         int countManagerId = storeDao.countManagerId(storeInfo);
         if(0 != countManagerId) {
-            return AppResponse.bizError("店长id重复，请重新输入！");
+            return AppResponse.notFound("店长id重复，请重新输入！");
         }
         storeInfo.setStoreId(StringUtil.getCommonCode(3));
         storeInfo.setInviteCode(StringUtil.getInviteCode(3));
@@ -43,7 +43,7 @@ public class StoreService {
         //新增门店
         int count = storeDao.addStore(storeInfo);
         if(count == 0){
-            return AppResponse.bizError("新增失败，请重试！");
+            return AppResponse.notFound("新增失败，请重试！");
         }
         return AppResponse.success("新增成功！");
     }
@@ -74,7 +74,7 @@ public class StoreService {
         // 删除门店信息
         int count = storeDao.deleteStore(listCode,userCode);
         if(0 == count) {
-            appResponse = AppResponse.bizError("删除失败，请重试！");
+            appResponse = AppResponse.notFound("删除失败，请重试！");
         }
         return appResponse;
     }
@@ -90,12 +90,12 @@ public class StoreService {
         // 校验店长id是否存在
         int existManagerId = storeDao.existManagerId(storeInfo);
         if(0 == existManagerId) {
-            return AppResponse.bizError("店长id不存在，请重新输入！");
+            return AppResponse.notFound("店长id不存在，请重新输入！");
         }
         // 校验店长id是否重复
         int countManagerId = storeDao.countManagerId(storeInfo);
         if(0 != countManagerId) {
-            return AppResponse.bizError("店长id重复，请重新输入！");
+            return AppResponse.notFound("店长id重复，请重新输入！");
         }
         AppResponse appResponse = AppResponse.success("修改成功");
         // 修改门店信息

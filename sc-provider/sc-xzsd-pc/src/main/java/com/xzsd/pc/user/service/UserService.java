@@ -40,7 +40,7 @@ public class UserService {
         // 校验账号是否存在
         int countUserAcct = userDao.countUserAcct(userInfo);
         if(0 != countUserAcct) {
-            return AppResponse.bizError("用户账号已存在，请重新输入！");
+            return AppResponse.notFound("用户账号已存在，请重新输入！");
         }
         // 密码加密
         String pwd = PasswordUtils.generatePassword(userInfo.getUserPwd());
@@ -50,7 +50,7 @@ public class UserService {
         // 新增用户
         int count = userDao.addUser(userInfo);
         if(0 == count) {
-            return AppResponse.bizError("新增失败，请重试！");
+            return AppResponse.notFound("新增失败，请重试！");
         }
         return AppResponse.success("新增成功！");
     }
@@ -84,7 +84,7 @@ public class UserService {
         // 删除用户
         int count = userDao.deleteUser(listCode,userCode);
         if(0 == count) {
-            appResponse = AppResponse.bizError("删除失败，请重试！");
+            appResponse = AppResponse.notFound("删除失败，请重试！");
         }
         return appResponse;
     }
@@ -104,7 +104,7 @@ public class UserService {
         //检验账号是否存在
         int countUserAcct = userDao.countUserAcct(userInfo);
         if(0 != countUserAcct) {
-            return AppResponse.bizError("用户账号已存在，请重新输入！");
+            return AppResponse.notFound("用户账号已存在，请重新输入！");
         }
         // 修改用户信息
         int count = userDao.updateUser(userInfo);

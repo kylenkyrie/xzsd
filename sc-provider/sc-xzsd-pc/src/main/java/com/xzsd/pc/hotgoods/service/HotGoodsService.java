@@ -38,14 +38,14 @@ public class HotGoodsService {
         // 校验序号是否存在
         int countSortId = hotGoodsDao.countSortId(hotGoodsInfo);
         if(0 != countSortId) {
-            return AppResponse.bizError("热门位序号已存在，请重新输入！");
+            return AppResponse.notFound("热门位序号已存在，请重新输入！");
         }
         hotGoodsInfo.setGoodsId(StringUtil.getCommonCode(3));
         hotGoodsInfo.setIsDeleted(0);
         //新增热门商品
         int count = hotGoodsDao.addHotGoods(hotGoodsInfo);
         if(count == 0){
-            return AppResponse.bizError("新增失败，请重试！");
+            return AppResponse.notFound("新增失败，请重试！");
         }
         return AppResponse.success("新增成功！");
     }
@@ -88,7 +88,7 @@ public class HotGoodsService {
         // 校验序号是否存在
         int countSortId = hotGoodsDao.countSortId(hotGoodsInfo);
         if(0 != countSortId) {
-            return AppResponse.bizError("热门位序号已存在，请重新输入！");
+            return AppResponse.notFound("热门位序号已存在，请重新输入！");
         }
         // 修改热门商品信息
         int count = hotGoodsDao.updateHotGoods(hotGoodsInfo);

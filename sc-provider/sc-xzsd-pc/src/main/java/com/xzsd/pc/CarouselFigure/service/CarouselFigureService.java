@@ -38,14 +38,14 @@ public class CarouselFigureService {
         // 校验序号是否存在
         int countSortId = carouselFigureDao.countSortId(carouselFigureInfo);
         if(0 != countSortId) {
-            return AppResponse.bizError("该序号已有图片存在，请重新输入！");
+            return AppResponse.notFound("该序号已有图片存在，请重新输入！");
         }
         carouselFigureInfo.setPictureId(StringUtil.getCommonCode(3));
         carouselFigureInfo.setIsDeleted(0);
         //新增轮播图片
         int count = carouselFigureDao.addPicture(carouselFigureInfo);
         if(count == 0){
-            return AppResponse.bizError("新增轮播图失败，请重试！");
+            return AppResponse.notFound("新增轮播图失败，请重试！");
         }
         return AppResponse.success("新增成功！");
     }
@@ -105,7 +105,7 @@ public class CarouselFigureService {
         // 修改轮播图状态信息
         int count = carouselFigureDao.updatePictureStatus(listUpdate);
         if (0 == count) {
-            appResponse = AppResponse.bizError("修改轮播图状态失败，请重试！");
+            appResponse = AppResponse.notFound("修改轮播图状态失败，请重试！");
         }
         return appResponse;
     }
@@ -124,7 +124,7 @@ public class CarouselFigureService {
         // 删除轮播图
         int count = carouselFigureDao.deletePicture(listCode,userCode);
         if(0 == count) {
-            appResponse = AppResponse.bizError("删除失败，请重试！");
+            appResponse = AppResponse.notFound("删除失败，请重试！");
         }
         return appResponse;
     }

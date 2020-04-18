@@ -28,14 +28,14 @@ public class ClassService {
         //检验商品分类是否存在
         int countGoodsClass = classDao.countGoodsClass(classInfo);
         if (0 != countGoodsClass) {
-            return AppResponse.bizError("商品分类已存在，请重新输入！");
+            return AppResponse.notFound("商品分类已存在，请重新输入！");
         }
         classInfo.setClassId(StringUtil.getCommonCode(3));
         classInfo.setIsDeleted(0);
         //新增商品分类
         int count = classDao.addClass(classInfo);
         if(count == 0){
-            return AppResponse.bizError("新增失败，请重试！");
+            return AppResponse.notFound("新增失败，请重试！");
         }
         return AppResponse.success("新增成功！");
     }
@@ -87,12 +87,12 @@ public class ClassService {
         AppResponse appResponse = AppResponse.success("删除成功！");
         int counts = classDao.countGoodsClassSon(classId);
         if(counts != 0){
-            appResponse = AppResponse.bizError("删除的分类有子分类，删除失败！");
+            appResponse = AppResponse.notFound("删除的分类有子分类，删除失败！");
         }
         // 删除商品分类
         int count = classDao.deleteClass(classId,userCode);
         if(0 == count) {
-            appResponse = AppResponse.bizError("删除失败，请重试！");
+            appResponse = AppResponse.notFound("删除失败，请重试！");
         }
         return appResponse;
     }

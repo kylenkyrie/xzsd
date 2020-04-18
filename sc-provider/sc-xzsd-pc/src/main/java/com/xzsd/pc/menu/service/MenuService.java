@@ -60,7 +60,7 @@ public class MenuService {
         // 删除商品
         int count = menuDao.deleteMenu(menuCode,userCode);
         if(0 == count) {
-            appResponse = AppResponse.bizError("删除失败，请重试！");
+            appResponse = AppResponse.notFound("删除失败，请重试！");
         }
         return appResponse;
     }
@@ -77,14 +77,14 @@ public class MenuService {
         // 校验菜单名称是否重复
         int countMenu = menuDao.countMenu(menu);
         if(0 != countMenu) {
-            return AppResponse.bizError("菜单名称重复，请重新输入！");
+            return AppResponse.notFound("菜单名称重复，请重新输入！");
         }
         menu.setMenuCode(StringUtil.getCommonCode(3));
         menu.setIsDeleted(0);
         //新增菜单
         int count = menuDao.addMenu(menu);
         if(count == 0){
-            return AppResponse.bizError("新增失败，请重试！");
+            return AppResponse.notFound("新增失败，请重试！");
         }
         return AppResponse.success("新增成功！");
     }
@@ -100,7 +100,7 @@ public class MenuService {
         // 校验菜单名称是否重复
         int countMenu = menuDao.countMenu(menu);
         if(0 != countMenu) {
-            return AppResponse.bizError("菜单名称重复，请重新输入！");
+            return AppResponse.notFound("菜单名称重复，请重新输入！");
         }
         AppResponse appResponse = AppResponse.success("修改成功");
         // 修改菜单信息
