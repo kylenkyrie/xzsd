@@ -23,7 +23,6 @@
         time_start,
         time_end,
         goods_id,
-        goods_name,
         picture_status,
         is_deleted,
         gmt_create,
@@ -39,8 +38,7 @@
             #{timeStart},
             #{timeEnd},
             #{goodsId},
-            #{goodsName},
-            1,
+            0,
             #{isDeleted},
             now(),
             #{createBy},
@@ -70,17 +68,21 @@
     <!--获取在售商品所有信息-->
     <select id="listGoodsByPage" parameterType="com.xzsd.pc.goods.entity.GoodsInfo" resultType="com.xzsd.pc.goods.entity.GoodsInfo">
         select
-        goods_id goodsId,
-        goods_name goodsName,
-        class_one classOne,
-        class_two classTwo,
-        goods_status
+        a.goods_id goodsId,
+        a.goods_name goodsName,
+        b.class_name classOne,
+        c.class_name classTwo,
+        a.goods_status
         FROM
-        t_sys_goodsinfo
+        t_sys_goodsinfo a,
+        t_sys_goodsclassification b,
+        t_sys_goodsclassification c
         where
-        is_deleted = 0
+        a.is_deleted = 0
         and
-        goods_status = 1
+        a.goods_status = 1
+        and a.class_one_id = b.class_id
+        and a.class_two_id = c.class_id
         <if test="goodsName != null and goodsName != ''">
             and goods_name like concat('%', #{goodsName}, '%')
         </if>

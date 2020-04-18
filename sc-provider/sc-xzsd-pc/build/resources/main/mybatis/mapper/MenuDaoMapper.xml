@@ -6,8 +6,9 @@
     <!--查询全部菜单-->
     <select id="listMenus" parameterType="com.xzsd.pc.menu.entity.Menu" resultType="com.xzsd.pc.menu.entity.Menu">
         select
-            menu_code,
-            menu_name,
+            menu_code menuCode,
+            menu_name menuName,
+            menu_url menuUrl,
         	version
         from t_sys_menu
         where is_deleted = 0
@@ -16,8 +17,9 @@
     <!--查询角色菜单-->
     <select id="listRoleMenus" parameterType="com.xzsd.pc.menu.entity.Menu" resultType="com.xzsd.pc.menu.entity.Menu">
         select
-            menu_code,
-            menu_name
+            menu_code menuCode,
+            menu_name menuName,
+            menu_url menuUrl
         from t_sys_menu
         where is_deleted = 0
         <if test="role == 2">
