@@ -37,7 +37,7 @@ public class UserInfoService {
             userInformation = userInfoDao.getCustomer(userId);
         }
         if(userInformation == null){
-            return AppResponse.bizError("查询用户个人信息失败！");
+            return AppResponse.notFound("查询用户个人信息失败！");
         }
         return AppResponse.success("查询用户个人信息成功", userInformation);
     }
@@ -56,7 +56,7 @@ public class UserInfoService {
         //判断密码是否相同
         boolean bool = PasswordUtils.equalPassword(userInformation.getUserPwd(), userPassword);
         if(!bool){
-            return AppResponse.bizError("原密码不正确，请重新输入");
+            return AppResponse.notFound("原密码不正确，请重新输入");
         }
         //密码加密
         String userNewPassword = userInformation.getUserNewPwd();
@@ -64,7 +64,7 @@ public class UserInfoService {
         userInformation.setUserNewPwd(pwd);
         int count = userInfoDao.updateUserPassword(userInformation);
         if(0 == count){
-            return AppResponse.bizError("修改密码失败");
+            return AppResponse.notFound("修改密码失败");
         }
         return AppResponse.success("修改密码成功");
     }

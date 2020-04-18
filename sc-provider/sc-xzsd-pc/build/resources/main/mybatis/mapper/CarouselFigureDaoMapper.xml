@@ -72,7 +72,7 @@
         a.goods_name goodsName,
         b.class_name classOne,
         c.class_name classTwo,
-        a.goods_status
+        a.goods_status goodsStatus
         FROM
         t_sys_goodsinfo a,
         t_sys_goodsclassification b,

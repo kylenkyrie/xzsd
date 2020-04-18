@@ -27,7 +27,7 @@ public class RegisterService {
         // 校验注册账户是否重复
         int countUserAcct = registerDao.countUserAcct(registerInfo);
         if(0 != countUserAcct) {
-            return AppResponse.bizError("用户账号已存在，请重新输入！");
+            return AppResponse.notFound("用户账号已存在，请重新输入！");
         }
         // 密码加密 默认为123456
         String pwd = PasswordUtils.generatePassword("123456");
@@ -37,12 +37,12 @@ public class RegisterService {
         //用户表新增用户
         int count = registerDao.addUser(registerInfo);
         if(count == 0){
-            return AppResponse.bizError("用户新增失败，请重试！");
+            return AppResponse.notFound("用户新增失败，请重试！");
         }
         //客户表新增客户
         int count1 = registerDao.addCustomer(registerInfo);
         if(count1 == 0){
-            return AppResponse.bizError("客户新增失败，请重试！");
+            return AppResponse.notFound("客户新增失败，请重试！");
         }
         return AppResponse.success("新增成功！");
     }

@@ -7,6 +7,7 @@
         <result column="class_id" property="classId"/>
         <result column="parent_id" property="parentId"/>
         <result column="class_name" property="className"/>
+        <result column="verison" property="version"/>
         <collection column="class_id" property="treeNode" javaType="java.util.ArrayList"
                     ofType="com.xzsd.pc.goodsClassification.dao.ClassDao" select="getNextNodeTree"/>
     </resultMap>
@@ -15,6 +16,7 @@
         <result column="class_id" property="classId"/>
         <result column="parent_id" property="parentId"/>
         <result column="class_name" property="className"/>
+        <result column="verison" property="version"/>
         <collection column="class_id" property="treeNode" javaType="java.util.ArrayList"
                     ofType="com.xzsd.pc.goodsClassification.dao.ClassDao" select="getNextNodeTree"/>
     </resultMap>

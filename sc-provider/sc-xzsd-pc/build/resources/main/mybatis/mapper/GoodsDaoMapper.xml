@@ -71,7 +71,8 @@
         a.business_name,
         a.inventory,
         a.cost_price,
-        a.sales_price
+        a.sales_price,
+        a.version
         FROM
         t_sys_goodsinfo a,
         t_sys_goodsclassification b,
@@ -143,7 +144,8 @@
         a.author,
         a.press,
         a.business_name,
-        a.goods_picture
+        a.goods_picture,
+        a.version
         from
         t_sys_goodsinfo a,
         t_sys_goodsclassification b,
