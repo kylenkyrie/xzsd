@@ -7,7 +7,7 @@
         <result column="class_id" property="classId"/>
         <result column="parent_id" property="parentId"/>
         <result column="class_name" property="className"/>
-        <result column="verison" property="version"/>
+        <result column="version" property="version"/>
         <collection column="class_id" property="treeNode" javaType="java.util.ArrayList"
                     ofType="com.xzsd.pc.goodsClassification.dao.ClassDao" select="getNextNodeTree"/>
     </resultMap>
@@ -16,7 +16,7 @@
         <result column="class_id" property="classId"/>
         <result column="parent_id" property="parentId"/>
         <result column="class_name" property="className"/>
-        <result column="verison" property="version"/>
+        <result column="version" property="version"/>
         <collection column="class_id" property="treeNode" javaType="java.util.ArrayList"
                     ofType="com.xzsd.pc.goodsClassification.dao.ClassDao" select="getNextNodeTree"/>
     </resultMap>
@@ -69,7 +69,8 @@
     <select id="getClassById" parameterType="java.lang.String" resultType="com.xzsd.pc.goodsClassification.entity.ClassInfo">
         select
         class_name className,
-        remark
+        remark,
+        version
         from
         t_sys_goodsclassification
         where
@@ -113,13 +114,15 @@
         *
         FROM t_sys_goodsclassification
         WHERE parent_id = #{classId}
+        and is_deleted = 0
     </select>
 
     <select id="getNodeTree" resultMap="BaseTreeResultMap">
         SELECT
         *
         FROM t_sys_goodsclassification
-        WHERE parent_id in ('',null)
+        WHERE parent_id in ('',null,'0')
+        and is_deleted = 0
     </select>
 
 </mapper>

@@ -50,11 +50,13 @@
     <!--获取轮播图所有信息-->
     <select id="listPictureByPage" parameterType="com.xzsd.pc.CarouselFigure.entity.CarouselFigureInfo" resultType="com.xzsd.pc.CarouselFigure.entity.CarouselFigureInfo">
         select
+        picture_Id pictureId,
         sort_id sortId,
         picture_path picturePath,
         time_start timeStart,
         time_end timeEnd,
-        picture_status pictureStatus
+        picture_status pictureStatus,
+        version
         FROM
         t_sys_carousel_figure
         where
