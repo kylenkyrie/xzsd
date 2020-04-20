@@ -64,6 +64,14 @@ public class StoreInfo {
      */
     private String areaId;
     /**
+     * 角色
+     */
+    private int role;
+    /**
+     * 当前登录用户id
+     */
+    private String loginUserId;
+    /**
      * 作废标记 0为存在，1为作废
      */
     private int isDeleted;
@@ -188,6 +196,22 @@ public class StoreInfo {
 
     public void setArea(String area) {
         this.area = area;
+    }
+
+    public int getRole() {
+        return role;
+    }
+
+    public void setRole(int role) {
+        this.role = role;
+    }
+
+    public String getLoginUserId() {
+        return loginUserId;
+    }
+
+    public void setLoginUserId(String loginUserId) {
+        this.loginUserId = loginUserId;
     }
 
     public int getIsDeleted() {
