@@ -91,7 +91,7 @@ public class CarouselFigureService {
         List<String> listPictureId = Arrays.asList(carouselFigureInfo.getPictureId().split(","));
         List<String> listVersion = Arrays.asList(carouselFigureInfo.getVersion().split(","));
         List<CarouselFigureInfo> listUpdate = new ArrayList<>();
-        int pictureStatus = carouselFigureInfo.getPictureStatus();
+        String pictureStatus = carouselFigureInfo.getPictureStatus();
         String updateUser =carouselFigureInfo.getLastModifiedBy();
         for (int i = 0 ; i < listPictureId.size() ; i++){
             CarouselFigureInfo carouselFigureInfo1 =new CarouselFigureInfo();

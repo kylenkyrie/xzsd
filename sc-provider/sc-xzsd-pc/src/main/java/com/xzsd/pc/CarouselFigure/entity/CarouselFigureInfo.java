@@ -27,7 +27,7 @@ public class CarouselFigureInfo {
     /**
      * 图片状态 0启用 1禁用
      */
-    private int pictureStatus;
+    private String pictureStatus;
     /**
      * 图片路径
      */
@@ -113,11 +113,11 @@ public class CarouselFigureInfo {
         this.sortId = sortId;
     }
 
-    public int getPictureStatus() {
+    public String getPictureStatus() {
         return pictureStatus;
     }
 
-    public void setPictureStatus(int pictureStatus) {
+    public void setPictureStatus(String pictureStatus) {
         this.pictureStatus = pictureStatus;
     }
 

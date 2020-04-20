@@ -4,9 +4,21 @@ import java.util.Date;
 
 public class HotGoodsInfo {
     /**
+     * 页码
+     */
+    private int pageSize;
+    /**
+     * 页数
+     */
+    private int pageNum;
+    /**
      * 序号
      */
     private int sortId;
+    /**
+     * 热门商品编号
+     */
+    private String hotGoodsId;
     /**
      * 商品编号
      */
@@ -26,7 +38,7 @@ public class HotGoodsInfo {
     /**
      * 展示数量
      */
-    private int showCnt;
+    private String showCnt;
     /**
      * 作废标记 0为存在，1为作废
      */
@@ -52,6 +64,22 @@ public class HotGoodsInfo {
      */
     private String version;
 
+    public int getPageSize() {
+        return pageSize;
+    }
+
+    public void setPageSize(int pageSize) {
+        this.pageSize = pageSize;
+    }
+
+    public int getPageNum() {
+        return pageNum;
+    }
+
+    public void setPageNum(int pageNum) {
+        this.pageNum = pageNum;
+    }
+
     public int getSortId() {
         return sortId;
     }
@@ -59,6 +87,10 @@ public class HotGoodsInfo {
     public void setSortId(int sortId) {
         this.sortId = sortId;
     }
+
+    public String getHotGoodsId() { return hotGoodsId; }
+
+    public void setHotGoodsId(String hotGoodsId) { this.hotGoodsId = hotGoodsId; }
 
     public String getGoodsId() {
         return goodsId;
@@ -92,11 +124,11 @@ public class HotGoodsInfo {
         this.price = price;
     }
 
-    public int getShowCnt() {
+    public String getShowCnt() {
         return showCnt;
     }
 
-    public void setShowCnt(int showCnt) {
+    public void setShowCnt(String showCnt) {
         this.showCnt = showCnt;
     }
 

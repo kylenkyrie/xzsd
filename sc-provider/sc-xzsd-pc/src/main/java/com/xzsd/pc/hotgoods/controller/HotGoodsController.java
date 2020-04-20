@@ -57,8 +57,9 @@ public class HotGoodsController {
         try {
             return hotGoodsService.listHotGoods(hotGoodsInfo);
         } catch (Exception e) {
-            logger.error("热门商品列表查询异常", e);
-            throw new ScServerException("查询错误，请重试");
+            logger.error("查询热门位商品列表异常", e);
+            System.out.println(e.toString());
+            throw e;
         }
     }
 
@@ -67,15 +68,32 @@ public class HotGoodsController {
      * demo 查询商品列表（分页）
      * @return
      * @author 杨明镇
-     * @Date 2020-03-30
+     * @Date 2020-04-08
      */
     @RequestMapping(value = "listGoods")
     public AppResponse listGoods (GoodsInfo goodsInfo){
         try{
             return hotGoodsService.listGoods(goodsInfo);
-
         }catch (Exception e){
             logger.error("查询商品列表异常",e);
+            System.out.println(e.toString());
+            throw e;
+        }
+    }
+
+    /**
+     * 查询热门位商品详情
+     * @param hotGoodsId
+     * @return AppResponse
+     * @author yangmingzhen
+     * @Date 2020-04-08
+     */
+    @RequestMapping(value = "getHotGoods")
+    public AppResponse getHotGoods(String hotGoodsId) {
+        try {
+            return hotGoodsService.getHotGoods(hotGoodsId);
+        } catch (Exception e) {
+            logger.error("热门位商品查询错误", e);
             System.out.println(e.toString());
             throw e;
         }
@@ -86,21 +104,39 @@ public class HotGoodsController {
      * @param hotGoodsInfo
      * @return AppResponse
      * @author yangmingzhen
-     * @Date 2020-03-30
+     * @Date 2020-04-08
      */
-    @PostMapping("updateGoods")
-    public AppResponse updateUser(HotGoodsInfo hotGoodsInfo) {
+    @PostMapping("updateHotGoods")
+    public AppResponse updateHotGoods(HotGoodsInfo hotGoodsInfo) {
         try {
             //获取用户id
             String userId = SecurityUtils.getCurrentUserId();
             hotGoodsInfo.setCreateBy(userId);
             hotGoodsInfo.setLastModifiedBy(userId);
-            return hotGoodsService.updateGoods(hotGoodsInfo);
+            return hotGoodsService.updateHotGoods(hotGoodsInfo);
         } catch (Exception e) {
             logger.error("修改热门商品信息错误", e);
             System.out.println(e.toString());
             throw e;
         }
+    }
+
+    /**
+     * 查询热门位商品展示数量
+     * @return AppResponse
+     * @author yangmingzhen
+     * @Date 2020-04-08
+     */
+    @RequestMapping(value = "getShowCnt")
+    public AppResponse getShowCnt() {
+        try {
+            return hotGoodsService.getShowCnt();
+        } catch (Exception e) {
+            logger.error("热门位商品展示数量查询错误", e);
+            System.out.println(e.toString());
+            throw e;
+        }
+
     }
 
     /**
@@ -113,9 +149,26 @@ public class HotGoodsController {
     public AppResponse updateShowCnt (HotGoodsInfo hotGoodsInfo){
         try{
             return hotGoodsService.updateShowCnt(hotGoodsInfo);
-
         }catch (Exception e){
             logger.error("查询热门商品异常",e);
+            System.out.println(e.toString());
+            throw e;
+        }
+    }
+
+    /**
+     * 删除热门位商品
+     * @return AppResponse
+     * @author yangmingzhen
+     * @time 2020-04-08
+     */
+    @PostMapping("deleteHotGoods")
+    public AppResponse deleteHotGoods(String hotGoodsId) {
+        String userId = SecurityUtils.getCurrentUserId();
+        try {
+            return hotGoodsService.deleteHotGoods(hotGoodsId, userId);
+        } catch (Exception e) {
+            logger.error("热门位商品删除错误", e);
             System.out.println(e.toString());
             throw e;
         }

@@ -61,7 +61,7 @@
         t_sys_carousel_figure
         where
         is_deleted = 0
-        <if test="pictureStatus != null">
+        <if test="pictureStatus != null and pictureStatus != ''">
             and picture_status = #{pictureStatus}
         </if>
         order by sort_id asc

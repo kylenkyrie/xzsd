@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.Arrays;
 import java.util.List;
 
 import static com.neusoft.core.page.PageUtils.getPageInfo;
@@ -40,7 +41,7 @@ public class HotGoodsService {
         if(0 != countSortId) {
             return AppResponse.notFound("热门位序号已存在，请重新输入！");
         }
-        hotGoodsInfo.setGoodsId(StringUtil.getCommonCode(3));
+        hotGoodsInfo.setHotGoodsId(StringUtil.getCommonCode(2));
         hotGoodsInfo.setIsDeleted(0);
         //新增热门商品
         int count = hotGoodsDao.addHotGoods(hotGoodsInfo);
@@ -57,8 +58,10 @@ public class HotGoodsService {
      */
     //@SystemLog(operation = "获取热门商品列表。。。。。")
     public AppResponse listHotGoods(HotGoodsInfo hotGoodsInfo) {
-        List<HotGoodsInfo> hotgoodsInfoList = hotGoodsDao.listHotGoodsByPage(hotGoodsInfo);
-        return AppResponse.success("查询成功！", getPageInfo(hotgoodsInfoList));
+        PageHelper.startPage(hotGoodsInfo.getPageNum(), hotGoodsInfo.getPageSize());
+        List<HotGoodsInfo> goodInfoList = hotGoodsDao.listHotGoods(hotGoodsInfo);
+        PageInfo<HotGoodsInfo> pageData = new PageInfo<HotGoodsInfo>(goodInfoList);
+        return AppResponse.success("查询成功！", pageData);
     }
 
     /**
@@ -77,13 +80,25 @@ public class HotGoodsService {
     }
 
     /**
+     * 查询热门位商品详情
+     * @param hotGoodsId
+     * @return
+     * @Author yangmingzhen
+     * @Date 2020-04-08
+     */
+    public AppResponse getHotGoods(String hotGoodsId) {
+        HotGoodsInfo hotGoodsInfo = hotGoodsDao.getHotGoods(hotGoodsId);
+        return AppResponse.success("查询成功！", hotGoodsInfo);
+    }
+
+    /**
      * demo 修改热门商品信息
      * @param hotGoodsInfo 热门商品信息
      * @Author yangmingzhen
      * @Date 2020-04-08
      */
     @Transactional(rollbackFor = Exception.class)
-    public AppResponse updateGoods(HotGoodsInfo hotGoodsInfo) {
+    public AppResponse updateHotGoods(HotGoodsInfo hotGoodsInfo) {
         AppResponse appResponse = AppResponse.success("修改成功");
         // 校验序号是否存在
         int countSortId = hotGoodsDao.countSortId(hotGoodsInfo);
@@ -100,6 +115,20 @@ public class HotGoodsService {
     }
 
     /**
+     * 查询热门位商品展示数量
+     * @return
+     * @Author yangmingzhen
+     * @Date 2020-04-08
+     */
+    public AppResponse getShowCnt() {
+        int count = hotGoodsDao.getShowCnt();
+        if(0 == count){
+            return AppResponse.versionError("查询失败");
+        }
+        return AppResponse.success("查询成功",count);
+    }
+
+    /**
      * demo 展示数设置
      * @param hotGoodsInfo 热门商品信息
      * @return
@@ -113,6 +142,25 @@ public class HotGoodsService {
         if (0 == count) {
             appResponse = AppResponse.versionError("数据有变化，请刷新！");
             return appResponse;
+        }
+        return appResponse;
+    }
+
+    /**
+     * 删除热门位商品
+     * @param hotGoodsId
+     * @return
+     * @Author yangmingzhen
+     * @Date 2020-04-08
+     */
+    @Transactional(rollbackFor = Exception.class)
+    public AppResponse deleteHotGoods(String hotGoodsId, String userCode) {
+        List<String> listCode = Arrays.asList(hotGoodsId.split(","));
+        AppResponse appResponse = AppResponse.success("删除成功！");
+        // 删除商品
+        int count = hotGoodsDao.deleteHotGoods(listCode, userCode);
+        if (0 == count) {
+            appResponse = AppResponse.notFound("删除失败，请重试！");
         }
         return appResponse;
     }
