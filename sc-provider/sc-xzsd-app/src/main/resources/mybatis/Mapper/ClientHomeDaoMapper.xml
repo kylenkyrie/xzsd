@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xzsd.app.clientHome.dao.ClientHomeDao">
+    <!--获取热门位商品展示数量-->
+    <select id="getShowCnt" resultType="int">
+        select
+           value ShowCnt
+        from t_sys_region
+        where id = '9999'
+    </select>
+
+    <!--查询首页轮播图-->
+    <select id="listRotationCharHome" resultType="com.xzsd.app.clientHome.entity.RotationInfo">
+        select
+            picture_path slideshowPath,
+            goods_id goodsId
+        from t_sys_carousel_figure
+        where picture_status = 1
+        and is_deleted = 0
+        and now() between time_start and time_end
+        order by sort_id asc
+    </select>
+
+    <!--查询热门位商品-->
+    <select id="listHotGoods" parameterType="com.xzsd.app.clientHome.entity.HotGoodInfo" resultType="com.xzsd.app.clientHome.entity.HotGoodInfo">
+        select
+        a.goods_id goodsId,
+        b.goods_name goodsName,
+        b.goods_picture goodsImagePath,
+        b.sales_price goodsPrice
+        from t_sys_hotgoods a,
+             t_sys_goodsinfo b
+        where a.goods_id = b.goods_id
+        and a.is_deleted = 0
+        order by a.sort_id asc
+        limit #{ShowCnt}
+    </select>
+
+</mapper>
