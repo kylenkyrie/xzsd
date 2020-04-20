@@ -132,7 +132,7 @@
         where
         is_deleted = 0
         <if test="id == null or id == ''">
-            and parent_id in (null,'')
+            and parent_id in (null,'','0')
         </if>
         <if test="id != null and id != ''">
             and parent_id = #{id}

@@ -36,6 +36,10 @@ public class StoreInfo {
      */
     private String managerName;
     /**
+     * 店长账号
+     */
+    private String managerAcct;
+    /**
      * 所在省
      */
     private String province;
@@ -47,6 +51,18 @@ public class StoreInfo {
      * 所在区
      */
     private String area;
+    /**
+     * 省编号
+     */
+    private String provinceId;
+    /**
+     * 市编号
+     */
+    private String cityId;
+    /**
+     * 区编号
+     */
+    private String areaId;
     /**
      * 作废标记 0为存在，1为作废
      */
@@ -95,6 +111,24 @@ public class StoreInfo {
     public void setManagerId(String managerId) {
         this.managerId = managerId;
     }
+
+    public String getManagerAcct() { return managerAcct; }
+
+    public void setManagerAcct(String managerAcct) { this.managerAcct = managerAcct; }
+
+    public String getProvinceId() { return provinceId; }
+
+    public void setProvinceId(String provinceId) {
+        this.provinceId = provinceId;
+    }
+
+    public String getCityId() { return cityId; }
+
+    public void setCityId(String cityId) { this.cityId = cityId; }
+
+    public String getAreaId() { return areaId; }
+
+    public void setAreaId(String areaId) { this.areaId = areaId; }
 
     public String getPhone() {
         return phone;

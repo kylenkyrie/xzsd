@@ -40,6 +40,18 @@ public class DriverInfo {
      */
     private String area;
     /**
+     * 所在省
+     */
+    private String provinceId;
+    /**
+     * 所在市
+     */
+    private String cityId;
+    /**
+     * 所在区
+     */
+    private String areaId;
+    /**
      * 司机头像
      */
     private String imagePath;
@@ -139,6 +151,18 @@ public class DriverInfo {
     public void setArea(String area) {
         this.area = area;
     }
+
+    public String getProvinceId() { return provinceId; }
+
+    public void setProvinceId(String provinceId) { this.provinceId = provinceId; }
+
+    public String getCityId() { return cityId; }
+
+    public void setCityId(String cityId) { this.cityId = cityId; }
+
+    public String getAreaId() { return areaId; }
+
+    public void setAreaId(String areaId) { this.areaId = areaId; }
 
     public String getImagePath() { return imagePath; }
 
