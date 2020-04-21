@@ -7,6 +7,7 @@ import com.neusoft.util.StringUtil;
 import com.xzsd.pc.goods.entity.GoodsInfo;
 import com.xzsd.pc.hotgoods.dao.HotGoodsDao;
 import com.xzsd.pc.hotgoods.entity.HotGoodsInfo;
+import com.xzsd.pc.hotgoods.entity.ShowCntInfo;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -121,11 +122,11 @@ public class HotGoodsService {
      * @Date 2020-04-08
      */
     public AppResponse getShowCnt() {
-        int count = hotGoodsDao.getShowCnt();
-        if(0 == count){
+        ShowCntInfo showCntInfo = hotGoodsDao.getShowCnt();
+        if(null == showCntInfo){
             return AppResponse.versionError("查询失败");
         }
-        return AppResponse.success("查询成功",count);
+        return AppResponse.success("查询成功",showCntInfo);
     }
 
     /**

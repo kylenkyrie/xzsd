@@ -5,6 +5,7 @@ import com.neusoft.core.restful.AppResponse;
 import com.neusoft.security.client.utils.SecurityUtils;
 import com.xzsd.pc.goods.entity.GoodsInfo;
 import com.xzsd.pc.hotgoods.entity.HotGoodsInfo;
+import com.xzsd.pc.hotgoods.entity.ShowCntInfo;
 import com.xzsd.pc.hotgoods.service.HotGoodsService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

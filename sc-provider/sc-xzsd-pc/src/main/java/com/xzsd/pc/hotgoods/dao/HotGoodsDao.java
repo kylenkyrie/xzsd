@@ -2,6 +2,7 @@ package com.xzsd.pc.hotgoods.dao;
 
 import com.xzsd.pc.goods.entity.GoodsInfo;
 import com.xzsd.pc.hotgoods.entity.HotGoodsInfo;
+import com.xzsd.pc.hotgoods.entity.ShowCntInfo;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -56,7 +57,7 @@ public interface HotGoodsDao {
      * 查询热门位商品展示数量
      * @return 修改结果
      */
-    int getShowCnt();
+    ShowCntInfo getShowCnt();
 
     /**
      * 展示数量设置
