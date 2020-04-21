@@ -25,6 +25,14 @@ public interface ClassDao {
     int countGoodsClassSon(@Param("classId") String classId);
 
     /**
+     * 统计删除商品分类下商品数量
+     *
+     * @param classId 分类id
+     * @return
+     */
+    int countGoods(@Param("classId") String classId);
+
+    /**
      * 新增商品分类
      * @param classInfo 分类信息
      * @return

@@ -37,6 +37,14 @@
         and parent_id= #{classId}
     </select>
 
+    <!--统计删除商品分类下商品数量-->
+    <select id="countGoods" parameterType="com.xzsd.pc.goodsClassification.entity.ClassInfo" resultType="int">
+        select count(*)
+        from t_sys_goodsInfo
+        where is_deleted = 0
+        and class_two_id= #{classId}
+    </select>
+
     <!--新增商品分类-->
     <insert id="addClass" parameterType="com.xzsd.pc.goodsClassification.entity.ClassInfo">
         insert into t_sys_goodsclassification
