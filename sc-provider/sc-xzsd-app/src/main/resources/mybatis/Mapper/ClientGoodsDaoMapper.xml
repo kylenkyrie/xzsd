@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xzsd.app.clientGoods.dao.ClientGoodsDao">
+    <!--查询商品详情-->
+    <select id="getGoods" parameterType="java.lang.String"
+            resultType="com.xzsd.app.clientGoods.entity.GoodsInfo">
+        select
+        goods_id goodsId,
+        goods_name goodsName,
+        book_id isbn,
+        goods_intro goodsDescribe,
+        sales_price goodsPrice,
+        goods_picture goodsImagePath,
+        goods_evaluate_score goodsEvaluateScore,
+        author goodsAuthor,
+        press goodsPress
+        from t_sys_goodsinfo
+        where is_deleted = 0
+        and goods_id = #{goodsId}
+    </select>
+
+    <!--查询一级商品分类-->
+    <select id="listOneGoodsClassify" resultType="com.xzsd.app.clientGoods.entity.GoodsClassInfo">
+        select
+        class_id classifyId,
+        class_name classifyName
+        from t_sys_goodsclassification
+        where is_deleted = 0
+        and parent_id in (null,'')
+        order by gmt_create desc
+    </select>
+
+    <!--查询商品二级分类级商品信息(二级分类映射)-->
+    <resultMap id="BaseTreeResultMap" type="com.xzsd.app.clientGoods.entity.GoodsClassInfo">
+        <result column="class_id" property="twoClassifyId"/>
+        <result column="class_name" property="classifyName"/>
+        <collection column="class_id" property="goodsList" javaType="java.util.ArrayList"
+                    ofType="com.xzsd.app.clientGoods.entity.GoodsClassInfo" select="getNextNodeTree"/>
+    </resultMap>
+
+    <!--查询商品二级分类级商品信息(商品映射)-->
+    <resultMap id="NextTreeResultMap" type="com.xzsd.app.clientGoods.entity.GoodsInfo">
+        <result column="goods_id" property="goodsId"/>
+        <result column="goods_name" property="goodsName"/>
+        <result column="goods_picture" property="goodsImagePath"/>
+        <result column="sales_price" property="goodsPrice"/>
+        <result column="class_two_id" property="twoClassifyId"/>
+        <collection column="class_two_id" property="goodsList" javaType="java.util.ArrayList"
+                    ofType="com.xzsd.app.clientGoods.entity.GoodsInfo" select="getNextNodeTree"/>
+    </resultMap>
+
+    <!--查询二级分类-->
+    <select id="listGetClassGoods" resultMap="BaseTreeResultMap">
+        SELECT
+        class_id,
+        class_name
+        FROM t_sys_goodsclassification
+        WHERE parent_id = #{classifyId}
+        and is_deleted = 0
+    </select>
+
+    <!--查询二级分类商品-->
+    <select id="getNextNodeTree" resultMap="NextTreeResultMap">
+        SELECT
+            goods_id,
+            goods_name,
+            goods_picture,
+            sales_price
+        FROM t_sys_goodsInfo
+        WHERE class_two_id = #{twoClassifyId}
+        and is_deleted = 0
+    </select>
+
+    <!--查询商品评价映射-->
+    <resultMap id="EvaluateResultMap" type="com.xzsd.app.clientGoods.entity.GoodsEvaluateInfo">
+        <result  column="evaluate_id" property="evaluateId"/>
+        <result  column="user_acct" property="userAcct"/>
+        <result column="evaluate_content" property="evaluateContent"/>
+        <result column="evaluate_score" property="evaluateScore"/>
+        <result column="gmt_create" property="createTime"/>
+        <collection column="evaluate_id" property="imageList" javaType="java.util.ArrayList"
+                    ofType="com.xzsd.app.clientGoods.entity.GoodsEvaluateInfo" select="listImage"/>
+    </resultMap>
+    <!--查询商品评价的图片信息(图片映射)-->
+    <resultMap id="ImageResultMap" type="com.xzsd.app.clientGoods.entity.GoodsEvaluateInfo">
+        <result  column="image_id" property="imageId"/>
+        <result  column="evaluate_id" property="evaluateId"/>
+        <result column="image_path" property="imagePath"/>
+<!--        <collection column="evaluate_id" property="imageList" javaType="java.util.ArrayList"-->
+<!--                    ofType="com.xzsd.app.clientGoods.entity.GoodsEvaluateInfo" select="listImage"/>-->
+    </resultMap>
+
+    <!--查询商品评价列表-->
+    <select id="listGoodsEvaluates" resultMap="EvaluateResultMap">
+        select
+        a.evaluate_id,
+        b.user_acct,
+        a.evaluate_content,
+        a.evaluate_score,
+        a.gmt_create
+        from t_app_evaluate a,
+        t_sys_user b
+        where a.user_id = b.user_id
+        and a.goods_id = #{goodsId}
+        and a.is_deleted = 0
+        <if test="evaluateScore == 1">
+            and a.evaluate_score in(0,1)
+        </if>
+        <if test="evaluateScore == 3">
+            and a.evaluate_score in(2,3)
+        </if>
+        <if test="evaluateScore == 5">
+            and a.evaluate_score in(4,5)
+        </if>
+        order by a.gmt_create desc
+    </select>
+
+    <!--查询商品评价的图片列表-->
+    <select id="listImage" resultMap="ImageResultMap">
+        select
+        a.evaluate_id,
+        b.image_id,
+        b.image_path
+        from t_app_evaluate a,
+        t_app_evaluate_image b
+        where a.evaluate_id = b.evaluate_id
+        and a.is_deleted = 0
+        and b.is_deleted = 0
+        and a.evaluate_id = #{evaluateId}
+        order by a.gmt_create desc
+    </select>
+</mapper>

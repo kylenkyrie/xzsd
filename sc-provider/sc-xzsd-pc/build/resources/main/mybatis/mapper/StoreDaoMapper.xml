@@ -10,7 +10,7 @@
         and
         user_id = #{managerId}
         and
-        role = 1
+        role = 2
     </select>
 
     <!--校验店长id是否重复-->
@@ -70,7 +70,7 @@
         select
         a.store_id storeId,
         a.store_name storeName,
-        a.manager_id mangerId,
+        a.manager_id managerId,
         a.phone,
         e.user_name managerName,
         a.business_id businessId,
@@ -179,14 +179,14 @@
         <if test="managerName != null and managerName != ''">
             and s.user_name like concat('%', #{managerName}, '%')
         </if>
-        <if test="province != null and province != ''">
-            and s.province like concat('%', #{province}, '%')
+        <if test="provinceId != null and provinceId != ''">
+            and s.province like concat('%', #{provinceId}, '%')
         </if>
-        <if test="city != null and city != ''">
-            and s.city like concat('%', #{city}, '%')
+        <if test="cityId != null and cityId != ''">
+            and s.city like concat('%', #{cityId}, '%')
         </if>
-        <if test="area != null and area != ''">
-            and s.area like concat('%', #{area}, '%')
+        <if test="areaId != null and areaId != ''">
+            and s.area like concat('%', #{areaId}, '%')
         </if>
         <if test="role == 2">
             and s.store_id in (select store_id from t_sys_store where manager_id = #{loginUserId})

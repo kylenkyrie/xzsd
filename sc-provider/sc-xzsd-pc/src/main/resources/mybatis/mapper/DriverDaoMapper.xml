@@ -80,7 +80,7 @@
             #{driverPwd},
             #{phone},
             #{idCard},
-            #{imagePath}
+            #{imagePath},
             #{isDeleted},
             now(),
             #{createBy},
@@ -100,7 +100,7 @@
         driver_pwd = #{driverPwd},
         id_card = #{idCard},
         province = #{provinceId},
-        image_path = #{imagePath}
+        image_path = #{imagePath},
         city = #{cityId},
         area = #{areaId},
         gmt_modified = now(),
@@ -122,7 +122,7 @@
         user_acct = #{driverAcct},
         user_pwd = #{driverPwd},
         id_card = #{idCard},
-        image_path = #{imagePath}
+        image_path = #{imagePath},
         gmt_modified = now(),
         last_modified_by = #{lastModifiedBy},
         version = version + 1
@@ -156,7 +156,7 @@
         t_sys_region d,
         t_sys_user e
         where
-        a.user_id = e.user_id
+        a.driver_id = e.user_id
         and a.province = b.id
         and a.city = c.id
         and a.area = d.id
@@ -178,14 +178,14 @@
         <if test="driverId != null and driverId != ''">
             and driver_id like concat('%', #{driverId}, '%')
         </if>
-        <if test="province != null and province != ''">
-            and province like concat('%', #{province}, '%')
+        <if test="provinceId != null and provinceId != ''">
+            and province like concat('%', #{provinceId}, '%')
         </if>
-        <if test="city != null and city != ''">
-            and city like concat('%', #{city}, '%')
+        <if test="cityId != null and cityId != ''">
+            and city like concat('%', #{cityId}, '%')
         </if>
-        <if test="area != null and area != ''">
-            and area like concat('%', #{area}, '%')
+        <if test="areaId != null and areaId != ''">
+            and area like concat('%', #{areaId}, '%')
         </if>
     </select>
 
