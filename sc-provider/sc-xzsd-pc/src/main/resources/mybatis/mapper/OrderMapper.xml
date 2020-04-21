@@ -8,10 +8,12 @@
         order_id,
         order_cus_id,
         order_cus_name,
-        order_total_price,
+        order_total_price orderPrice,
         order_status,
         order_cus_phone,
-        pay_time
+        store_id storeId,
+        pay_time,
+        version
         FROM
         t_sys_order
         where is_deleted = 0
@@ -24,7 +26,7 @@
         <if test="orderCusPhone != null and orderCusPhone != ''">
             and order_cus_phone like concat('%', #{orderCusPhone}, '%')
         </if>
-        <if test="orderStatus != null">
+        <if test="orderStatus != null and orderStatus != ''">
             and order_status = #{orderStatus}
         </if>
         <if test="payTimeStart != null and payTimeStart != '' and payTimeEnd != null and payTimeEnd != ''">

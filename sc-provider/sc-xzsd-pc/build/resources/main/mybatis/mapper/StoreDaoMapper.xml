@@ -155,9 +155,14 @@
     <!--门店列表-->
     <select id="listStoreByPage" parameterType="com.xzsd.pc.store.entity.StoreInfo" resultType="com.xzsd.pc.store.entity.StoreInfo">
         select
-        s.*,
+        s.store_id storeId,
+        s.store_name storeName,
+        s.phone phone,
+        s.invite_code inviteCode,
+        s.store_address address,
         u.user_name managerName,
-        u.user_acct managerAcct
+        u.user_acct managerAcct,
+        s.version
         from
         t_sys_store s,
         t_sys_user u
