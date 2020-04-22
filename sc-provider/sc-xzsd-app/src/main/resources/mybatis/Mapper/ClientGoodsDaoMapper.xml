@@ -13,6 +13,7 @@
         goods_picture goodsImagePath,
         goods_evaluate_score goodsEvaluateScore,
         author goodsAuthor,
+        inventory goodsInventory,
         press goodsPress
         from t_sys_goodsinfo
         where is_deleted = 0

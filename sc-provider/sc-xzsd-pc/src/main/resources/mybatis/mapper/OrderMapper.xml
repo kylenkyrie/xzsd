@@ -5,43 +5,47 @@
     <!--查询订单列表分页-->
     <select id = "listOrderByPage" parameterType="com.xzsd.pc.order.entity.OrderInfo" resultType="com.xzsd.pc.order.entity.OrderInfo">
         select
-        order_id,
-        order_cus_id,
-        order_cus_name,
-        order_total_price orderPrice,
-        order_status,
-        order_cus_phone,
-        store_id storeId,
-        pay_time,
-        version
+        a.order_id orderId,
+        a.order_cus_id orderCusId,
+        b.user_name orderCusName,
+        a.order_total_price orderPrice,
+        a.order_status orderStatus,
+        b.phone orderCusPhone,
+        a.store_id storeId,
+        a.pay_time payTime,
+        a.version
         FROM
-        t_sys_order
-        where is_deleted = 0
+        t_sys_order a,
+        t_sys_user b
+        where a.is_deleted = 0
+        and
+        b.is_deleted = 0
+        and a.order_cus_id = b.user_id
         <if test="orderCusName != null and orderCusName != ''">
-            and order_cus_name like concat('%', #{orderCusName}, '%')
+            and a.order_cus_name like concat('%', #{orderCusName}, '%')
         </if>
         <if test="orderId != null and orderId != ''">
-            and order_id like concat('%', #{orderId}, '%')
+            and a.order_id like concat('%', #{orderId}, '%')
         </if>
         <if test="orderCusPhone != null and orderCusPhone != ''">
-            and order_cus_phone like concat('%', #{orderCusPhone}, '%')
+            and a.order_cus_phone like concat('%', #{orderCusPhone}, '%')
         </if>
         <if test="orderStatus != null and orderStatus != ''">
-            and order_status = #{orderStatus}
+            and a.order_status = #{orderStatus}
         </if>
         <if test="payTimeStart != null and payTimeStart != '' and payTimeEnd != null and payTimeEnd != ''">
-            and pay_time between #{payTimeStart} and #{payTimeEnd}
+            and a.pay_time between #{payTimeStart} and #{payTimeEnd}
         </if>
         <if test="(payTimeStart == null or payTimeStart == '') and payTimeEnd != null and payTimeEnd != ''">
-            and pay_time &lt;= #{payTimeEnd}
+            and a.pay_time &lt;= #{payTimeEnd}
         </if>
         <if test="payTimeStart != null and payTimeStart != '' and (payTimeEnd == null or payTimeEnd == '')">
-            and pay_time >= #{payTimeStart}
+            and a.pay_time >= #{payTimeStart}
         </if>
         <if test="role == 2">
-            and store_id in (select store_id from t_sys_store where manager_id = #{loginUserId})
+            and a.store_id in (select store_id from t_sys_store where manager_id = #{loginUserId})
         </if>
-        order by gmt_create desc
+        order by a.gmt_create desc
     </select>
 
     <!--修改订单状态-->
@@ -61,19 +65,24 @@
     <!--获取订单详情-->
     <select id="getOrderById" parameterType="java.lang.String" resultType="com.xzsd.pc.order.entity.OrderDetail">
         select
-        order_id orderId,
-        order_cus_id orderCusId,
-        goods_id goodsId,
-        goods_name goodsName,
-        cnt goodsCnt,
-        order_total_price orderPrice,
-        price,
-        sales_price salesPrice
+        a.order_id orderId,
+        a.order_cus_id orderCusId,
+        b.goods_id goodsId,
+        b.goods_name goodsName,
+        a.cnt goodsCnt,
+        a.order_total_price orderPrice,
+        b.price,
+        b.sales_price salesPrice
         from
-        t_sys_orderdetail
+        t_sys_orderdetail a,
+        t_sys_goodsInfo b
         where
-        order_id = #{orderId}
+        a.goods_id = b.goods_id
         and
-        is_deleted = 0
+        a.order_id = #{orderId}
+        and
+        a.is_deleted = 0
+        and
+        b.is_deleted = 0
     </select>
 </mapper>
