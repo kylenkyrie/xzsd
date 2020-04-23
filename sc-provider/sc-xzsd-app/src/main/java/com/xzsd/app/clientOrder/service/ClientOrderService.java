@@ -35,8 +35,6 @@ public class ClientOrderService {
         List<String> listGoodsPrice = Arrays.asList(clientOrderInfo.getGoodsPrice().split(","));
         //分割商品数量
         List<String> listGoodsCount = Arrays.asList(clientOrderInfo.getClientGoodsNum().split(","));
-        //分割购物车编号
-//        List<String> listShopCart = Arrays.asList(clientOrderInfo.getShopCartId().split(","));
         //获取商品信息
         List<GoodsInfo> listGoodsInfo = clientOrderDao.getGoodsInfo(listGoodsId);
         //订单明细表list
@@ -84,10 +82,12 @@ public class ClientOrderService {
         int count = clientOrderDao.addOrder(clientOrderInfo);
         //增加数据到订单明细表
         int counts = clientOrderDao.addOrderDetail(clientOrderInfoList);
-        //判断是否为购物车订单，并删除对应购物车
+        //判断是否为购物车结算，并删除对应购物车
         if(0 != count && 0 != counts){
             if (clientOrderInfo.getShopCartId()!= "") {
+                //分割购物车编号
                 List<String> listShopCart = Arrays.asList(clientOrderInfo.getShopCartId().split(","));
+                //删除购物车对应商品
                 int countShopCart = clientOrderDao.deleteShoppingCart(listShopCart, clientOrderInfo.getUserId());
                 if (0 == countShopCart) {
                     return AppResponse.bizError("新增订单失败");
