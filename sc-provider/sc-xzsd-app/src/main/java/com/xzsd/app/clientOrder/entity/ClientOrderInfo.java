@@ -103,6 +103,7 @@ public class ClientOrderInfo {
      */
     private String managerId;
 
+
     public String getOrderId() {
         return orderId;
     }

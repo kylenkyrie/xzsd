@@ -27,6 +27,11 @@ public class ClientOrderService {
      */
     @Transactional(rollbackFor = Exception.class)
     public AppResponse addOrder(ClientOrderInfo clientOrderInfo){
+        //检验用户是否已经绑定店铺邀请码
+        String store = clientOrderInfo.getStoreId();
+        if(store == ""){
+            return AppResponse.versionError("用户未绑定店铺邀请码");
+        }
         //生成订单表Id
         clientOrderInfo.setOrderId(StringUtil.getCommonCode(2));
         //分割商品编号
