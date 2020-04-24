@@ -11,9 +11,13 @@
         inventory goodsInventory,
         goods_name goodsName,
         goods_status goodsStateId
-        from t_sys_goodsInfo
-        where is_deleted = 0
-        and goods_id in
+        from
+        t_sys_goodsInfo
+        where
+        is_deleted = 0
+        and
+        goods_id
+        in
         <foreach item="item" index="index" collection="listGoodsId" open="(" separator="," close=")">
             #{item}
         </foreach>
@@ -21,35 +25,39 @@
 
     <!--增加数据到订单表-->
     <insert id="addOrder" parameterType="com.xzsd.app.clientOrder.entity.ClientOrderInfo">
-        insert into t_sys_order(
-            order_id,
-            order_cus_id,
-            order_total_price,
-            order_status,
-            store_id,
-            pay_time,
-            is_deleted,
-            gmt_create,
-            create_by,
-            version
+        insert into
+        t_sys_order(
+        order_id,
+        order_cus_id,
+        order_total_price,
+        goods_all_cnt,
+        order_status,
+        store_id,
+        pay_time,
+        is_deleted,
+        gmt_create,
+        create_by,
+        version
         )
         values (
-            #{orderId},
-            #{userId},
-            #{orderAllCost},
-            0,
-            #{storeId},
-            now(),
-            0,
-            now(),
-            #{userId},
-            0
+        #{orderId},
+        #{userId},
+        #{orderAllCost},
+        #{orderAllGoodsCount},
+        0,
+        #{storeId},
+        now(),
+        0,
+        now(),
+        #{userId},
+        0
         )
     </insert>
 
     <!--增加数据到订单明细表-->
     <insert id="addOrderDetail" parameterType="java.util.List">
-        insert into t_sys_orderdetail(
+        insert into
+        t_sys_orderdetail(
         order_detail_id,
         order_id,
         goods_id,
@@ -79,42 +87,258 @@
 
     <!--更新商品库存,销售量,商品状态-->
     <update id="updateGoodsInfo" parameterType="com.xzsd.app.clientOrder.entity.GoodsInfo">
-        update t_sys_goodsinfo
+        update
+        t_sys_goodsinfo
         set
         <if test="goodsStateId == 0">
-            goods_status = #{goodsStateId},
+        goods_status = #{goodsStateId},
         </if>
         inventory = #{goodsInventory},
         sales = sales + #{goodsSales},
         last_modified_by = #{userId},
         gmt_modified = now(),
         version = version + 1
-        where is_deleted = 0
-        and goods_id = #{goodsId}
+        where
+        is_deleted = 0
+        and
+        goods_id = #{goodsId}
     </update>
 
     <!--删除购物车-->
     <update id="deleteShoppingCart" parameterType="java.lang.String">
-        update t_app_shoppingcart
+        update
+        t_app_shoppingcart
         set
         is_deleted = 1,
         last_modified_by = #{userId},
         gmt_modified = now(),
         version = version + 1
-        where shop_cart_id in
+        where
+        shop_cart_id
+        in
         <foreach item="item" index="index" collection="listCode" open="(" separator="," close=")">
             #{item}
         </foreach>
     </update>
-<!--    &lt;!&ndash;修改订单状态&ndash;&gt;-->
-<!--    <update id="updateOrderStatus" parameterType="com.xzsd.app.clientOrder.entity.ClientOrderInfo">-->
-<!--        update t_sys_order-->
-<!--        set-->
-<!--        order_status = #{orderStateId},-->
-<!--        last_modified_by = #{userId},-->
-<!--        gmt_modified = now(),-->
-<!--        version = version + 1-->
-<!--        where order_id = #{orderId}-->
-<!--        and version = #{version}-->
-<!--    </update>-->
+
+    <!--订单列表映射-->
+    <resultMap id="orderMap" type="com.xzsd.app.clientOrder.entity.ClientOrderInfo">
+        <result property="orderId" column="order_id"/>
+        <result property="orderAllCost" column="order_total_price"/>
+        <result property="orderStateId" column="order_status"/>
+        <result property="orderAllGoodsCount" column="goods_all_cnt"/>
+        <result property="version" column="version"/>
+        <result property="gmtCreate" column="gmt_create"/>
+        <collection column="order_id" property="goodsList" javaType="java.util.ArrayList"
+                    ofType="com.xzsd.app.clientOrder.entity.GoodsInfo" select="listGoods" />
+    </resultMap>
+
+    <!--订单详情映射-->
+    <resultMap id="orderDetailMap" type="com.xzsd.app.clientOrder.entity.ClientOrderInfo">
+        <result property="orderId" column="order_id"/>
+        <result property="orderAllCost" column="order_total_price"/>
+        <result property="orderStateId" column="order_status"/>
+        <result property="provinceName" column="province"/>
+        <result property="cityName" column="city"/>
+        <result property="areaName" column="area"/>
+        <result property="storeName" column="store_name"/>
+        <result property="address" column="store_address"/>
+        <result property="orderAllGoodsCount" column="goods_all_cnt"/>
+        <result property="gmtCreate" column="gmt_create"/>
+        <collection column="order_id" property="goodsList" javaType="java.util.ArrayList"
+                    ofType="com.xzsd.app.clientOrder.entity.GoodsInfo" select="listGoods" />
+    </resultMap>
+
+    <!--商品列表映射-->
+    <resultMap id="goodsMap" type="com.xzsd.app.clientOrder.entity.GoodsInfo">
+        <result property="goodsId" column="goods_id"/>
+        <result property="goodsImagePath" column="goods_picture"/>
+        <result property="goodsName" column="goods_name"/>
+        <result property="goodsDescribe" column="goods_intro"/>
+        <result property="salesPrice" column="sales_price"/>
+        <result property="goodsCount" column="cnt"/>
+    </resultMap>
+
+    <!--查询订单列表-->
+    <select id="listOrder" parameterType="com.xzsd.app.clientOrder.entity.ClientOrderInfo" resultMap="orderMap">
+        select
+        a.order_id,
+        a.order_total_price,
+        a.order_status,
+        a.goods_all_cnt,
+        a.version
+        from
+        t_sys_order a
+        where
+        a.is_deleted = 0
+        and
+        order_cus_id = #{userId}
+        <if test="orderStateId != null and orderStateId != ''">
+        AND a.order_status = #{orderStateId}
+        </if>
+        order by
+        a.gmt_create desc
+    </select>
+
+    <!--查询订单详情-->
+    <select id="listOrderDeepen" parameterType="java.lang.String" resultMap="orderDetailMap">
+       select
+        a.order_id,
+        a.order_total_price,
+        a.goods_all_cnt,
+        b.store_name,
+        b.store_address,
+        a.order_status,
+        a.gmt_create,
+        d.value province,
+        e.value city,
+        f.value area
+        from
+        t_sys_region d,
+        t_sys_region e,
+        t_sys_region f,
+        t_sys_order a
+        left join
+        t_sys_store b on (a.store_id = b.store_id and b.is_deleted = 0)
+        where
+        a.is_deleted = 0
+        and
+        a.order_id = #{orderId}
+        and
+        b.province = d.id
+        and
+        b.city = e.id
+        and
+        b.area = f.id
+        order by
+        a.gmt_create desc
+    </select>
+
+    <!--查询商品列表-->
+    <select id="listGoods" parameterType="com.xzsd.app.clientOrder.entity.ClientOrderInfo" resultMap="goodsMap">
+        select
+        a.cnt,
+        a.goods_id,
+        b.goods_picture,
+        b.goods_name,
+        b.goods_intro,
+        b.sales_price
+        from
+        t_sys_orderdetail a
+        left join
+        t_sys_goodsinfo b on (a.goods_id = b.goods_id and b.is_deleted = 0)
+        where
+        a.is_deleted = 0
+        and
+        a.order_id = #{orderId}
+        order by
+        a.gmt_create desc
+    </select>
+
+    <!--修改订单状态-->
+    <update id="updateOrderState" parameterType="com.xzsd.app.clientOrder.entity.ClientOrderInfo">
+        update
+        t_sys_order
+        set
+        order_status = #{orderStateId},
+        last_modified_by = #{userId},
+        gmt_modified = now(),
+        version = version + 1
+        where
+        order_id = #{orderId}
+        and
+        version = #{version}
+    </update>
+
+    <!--查询订单评价商品信息列表-->
+    <select id="listGoodsForEvaluate" parameterType="java.lang.String" resultType="com.xzsd.app.clientOrder.entity.ClientOrderInfo">
+        select
+        a.goods_id goodsId,
+        b.goods_picture imagePath
+        from
+        t_sys_orderdetail a
+        left join
+        t_sys_goodsinfo b
+        on
+        a.goods_id = b.goods_id
+        where
+        a.order_id = #{orderId}
+    </select>
+
+    <!--新增订单商品评价-->
+    <insert id="addGoodsEvaluate" parameterType="java.util.List" >
+        <foreach collection="evaluateList" item="item" index="index" open="" separator=";" close=";">
+        insert into
+        t_app_evaluate(
+        evaluate_id,
+        evaluate_score,
+        evaluate_content,
+        user_id,
+        goods_id,
+        is_deleted,
+        gmt_create,
+        create_by,
+        version
+        )
+        values(
+        #{item.evaluateId},
+        #{item.evaluateScore},
+        #{item.evaluateContent},
+        #{item.userId},
+        #{item.goodsId},
+        0,
+        now(),
+        #{item.userId},
+        0)
+<!--        <if test="item.imageList != null">-->
+<!--            <foreach collection="item.imageList" item="image" index="index2" open=";" separator=";" close="">-->
+<!--                insert into t_app_evaluate_image(-->
+<!--                image_id,-->
+<!--                evaluate_id,-->
+<!--                image_path,-->
+<!--                image_num,-->
+<!--                is_deleted,-->
+<!--                gmt_create,-->
+<!--                create_by,-->
+<!--                gmt_modified,-->
+<!--                last_modified_by,-->
+<!--                version-->
+<!--                )-->
+<!--                values(-->
+<!--                #{image.imageId},-->
+<!--                #{image.evaluateId},-->
+<!--                #{image.imagePath},-->
+<!--                #{image.imageNum},-->
+<!--                0,-->
+<!--                now(),-->
+<!--                #{image.createUser},-->
+<!--                now(),-->
+<!--                #{image.createUser},-->
+<!--                0)-->
+<!--            </foreach>-->
+<!--        </if>-->
+        </foreach>
+    </insert>
+
+    <!--更新评价成功相关信息-->
+    <update id="updateEvaluateOrder" parameterType="java.lang.String">
+        update t_sys_order
+        set
+        order_status = #{orderStateId},
+        gmt_modified = now(),
+        last_modified_by = #{userId},
+        version = version + 1
+        where
+        order_id = #{orderId}
+    </update>
+<!--    <foreach collection="goodsId" item="item" index="index"  separator=";" >-->
+    <update id="updateEvaluateGoods" parameterType="java.lang.String">
+        <foreach collection="goodsId" item="item" index="index"  open="" separator=";" close="">
+        update t_sys_goodsinfo
+        set
+        goods_evaluate_score = (select avg(evaluate_score) from t_app_evaluate where goods_id = #{item})
+        where
+        goods_id = #{item}
+    </foreach>
+    </update>
 </mapper>

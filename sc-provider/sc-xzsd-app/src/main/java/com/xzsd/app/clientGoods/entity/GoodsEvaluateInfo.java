@@ -35,7 +35,7 @@ public class GoodsEvaluateInfo {
      */
     private int pageNum;
     /**
-     * 子节点
+     * 图片集合
      */
     private List<GoodsEvaluateInfo> imageList;
     /**

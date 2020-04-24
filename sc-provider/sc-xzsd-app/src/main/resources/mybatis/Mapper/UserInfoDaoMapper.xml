@@ -15,6 +15,8 @@
             e.user_name userName,
             e.image_path imagePath,
             e.role,
+            a.store_id storeId,
+            a.store_name storeName,
             b.value province,
             c.value city,
             d.value area,
@@ -49,12 +51,19 @@
     <!--查询客户个人信息-->
     <select id="getCustomer" parameterType="java.lang.String" resultType="com.xzsd.app.userInfo.entity.UserInformation">
         select
-            user_name userName,
-            image_path userImage,
-            role,
-            version
-        from t_sys_user
+            a.user_name userName,
+            a.image_path userImage,
+            a.role,
+            a.version,
+            c.store_id storeId,
+            c.store_name storeName,
+            c.store_address address
+        from t_sys_user a,
+        t_sys_customer b,
+        t_sys_store c
         where user_id = #{userId}
+        and a.user_id = b.cus_id
+        and b.invite_code = c.invite_code
     </select>
 
     <!--获取当前登录用户的密码-->

@@ -71,8 +71,8 @@
         b.goods_name goodsName,
         a.cnt goodsCnt,
         a.order_total_price orderPrice,
-        a.price,
-        a.sales_price salesPrice
+        b.price,
+        b.sales_price salesPrice
         from
         t_sys_orderdetail a,
         t_sys_goodsInfo b

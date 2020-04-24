@@ -1,5 +1,6 @@
 package com.xzsd.app.clientOrder.dao;
 
+import com.xzsd.app.clientOrder.entity.EvaluateInfo;
 import com.xzsd.app.clientOrder.entity.ClientOrderInfo;
 import com.xzsd.app.clientOrder.entity.GoodsInfo;
 import org.apache.ibatis.annotations.Mapper;
@@ -10,14 +11,14 @@ import java.util.List;
 @Mapper
 public interface ClientOrderDao {
     /**
-     *查询商品库存
+     *查询商品信息
      * @param listGoodsId 商品id集合
      * @return
      */
     List<GoodsInfo> getGoodsInfo(@Param("listGoodsId") List<String> listGoodsId);
 
     /**
-     *更新商品库存,销售量,商品状态
+     *新增订单后更新商品信息
      * @param goodsInfo
      * @return
      */
@@ -44,10 +45,54 @@ public interface ClientOrderDao {
      * @return
      */
     int deleteShoppingCart(@Param("listCode") List<String> listCode, @Param("userId") String userId);
-//    /**
-//     * 修改订单状态
-//     * @param clientOrderInfo
-//     * @return
-//     */
-//    int updateOrderState(ClientOrderInfo clientOrderInfo);
+
+    /**
+     * 查询订单列表
+     * @param clientOrderInfo
+     * @return
+     */
+    List<ClientOrderInfo> listOrder(ClientOrderInfo clientOrderInfo);
+
+    /**
+     * 修改订单状态
+     * @param clientOrderInfo
+     * @return
+     */
+    int updateOrderState(ClientOrderInfo clientOrderInfo);
+
+    /**
+     * 查询订单详情
+     * @param orderId
+     * @return
+     */
+    ClientOrderInfo listOrderDeepen(@Param("orderId") String orderId);
+
+    /**
+     *查询订单评价商品信息列表
+     * @param orderId
+     * @return
+     */
+    List<GoodsInfo> listGoodsForEvaluate(@Param("orderId") String orderId);
+
+    /**
+     * 新增订单商品评价接口
+     * @param evaluateList
+     * @return
+     */
+    int addGoodsEvaluate(@Param("evaluateList") List<EvaluateInfo> evaluateList);
+
+    /**
+     * 更新订单状态
+     * @param orderId userId orderStateId
+     * @return
+     */
+    int updateEvaluateOrder(@Param("orderId") String orderId,@Param("orderStateId") String orderStateId,
+                            @Param("userId")String userId);
+
+    /**
+     * 更新商品评分
+     * @param goodsId userId
+     * @return
+     */
+    int updateEvaluateGoods(@Param("userId")String userId,@Param("goodsId") List<String> goodsId);
 }

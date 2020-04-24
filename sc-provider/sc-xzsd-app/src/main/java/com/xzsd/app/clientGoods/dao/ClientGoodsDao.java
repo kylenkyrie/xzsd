@@ -18,6 +18,13 @@ public interface ClientGoodsDao {
     GoodsInfo getGoods(String goodsId);
 
     /**
+     * 增加浏览量
+     * @param
+     * @return
+     */
+    int updateView (String goodsId);
+
+    /**
      * 查询一级商品分类
      * @return
      */

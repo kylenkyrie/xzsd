@@ -26,6 +26,8 @@ public class ClientGoodsService {
      */
     public AppResponse getGoods(String goodsId){
         GoodsInfo goodsInfo = clientGoodsDao.getGoods(goodsId);
+        //增加商品浏览量
+        clientGoodsDao.updateView(goodsId);
         return AppResponse.success("查询商品详情成功", goodsInfo);
     }
 

@@ -75,6 +75,10 @@ public class ClientOrderInfo {
      */
     private String storeId;
     /**
+     * 门店名
+     */
+    private String storeName;
+    /**
      * 商品列表
      */
     private List<GoodsInfo> goodsList;
@@ -103,6 +107,18 @@ public class ClientOrderInfo {
      */
     private String managerId;
 
+    /**
+     * 图片路径
+     */
+    private String imagePath;
+
+    public String getStoreName() {
+        return storeName;
+    }
+
+    public void setStoreName(String storeName) {
+        this.storeName = storeName;
+    }
 
     public String getOrderId() {
         return orderId;
@@ -294,5 +310,13 @@ public class ClientOrderInfo {
 
     public void setManagerId(String managerId) {
         this.managerId = managerId;
+    }
+
+    public String getImagePath() {
+        return imagePath;
+    }
+
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
     }
 }

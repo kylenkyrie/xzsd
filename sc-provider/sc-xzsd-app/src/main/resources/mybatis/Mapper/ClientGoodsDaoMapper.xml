@@ -20,6 +20,15 @@
         and goods_id = #{goodsId}
     </select>
 
+    <!--增加商品浏览量-->
+    <update id="updateView" parameterType="java.lang.String">
+        update t_sys_goodsinfo
+        set
+        view = view+1
+        where
+        goods_id = #{goodsId}
+    </update>
+
     <!--查询一级商品分类-->
     <select id="listOneGoodsClassify" resultType="com.xzsd.app.clientGoods.entity.GoodsClassInfo">
         select
@@ -87,8 +96,6 @@
         <result  column="image_id" property="imageId"/>
         <result  column="evaluate_id" property="evaluateId"/>
         <result column="image_path" property="imagePath"/>
-<!--        <collection column="evaluate_id" property="imageList" javaType="java.util.ArrayList"-->
-<!--                    ofType="com.xzsd.app.clientGoods.entity.GoodsEvaluateInfo" select="listImage"/>-->
     </resultMap>
 
     <!--查询商品评价列表-->
