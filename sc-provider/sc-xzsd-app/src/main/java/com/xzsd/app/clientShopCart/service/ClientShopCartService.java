@@ -29,6 +29,13 @@ public class ClientShopCartService {
     public AppResponse addShoppingCart(ClientShopCartInfo clientShopCartInfo){
         //生成购物车id
         clientShopCartInfo.setShopCartId(StringUtil.getCommonCode(3));
+        //查询库存
+        int inventory = clientShopCartDao.getGoodsInventory(clientShopCartInfo.getGoodsId());
+        clientShopCartInfo.setGoodsInventory(inventory);
+        //判断当前商品购买数量是否超过商品库存
+        if(clientShopCartInfo.getGoodsInventory() < Integer.valueOf(clientShopCartInfo.getCartGoodsCount())){
+            return AppResponse.notFound("添加数量超过库存");
+        }
         int count = clientShopCartDao.addShoppingCart(clientShopCartInfo);
         if(0 == count){
             return AppResponse.bizError("新增购物车失败");
@@ -44,7 +51,6 @@ public class ClientShopCartService {
      * @time 2020-04-22
      */
     public AppResponse listShoppingCarts(ClientShopCartInfo clientShopCartInfo){
-        //分页
         PageHelper.startPage(clientShopCartInfo.getPageNum(), clientShopCartInfo.getPageSize());
         //查询购物车
         List<ClientShopCartInfo> listShoppingCart = clientShopCartDao.listShoppingCarts(clientShopCartInfo);

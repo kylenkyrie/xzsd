@@ -25,6 +25,16 @@
             )
     </insert>
 
+    <!--查询商品库存-->
+    <select id="getGoodsInventory" parameterType="java.lang.String" resultType="int">
+        select
+        inventory goodsInventory
+        from
+        t_sys_goodsinfo
+        where
+        goods_id = #{goodsId}
+    </select>
+
     <!--查询购物车列表-->
     <select id="listShoppingCarts" parameterType="com.xzsd.app.clientShopCart.entity.ClientShopCartInfo"
             resultType="com.xzsd.app.clientShopCart.entity.ClientShopCartInfo">

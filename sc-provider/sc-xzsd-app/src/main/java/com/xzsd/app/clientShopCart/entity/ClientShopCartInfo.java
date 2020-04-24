@@ -23,6 +23,10 @@ public class ClientShopCartInfo {
      */
     private String goodsImagePath;
     /**
+     * 商品库存
+     */
+    private int goodsInventory;
+    /**
      * 商品价格
      */
     private String goodsPrice;
@@ -89,6 +93,14 @@ public class ClientShopCartInfo {
 
     public int getPageSize() {
         return pageSize;
+    }
+
+    public int getGoodsInventory() {
+        return goodsInventory;
+    }
+
+    public void setGoodsInventory(int goodsInventory) {
+        this.goodsInventory = goodsInventory;
     }
 
     public void setPageSize(int pageSize) {

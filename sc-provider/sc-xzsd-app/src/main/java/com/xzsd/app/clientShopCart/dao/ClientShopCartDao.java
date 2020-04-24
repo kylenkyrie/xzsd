@@ -16,6 +16,13 @@ public interface ClientShopCartDao {
     int addShoppingCart(ClientShopCartInfo clientShopCartInfo);
 
     /**
+     *查询商品库存信息
+     * @param goodsId 商品信息
+     * @return
+     */
+    int getGoodsInventory(String goodsId);
+
+    /**
      * 查询购物车列表
      * @param clientShopCartInfo
      * @return
