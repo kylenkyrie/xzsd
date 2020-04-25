@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xzsd.app.driverHome.dao.DriverHomeDao">
+    <!--查负责门店列表-->
+    <select id="listDriverStores" parameterType="com.xzsd.app.driverHome.entity.DriverHomeInfo" resultType="com.xzsd.app.driverHome.entity.DriverHomeInfo">
+        select
+        a.store_id storeId,
+        a.store_name storeName,
+        a.store_address address,
+        f.user_name userName,
+        f.phone,
+        b.value provinceName,
+        c.value cityName,
+        d.value areaName
+        from t_sys_store a,
+        t_sys_region b,
+        t_sys_region c,
+        t_sys_region d,
+        t_sys_driver e,
+        t_sys_user f
+        where e.driver_id = #{userId}
+        and a.manager_id = f.user_id
+        and a.province = e.province
+        and a.city = e.city
+        and a.area = e.area
+        and e.province = b.id
+        and e.city= c.id
+        and e.area = d.id
+		and e.is_deleted = 0
+        and a.is_deleted = 0
+        and f.is_deleted = 0
+    </select>
+</mapper>

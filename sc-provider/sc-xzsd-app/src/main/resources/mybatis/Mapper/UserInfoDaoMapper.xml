@@ -57,13 +57,14 @@
             a.version,
             c.store_id storeId,
             c.store_name storeName,
+            b.invite_code inviteCode,
             c.store_address address
         from t_sys_user a,
-        t_sys_customer b,
-        t_sys_store c
+        t_sys_customer b
+		LEFT JOIN
+        t_sys_store c on (b.invite_code = c.invite_code)
         where user_id = #{userId}
         and a.user_id = b.cus_id
-        and b.invite_code = c.invite_code
     </select>
 
     <!--获取当前登录用户的密码-->

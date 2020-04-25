@@ -157,7 +157,13 @@ public class ClientOrderService {
      */
     public AppResponse listOrderDeepen(String orderId) {
         ClientOrderInfo clientOrderInfo = clientOrderDao.listOrderDeepen(orderId);
-        clientOrderInfo.setAddress(clientOrderInfo.getProvinceName() + clientOrderInfo.getCityName() + clientOrderInfo.getAreaName() + clientOrderInfo.getAddress());
+        //地址拼接
+        if (clientOrderInfo.getAreaName() != null){
+            clientOrderInfo.setAddress(clientOrderInfo.getProvinceName() + clientOrderInfo.getCityName() + clientOrderInfo.getAreaName() + clientOrderInfo.getAddress());
+        }
+        else{
+            clientOrderInfo.setAddress(clientOrderInfo.getProvinceName() + clientOrderInfo.getCityName() + clientOrderInfo.getAddress());
+        }
         return AppResponse.success("查询订单详情成功！", clientOrderInfo);
     }
 
