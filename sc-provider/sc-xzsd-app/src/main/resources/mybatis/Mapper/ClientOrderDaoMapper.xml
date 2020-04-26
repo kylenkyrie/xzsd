@@ -90,7 +90,7 @@
         update
         t_sys_goodsinfo
         set
-        <if test="goodsStateId == 0">
+        <if test="goodsStateId == 2">
         goods_status = #{goodsStateId},
         </if>
         inventory = #{goodsInventory},
