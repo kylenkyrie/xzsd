@@ -21,6 +21,10 @@ public class ClientInformationService {
      */
     @Transactional(rollbackFor = Exception.class)
     public AppResponse updateClientInvite(ClientInfo clientInfo){
+        int countInviteCode = clientInfoDao.countInviteCode(clientInfo);
+        if(0 == countInviteCode) {
+            return AppResponse.notFound("邀请码不存在，请重新输入！");
+        }
         int count = clientInfoDao.updateInviteCode(clientInfo);
         if(0 == count){
             return AppResponse.notFound("修改邀请码失败");
