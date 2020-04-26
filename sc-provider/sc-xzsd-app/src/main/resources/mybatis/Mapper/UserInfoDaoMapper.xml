@@ -16,6 +16,7 @@
             e.image_path imagePath,
             e.role,
             a.store_id storeId,
+            a.invite_code inviteCode,
             a.store_name storeName,
             b.value province,
             c.value city,

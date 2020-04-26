@@ -108,6 +108,10 @@ public class ManagerOrderInfo {
      */
     private String goodsDescribe;
     /**
+     * 商品库存
+     */
+    private String goodsInventory;
+    /**
      * 商品列表
      */
     private List<GoodsInfo> goodsList;
@@ -218,6 +222,14 @@ public class ManagerOrderInfo {
 
     public void setGoodsCount(String goodsCount) {
         this.goodsCount = goodsCount;
+    }
+
+    public String getGoodsInventory() {
+        return goodsInventory;
+    }
+
+    public void setGoodsInventory(String goodsInventory) {
+        this.goodsInventory = goodsInventory;
     }
 
     public String getTotalGoodsPrice() {

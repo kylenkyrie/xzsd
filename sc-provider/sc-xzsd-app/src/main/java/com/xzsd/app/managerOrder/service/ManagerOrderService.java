@@ -5,6 +5,7 @@ import com.github.pagehelper.PageInfo;
 import com.neusoft.core.restful.AppResponse;
 import com.xzsd.app.clientOrder.entity.ClientOrderInfo;
 import com.xzsd.app.managerOrder.dao.ManagerOrderDao;
+import com.xzsd.app.managerOrder.entity.GoodsInfo;
 import com.xzsd.app.managerOrder.entity.ManagerOrderInfo;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -44,7 +45,7 @@ public class ManagerOrderService {
     public AppResponse updateManagerOrderState(ManagerOrderInfo managerOrderInfo){
         int count = managerOrderDao.updateManagerOrderState(managerOrderInfo);
         if(count == 0){
-            return AppResponse.bizError("修改订单状态失败");
+            return AppResponse.notFound("修改订单状态失败");
         }
         return AppResponse.success("修改订单状态成功");
     }
