@@ -203,7 +203,6 @@ public class ClientOrderService {
     @Transactional(rollbackFor = Exception.class)
     public AppResponse addGoodsEvaluate(JSONObject goodsEvaluate,String userId){
         //将json数据转换成实体类
-//        GoodsEvaluate goodsEva = new GsonBuilder().create().fromJson(goodsEvaluate.toJSONString(),GoodsEvaluate.class);
         GoodsEvaluate goodsEva = goodsEvaluate.toJavaObject(GoodsEvaluate.class);
         //初始化商品编号集合（用于修改商品评分信息）
         List<String> goodsId = new ArrayList<>();
