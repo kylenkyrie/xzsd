@@ -27,4 +27,12 @@ public interface ManagerOrderDao {
      * @return
      */
     ManagerOrderInfo listManagerOrderDeepen(@Param("orderId") String orderId);
+
+    /**
+     * 修改商品库存
+     * @param goodsList 商品信息集合
+     * @return
+     */
+    int updateGoodsInventory (@Param("goodsList") List<GoodsInfo> goodsList);
+
 }

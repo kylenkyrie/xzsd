@@ -47,6 +47,17 @@ public class ManagerOrderService {
         if(count == 0){
             return AppResponse.notFound("修改订单状态失败");
         }
+        //订单取消时增加库存
+        if (managerOrderInfo.getOrderStateId().equals("1")){
+            //调用订单详情获取对应的商品lIST
+            managerOrderInfo = managerOrderDao.listManagerOrderDeepen(managerOrderInfo.getOrderId());
+            List<GoodsInfo> goodsList =  managerOrderInfo.getGoodsList();
+            //修改库存
+            int countGoods = managerOrderDao.updateGoodsInventory(goodsList);
+            if(countGoods == 0){
+                return AppResponse.bizError("修改商品库存失败");
+            }
+        }
         return AppResponse.success("修改订单状态成功");
     }
 

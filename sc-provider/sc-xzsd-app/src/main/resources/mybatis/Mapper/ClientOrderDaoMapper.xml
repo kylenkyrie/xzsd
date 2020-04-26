@@ -250,6 +250,19 @@
         version = #{version}
     </update>
 
+    <!--修改商品库存-->
+    <update id="updateGoodsInventory" parameterType="java.util.ArrayList">
+        <foreach collection="goodsList" item="item" index="index"  open="" separator=";" close=";">
+            update t_sys_goodsinfo
+            set
+            inventory = inventory + #{item.goodsCount},
+            last_modified_by = #{item.userId},
+            gmt_modified = now(),
+            version = version + 1
+            where goods_id = #{item.goodsId}
+        </foreach>
+    </update>
+
     <!--查询订单评价商品信息列表-->
     <select id="listGoodsForEvaluate" parameterType="java.lang.String" resultType="com.xzsd.app.clientOrder.entity.ClientOrderInfo">
         select
@@ -290,33 +303,6 @@
         now(),
         #{item.userId},
         0)
-<!--        <if test="item.imageList != null">-->
-<!--            <foreach collection="item.imageList" item="image" index="index2" open=";" separator=";" close="">-->
-<!--                insert into t_app_evaluate_image(-->
-<!--                image_id,-->
-<!--                evaluate_id,-->
-<!--                image_path,-->
-<!--                image_num,-->
-<!--                is_deleted,-->
-<!--                gmt_create,-->
-<!--                create_by,-->
-<!--                gmt_modified,-->
-<!--                last_modified_by,-->
-<!--                version-->
-<!--                )-->
-<!--                values(-->
-<!--                #{image.imageId},-->
-<!--                #{image.evaluateId},-->
-<!--                #{image.imagePath},-->
-<!--                #{image.imageNum},-->
-<!--                0,-->
-<!--                now(),-->
-<!--                #{image.createUser},-->
-<!--                now(),-->
-<!--                #{image.createUser},-->
-<!--                0)-->
-<!--            </foreach>-->
-<!--        </if>-->
         </foreach>
     </insert>
 

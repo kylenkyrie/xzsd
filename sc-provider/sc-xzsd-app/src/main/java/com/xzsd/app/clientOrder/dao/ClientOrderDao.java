@@ -95,4 +95,11 @@ public interface ClientOrderDao {
      * @return
      */
     int updateEvaluateGoods(@Param("userId")String userId,@Param("goodsId") List<String> goodsId);
+
+    /**
+     * 修改商品库存
+     * @param goodsList 商品信息集合
+     * @return
+     */
+    int updateGoodsInventory (@Param("goodsList") List<GoodsInfo> goodsList);
 }

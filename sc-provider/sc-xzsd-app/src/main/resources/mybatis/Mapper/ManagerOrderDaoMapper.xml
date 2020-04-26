@@ -38,7 +38,8 @@
     </resultMap>
 
     <!--商品列表映射-->
-    <resultMap id="goodsMap" type="com.xzsd.app.clientOrder.entity.GoodsInfo">
+    <resultMap id="goodsMap" type="com.xzsd.app.managerOrder.entity.GoodsInfo">
+        <result property="userId" column="order_cus_id"/>
         <result property="goodsId" column="goods_id"/>
         <result property="goodsImagePath" column="goods_picture"/>
         <result property="goodsName" column="goods_name"/>
@@ -112,6 +113,7 @@
     <!--查询商品列表-->
     <select id="listGoods" parameterType="com.xzsd.app.managerOrder.entity.ManagerOrderInfo" resultMap="goodsMap">
         select
+        a.order_cus_id,
         a.cnt,
         a.goods_id,
         b.goods_picture,
@@ -140,5 +142,18 @@
             version = version + 1
         where order_id = #{orderId}
         and version = #{version}
+    </update>
+
+    <!--修改商品库存-->
+    <update id="updateGoodsInventory" parameterType="java.util.ArrayList">
+        <foreach collection="goodsList" item="item" index="index"  open="" separator=";" close=";">
+        update t_sys_goodsinfo
+        set
+        inventory = inventory + #{item.goodsCount},
+        last_modified_by = #{item.userId},
+        gmt_modified = now(),
+        version = version + 1
+        where goods_id = #{item.goodsId}
+        </foreach>
     </update>
 </mapper>

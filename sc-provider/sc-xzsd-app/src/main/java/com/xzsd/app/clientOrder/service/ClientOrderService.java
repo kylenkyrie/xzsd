@@ -145,6 +145,17 @@ public class ClientOrderService {
         if(0 == count){
             return AppResponse.bizError("修改订单状态失败");
         }
+        //订单取消时增加库存
+        if (clientOrderInfo.getOrderStateId().equals("1")){
+            //调用订单详情获取对应的商品lIST
+            clientOrderInfo = clientOrderDao.listOrderDeepen(clientOrderInfo.getOrderId());
+            List<GoodsInfo> goodsList =  clientOrderInfo.getGoodsList();
+            //修改库存
+            int countGoods = clientOrderDao.updateGoodsInventory(goodsList);
+            if(countGoods == 0){
+                return AppResponse.bizError("修改商品库存失败");
+            }
+        }
         return AppResponse.success("修改订单状态成功");
     }
 
@@ -202,14 +213,6 @@ public class ClientOrderService {
             //设置评价用户编号
             goodsEva.getEvaluateList().get(i).setUserId(userId);
             goodsId.add(goodsEva.getEvaluateList().get(i).getGoodsId());
-//            for ( int j = 0; j < goodsEva.getEvaluateList().get(i).getImageList().size() ; j++){
-//                //为每张图片设置对应的评价编号
-//                goodsEva.getEvaluateList().get(i).getImageList().get(j).setEvaluateId(goodsEva.getEvaluateList().get(i).getEvaluateId());
-//                //设置图片传的用户id
-//                goodsEva.getEvaluateList().get(i).getImageList().get(j).setCreateUser(userId);
-//                //生成评价图片编号
-//                goodsEva.getEvaluateList().get(i).getImageList().get(j).setImageId(StringUtil.getCommonCode(2));
-//            }
         }
         System.out.println(goodsId);
         //新增商品评价
@@ -220,8 +223,11 @@ public class ClientOrderService {
         //修改订单状态和商品评价评分
         int countOrder = clientOrderDao.updateEvaluateOrder(goodsEva.getOrderId(),"5",userId);
         int countGoods = clientOrderDao.updateEvaluateGoods(userId,goodsId);
-        if (countOrder == 0 || countGoods==0 ){
-            return AppResponse.versionError("订单状态或商品评分更新失败！");
+        if (countOrder == 0){
+            return AppResponse.versionError("订单状态更新失败！");
+        }
+        if (countGoods == 0){
+            return AppResponse.versionError("商品评分更新失败！");
         }
         return AppResponse.success("新增商品评价成功！");
     }
