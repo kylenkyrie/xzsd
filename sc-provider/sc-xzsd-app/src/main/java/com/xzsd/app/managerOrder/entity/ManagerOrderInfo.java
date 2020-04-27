@@ -30,7 +30,7 @@ public class ManagerOrderInfo {
     /**
      * 单个商品购买数量
      */
-    private String goodsCount;
+    private String cartGoodsCount;
     /**
      * 商品名称
      */
@@ -118,14 +118,14 @@ public class ManagerOrderInfo {
     /**
      * 创建时间
      */
-    private String gmtCreate;
+    private String createTime;
 
-    public String getGmtCreate() {
-        return gmtCreate;
+    public String getCreateTime() {
+        return createTime;
     }
 
-    public void setGmtCreate(String gmtCreate) {
-        this.gmtCreate = gmtCreate;
+    public void setCreateTime(String createTime) {
+        this.createTime = createTime;
     }
 
     public List<GoodsInfo> getGoodsList() {
@@ -216,12 +216,12 @@ public class ManagerOrderInfo {
         this.salesPrice = salesPrice;
     }
 
-    public String getGoodsCount() {
-        return goodsCount;
+    public String getCartGoodsCount() {
+        return cartGoodsCount;
     }
 
-    public void setGoodsCount(String goodsCount) {
-        this.goodsCount = goodsCount;
+    public void setCartGoodsCount(String cartGoodsCount) {
+        this.cartGoodsCount = cartGoodsCount;
     }
 
     public String getGoodsInventory() {

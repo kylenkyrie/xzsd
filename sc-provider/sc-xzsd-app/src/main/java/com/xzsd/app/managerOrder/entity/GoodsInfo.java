@@ -32,7 +32,7 @@ public class GoodsInfo {
     /**
      * 商品数量
      */
-    private int goodsCount;
+    private int cartGoodsCount;
     /**
      * 订单id
      */
@@ -110,12 +110,12 @@ public class GoodsInfo {
         this.goodsImagePath = goodsImagePath;
     }
 
-    public int getGoodsCount() {
-        return goodsCount;
+    public int getCartGoodsCount() {
+        return cartGoodsCount;
     }
 
-    public void setGoodsCount(int goodsCount) {
-        this.goodsCount = goodsCount;
+    public void setCartGoodsCount(int cartGoodsCount) {
+        this.cartGoodsCount = cartGoodsCount;
     }
 
     public String getOrderId() {

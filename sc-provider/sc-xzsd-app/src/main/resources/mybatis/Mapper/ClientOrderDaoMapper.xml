@@ -128,7 +128,7 @@
         <result property="orderStateId" column="order_status"/>
         <result property="orderAllGoodsCount" column="goods_all_cnt"/>
         <result property="version" column="version"/>
-        <result property="gmtCreate" column="gmt_create"/>
+        <result property="createTime" column="gmt_create"/>
         <collection column="order_id" property="goodsList" javaType="java.util.ArrayList"
                     ofType="com.xzsd.app.clientOrder.entity.GoodsInfo" select="listGoods" />
     </resultMap>
@@ -144,7 +144,7 @@
         <result property="storeName" column="store_name"/>
         <result property="address" column="store_address"/>
         <result property="orderAllGoodsCount" column="goods_all_cnt"/>
-        <result property="gmtCreate" column="gmt_create"/>
+        <result property="createTime" column="gmt_create"/>
         <collection column="order_id" property="goodsList" javaType="java.util.ArrayList"
                     ofType="com.xzsd.app.clientOrder.entity.GoodsInfo" select="listGoods" />
     </resultMap>
@@ -155,8 +155,8 @@
         <result property="goodsImagePath" column="goods_picture"/>
         <result property="goodsName" column="goods_name"/>
         <result property="goodsDescribe" column="goods_intro"/>
-        <result property="salesPrice" column="sales_price"/>
-        <result property="goodsCount" column="cnt"/>
+        <result property="goodsPrice" column="sales_price"/>
+        <result property="cartGoodsCount" column="cnt"/>
     </resultMap>
 
     <!--查询订单列表-->
@@ -255,7 +255,7 @@
         <foreach collection="goodsList" item="item" index="index"  open="" separator=";" close=";">
             update t_sys_goodsinfo
             set
-            inventory = inventory + #{item.goodsCount},
+            inventory = inventory + #{item.cartGoodsCount},
             last_modified_by = #{item.userId},
             gmt_modified = now(),
             version = version + 1

@@ -34,5 +34,4 @@ public interface ManagerOrderDao {
      * @return
      */
     int updateGoodsInventory (@Param("goodsList") List<GoodsInfo> goodsList);
-
 }

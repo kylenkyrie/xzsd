@@ -47,7 +47,7 @@ public class ClientShopCartService {
      * 查询购物车
      * @param clientShopCartInfo
      * @return
-     * @author 杨明镇
+     * @author yangmingzhen
      * @time 2020-04-22
      */
     public AppResponse listShoppingCarts(ClientShopCartInfo clientShopCartInfo){

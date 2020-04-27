@@ -65,7 +65,7 @@ public class ClientOrderInfo {
     /**
      * 创建时间
      */
-    private String gmtCreate;
+    private String createTime;
     /**
      * 用户id
      */
@@ -232,13 +232,11 @@ public class ClientOrderInfo {
         this.version = version;
     }
 
-    public String getGmtCreate() {
-        return gmtCreate;
+    public String getCreateTime() {
+        return createTime;
     }
 
-    public void setGmtCreate(String gmtCreate) {
-        this.gmtCreate = gmtCreate;
-    }
+    public void setCreateTime(String createTime) { this.createTime = createTime; }
 
     public String getUserId() {
         return userId;
