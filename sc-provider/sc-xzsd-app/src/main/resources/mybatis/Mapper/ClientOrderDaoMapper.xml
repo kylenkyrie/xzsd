@@ -85,7 +85,7 @@
         </foreach>
     </insert>
 
-    <!--更新商品库存,销售量,商品状态-->
+    <!--更新商品库存、商品状态-->
     <update id="updateGoodsInfo" parameterType="com.xzsd.app.clientOrder.entity.GoodsInfo">
         update
         t_sys_goodsinfo
@@ -94,7 +94,6 @@
         goods_status = #{goodsStateId},
         </if>
         inventory = #{goodsInventory},
-        sales = sales + #{goodsSales},
         last_modified_by = #{userId},
         gmt_modified = now(),
         version = version + 1
@@ -256,6 +255,19 @@
             update t_sys_goodsinfo
             set
             inventory = inventory + #{item.cartGoodsCount},
+            last_modified_by = #{item.userId},
+            gmt_modified = now(),
+            version = version + 1
+            where goods_id = #{item.goodsId}
+        </foreach>
+    </update>
+
+    <!--修改商品销量-->
+    <update id="updateGoodsSales" parameterType="java.util.ArrayList">
+        <foreach collection="goodsList" item="item" index="index"  open="" separator=";" close=";">
+            update t_sys_goodsinfo
+            set
+            sales = sales + #{item.cartGoodsCount},
             last_modified_by = #{item.userId},
             gmt_modified = now(),
             version = version + 1

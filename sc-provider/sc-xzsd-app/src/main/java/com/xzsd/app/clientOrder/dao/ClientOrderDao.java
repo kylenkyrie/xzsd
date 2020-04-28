@@ -102,4 +102,11 @@ public interface ClientOrderDao {
      * @return
      */
     int updateGoodsInventory (@Param("goodsList") List<GoodsInfo> goodsList);
+
+    /**
+     * 修改商品销量
+     * @param goodsList 商品信息集合
+     * @return
+     */
+    int updateGoodsSales (@Param("goodsList") List<GoodsInfo> goodsList);
 }

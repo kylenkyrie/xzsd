@@ -64,9 +64,7 @@ public class ClientOrderService {
             if(listGoodsInfo.get(i).getGoodsInventory() == 0){
                 listGoodsInfo.get(i).setGoodsStateId(2);
             }
-            //增加销量
-            listGoodsInfo.get(i).setGoodsSales(listGoodsInfo.get(i).getGoodsSales()+Integer.valueOf(listGoodsCount.get(i)));
-            //更新商品库存,销售量,商品状态
+            //更新商品库存,商品状态
             int update = clientOrderDao.updateGoodsInfo(listGoodsInfo.get(i));
             if(0 == update){
                 return AppResponse.versionError("商品信息修改失败,请重试");
@@ -145,7 +143,7 @@ public class ClientOrderService {
         if(0 == count){
             return AppResponse.bizError("修改订单状态失败");
         }
-        //订单取消时增加库存
+        //订单取消时增加库存/订单完成时增加销量
         if (clientOrderInfo.getOrderStateId().equals("1")){
             //调用订单详情获取对应的商品lIST
             clientOrderInfo = clientOrderDao.listOrderDeepen(clientOrderInfo.getOrderId());
@@ -154,6 +152,16 @@ public class ClientOrderService {
             int countGoods = clientOrderDao.updateGoodsInventory(goodsList);
             if(countGoods == 0){
                 return AppResponse.bizError("修改商品库存失败");
+            }
+        }
+        if (clientOrderInfo.getOrderStateId().equals("4")){
+            //调用订单详情获取对应的商品lIST
+            clientOrderInfo = clientOrderDao.listOrderDeepen(clientOrderInfo.getOrderId());
+            List<GoodsInfo> goodsList =  clientOrderInfo.getGoodsList();
+            //修改销量
+            int countGoods = clientOrderDao.updateGoodsSales(goodsList);
+            if(countGoods == 0){
+                return AppResponse.bizError("修改商品销量失败");
             }
         }
         return AppResponse.success("修改订单状态成功");

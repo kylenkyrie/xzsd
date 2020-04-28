@@ -4,7 +4,7 @@
     <!--获取热门位商品展示数量-->
     <select id="getShowCnt" resultType="int">
         select
-           value ShowCnt
+        value ShowCnt
         from t_sys_region
         where id = '9999'
     </select>
@@ -12,8 +12,8 @@
     <!--查询首页轮播图-->
     <select id="listRotationCharHome" resultType="com.xzsd.app.clientHome.entity.RotationInfo">
         select
-            picture_path slideshowPath,
-            goods_id goodsId
+        picture_path slideshowPath,
+        goods_id goodsId
         from t_sys_carousel_figure
         where picture_status = 1
         and is_deleted = 0
@@ -28,8 +28,9 @@
         b.goods_name goodsName,
         b.goods_picture goodsImagePath,
         b.sales_price goodsPrice
-        from t_sys_hotgoods a,
-             t_sys_goodsinfo b
+        from
+        t_sys_hotgoods a,
+        t_sys_goodsinfo b
         where a.goods_id = b.goods_id
         and a.is_deleted = 0
         order by a.sort_id asc
