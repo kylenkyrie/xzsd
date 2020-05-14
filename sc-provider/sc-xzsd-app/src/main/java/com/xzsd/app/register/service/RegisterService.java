@@ -29,12 +29,14 @@ public class RegisterService {
         if(0 != countUserAcct) {
             return AppResponse.notFound("用户账号已存在，请重新输入！");
         }
-        int countInviteCode = registerDao.countInviteCode(registerInfo);
-        if(0 == countInviteCode) {
-            return AppResponse.notFound("邀请码不存在，请重新输入！");
+        if (registerInfo.getInviteCode().length() !=0 && registerInfo.getInviteCode()!=null){
+            int countInviteCode = registerDao.countInviteCode(registerInfo);
+            if(0 == countInviteCode) {
+                return AppResponse.notFound("邀请码不存在，请重新输入！");
+            }
         }
         // 密码加密
-        String pwd = PasswordUtils.generatePassword("123456");
+        String pwd = PasswordUtils.generatePassword(registerInfo.getUserPwd());
         registerInfo.setUserPwd(pwd);
         registerInfo.setUserId(StringUtil.getCommonCode(2));
         registerInfo.setIsDeleted(0);

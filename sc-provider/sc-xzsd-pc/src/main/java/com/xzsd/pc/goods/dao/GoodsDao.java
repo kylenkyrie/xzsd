@@ -15,6 +15,14 @@ import java.util.List;
  */
 @Mapper
 public interface GoodsDao {
+
+    /**
+     * 统计书号数量
+     * @param goodsInfo 商品信息
+     * @return
+     */
+    int countBookId(GoodsInfo goodsInfo);
+
     /**
      * 新增商品
      * @param goodsInfo 商品信息

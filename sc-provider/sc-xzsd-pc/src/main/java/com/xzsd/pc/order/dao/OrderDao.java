@@ -24,17 +24,23 @@ public interface OrderDao {
      */
     List<OrderInfo> listOrderByPage(OrderInfo orderInfo);
 
+//    /**
+//     * 修改订单状态
+//     * @param orderInfo 商品信息
+//     * @return 修改结果
+//     */
+//    int updateOrderStatus(OrderInfo orderInfo);
+
     /**
-     * 修改商品状态
-     * @param orderInfo 商品信息
+     * 修改订单状态
      * @return 修改结果
      */
-    int updateOrderStatus(OrderInfo orderInfo);
+    int updateOrderStatus(@Param(value = "listUpdate") List<OrderInfo> listUpdate);
 
     /**
      * 查询订单详情
      * @param orderId 订单id
      * @return 修改结果
      */
-    OrderDetail getOrderById(@Param("orderId") String orderId);
+    List<OrderDetail> getOrderById(@Param("orderId") String orderId);
 }

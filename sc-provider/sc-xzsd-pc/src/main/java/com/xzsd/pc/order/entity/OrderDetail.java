@@ -1,6 +1,7 @@
 package com.xzsd.pc.order.entity;
 
 import java.util.Date;
+import java.util.List;
 
 public class OrderDetail {
 
@@ -68,6 +69,18 @@ public class OrderDetail {
      * 版本号
      */
     private String version;
+    /**
+     * 详情队列
+     */
+    private List<OrderDetail> orderList;
+
+    public List<OrderDetail> getOrderList() {
+        return orderList;
+    }
+
+    public void setOrderList(List<OrderDetail> orderList) {
+        this.orderList = orderList;
+    }
 
     public int getPageSize() {
         return pageSize;

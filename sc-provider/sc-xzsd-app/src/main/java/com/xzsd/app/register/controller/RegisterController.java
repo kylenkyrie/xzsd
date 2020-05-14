@@ -37,9 +37,6 @@ public class RegisterController {
     @PostMapping("clientRegister")
     public AppResponse clientRegister(RegisterInfo registerInfo){
         try{
-            //获取当前登录用户id
-            String userId = SecurityUtils.getCurrentUserId();
-            registerInfo.setCreateBy(userId);
             AppResponse appResponse = registerService.clientRegister(registerInfo);
             return appResponse;
         } catch (Exception e){

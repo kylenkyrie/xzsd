@@ -30,7 +30,7 @@ public class UserInformation {
     /**
      * 用户头像
      */
-    private String imagePath;
+    private String userImage;
     /**
      * 门店编号
      */
@@ -148,12 +148,12 @@ public class UserInformation {
         this.phone = phone;
     }
 
-    public String getImagePath() {
-        return imagePath;
+    public String getUserImage() {
+        return userImage;
     }
 
-    public void setImagePath(String imagePath) {
-        this.imagePath = imagePath;
+    public void setUserImage(String userImage) {
+        this.userImage = userImage;
     }
 
     public String getStoreId() {

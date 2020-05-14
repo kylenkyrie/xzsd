@@ -202,7 +202,7 @@ public class ClientOrderService {
     }
 
     /**
-     *查询订单评价商品信息列表
+     *新增评价
      * @param goodsEvaluate userId
      * @return
      * @author yangmingzhen

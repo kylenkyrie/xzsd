@@ -2,6 +2,20 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.xzsd.pc.goods.dao.GoodsDao">
 
+    <!--统计书号数量-->
+    <select id="countBookId" parameterType="com.xzsd.pc.goods.entity.GoodsInfo" resultType="int">
+        select
+        count(book_id)
+        from
+        t_sys_goodsinfo
+        where
+        is_deleted = 0
+        and book_id = #{bookId}
+        <if test="goodsId != null and goodsId != ''">
+            and goods_id != #{goodsId}
+        </if>
+    </select>
+
     <!--新增商品-->
     <insert id="addGoods" parameterType="com.xzsd.pc.goods.entity.GoodsInfo">
         insert into t_sys_goodsinfo
@@ -75,6 +89,8 @@
         a.cost_price,
         a.sales_price,
         a.version
+--         a.author author,
+--         a.press press
         FROM
         t_sys_goodsinfo a,
         t_sys_goodsclassification b,
@@ -139,7 +155,7 @@
         a.class_two_id,
         a.view,
         a.goods_adv,
-        a.goods_intro,
+        a.goods_intro goodsIntroduce,
         a.inventory,
         a.cost_price,
         a.sales_price,
@@ -203,6 +219,20 @@
         <foreach item="item" index="index" collection="listCode" open="(" separator="," close=")">
             #{item}
         </foreach>
+        and goods_id not in
+        (
+        select goods_id
+        from
+        t_sys_carousel_figure
+        where
+        is_deleted = 0
+        union
+        select goods_id
+        from
+        t_sys_hotgoods
+        where
+        is_deleted = 0
+        )
     </update>
 
     <!--修改商品状态-->
@@ -213,7 +243,8 @@
                 goods_status = #{item.goodsStatus},
                 gmt_modified = now(),
                 last_modified_by = #{item.lastModifiedBy,jdbcType=VARCHAR},
-                version = version + 1
+                version = version + 1,
+                shelf_time = now()
             </set>
             <where>
                 goods_id = #{item.goodsId,jdbcType=VARCHAR}
@@ -232,7 +263,7 @@
         where
         is_deleted = 0
         <if test="classId == null or classId == ''">
-            and parent_id in (null,'')
+            and parent_id in (null,'','0')
         </if>
         <if test="classId != null and classId != ''">
             and parent_id = #{classId}

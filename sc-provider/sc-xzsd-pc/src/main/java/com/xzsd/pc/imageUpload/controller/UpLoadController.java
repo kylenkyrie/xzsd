@@ -10,7 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.annotation.Resource;
 
 @RestController
-@RequestMapping("imageUpload")
+@RequestMapping("/imageUpload")
 public class UpLoadController {
     @Resource
     private UpLoadService upLoadService;

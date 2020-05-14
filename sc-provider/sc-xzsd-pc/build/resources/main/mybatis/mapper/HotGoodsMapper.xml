@@ -7,8 +7,8 @@
         from t_sys_hotgoods
         where is_deleted = 0
         and sort_id = #{sortId}
-        <if test="goodsId != null and goodsId != ''">
-            and goods_id != #{goodsId}
+        <if test="hotGoodsId != null and hotGoodsId != ''">
+            and hotgoods_id != #{hotGoodsId}
         </if>
     </select>
 
@@ -59,7 +59,7 @@
         <if test="goodsId != null and goodsId != ''">
             and b.goods_id like concat('%', #{goodsId}, '%')
         </if>
-        order by b.sort_id desc
+        order by b.sort_id asc
     </select>
 
     <!--获取在售商品所有信息-->
@@ -87,7 +87,7 @@
             and goods_id like concat('%', #{goodsId}, '%')
         </if>
         and
-        goods_id not in (select goods_id from t_sys_hotgoods)
+        goods_id not in (select goods_id from t_sys_hotgoods where is_deleted = 0)
     </select>
 
     <!--获取热门位商品详情-->

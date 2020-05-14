@@ -76,7 +76,19 @@ public class UserInfo {
     /**
      * 角色
      */
-    private int role;
+    private String role;
+    /**
+     * 密码修改标志
+     */
+    private int pwdFlag;
+
+    public int getPwdFlag() {
+        return pwdFlag;
+    }
+
+    public void setPwdFlag(int pwdFlag) {
+        this.pwdFlag = pwdFlag;
+    }
 
     public int getPageSize() {
         return pageSize;
@@ -211,11 +223,11 @@ public class UserInfo {
         this.sex = sex;
     }
 
-    public int getRole() {
+    public String getRole() {
         return role;
     }
 
-    public void setRole(int role) {
+    public void setRole(String role) {
         this.role = role;
     }
 }

@@ -36,6 +36,10 @@ public class RegisterInfo {
      */
     private String email;
     /**
+     * 用户头像
+     */
+    private String imagePath;
+    /**
      * 角色
      */
     private int role;
@@ -114,6 +118,14 @@ public class RegisterInfo {
 
     public void setSex(int sex) {
         this.sex = sex;
+    }
+
+    public String getImagePath() {
+        return imagePath;
+    }
+
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
     }
 
     public String getPhone() {

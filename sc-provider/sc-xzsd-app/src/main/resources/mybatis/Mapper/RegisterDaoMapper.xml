@@ -50,7 +50,7 @@
             #{email},
             #{isDeleted},
             now(),
-            #{createBy},
+            #{userId},
             now(),
             #{lastModifiedBy},
             0)
@@ -70,6 +70,7 @@
         id_card,
         email,
         role,
+        image_path,
         is_deleted,
         gmt_create,
         create_by,
@@ -87,9 +88,10 @@
             #{idCard},
             #{email},
             4,
+            #{imagePath},
             #{isDeleted},
             now(),
-            #{createBy},
+            #{userId},
             now(),
             #{lastModifiedBy},
             0)

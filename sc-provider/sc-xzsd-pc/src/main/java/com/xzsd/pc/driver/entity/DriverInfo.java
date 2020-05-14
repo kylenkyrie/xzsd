@@ -4,6 +4,14 @@ import java.util.Date;
 
 public class DriverInfo {
     /**
+     * 当前登录角色
+     */
+    private String role;
+    /**
+     * 当前登录用户id
+     */
+    private String userId;
+    /**
      * 司机编号
      */
     private String driverId;
@@ -79,6 +87,22 @@ public class DriverInfo {
      * 版本号
      */
     private String version;
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
 
     public String getDriverId() {
         return driverId;

@@ -88,17 +88,17 @@ public class ClassService {
         //校验删除的分类是否含有子分类
         int counts = classDao.countGoodsClassSon(classId);
         if(counts != 0){
-            appResponse = AppResponse.notFound("删除的分类有子分类，删除失败！");
+            return AppResponse.notFound("删除的分类有子分类，删除失败！");
         }
         //校验删除的分类是否含有商品
         int countGoods = classDao.countGoods(classId);
         if(countGoods != 0){
-            appResponse = AppResponse.notFound("删除的分类下有商品，删除失败！");
+            return AppResponse.notFound("删除的分类下有商品，删除失败！");
         }
         // 删除商品分类
         int count = classDao.deleteClass(classId,userCode);
         if(0 == count) {
-            appResponse = AppResponse.notFound("删除失败，请重试！");
+            return AppResponse.notFound("删除失败，请重试！");
         }
         return appResponse;
     }

@@ -92,7 +92,7 @@
             and goods_id like concat('%', #{goodsId}, '%')
         </if>
         and
-        goods_id not in (select goods_id from t_sys_carousel_figure)
+        goods_id not in (select goods_id from t_sys_carousel_figure where is_deleted = 0)
     </select>
 
     <!--修改轮播图状态-->

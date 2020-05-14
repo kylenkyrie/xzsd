@@ -35,6 +35,14 @@ public interface DriverDao {
      * @return
      */
     int addUserDriver(DriverInfo driverInfo);
+
+    /**
+     * 获取当需要修改的司机的密码
+     * @param userId
+     * @return
+     */
+    String getUserPassword(@Param("userId") String userId);
+
     /**
      * 司机表修改司机信息
      * @param driverInfo 司机信息

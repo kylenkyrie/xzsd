@@ -27,6 +27,7 @@
         from t_sys_goodsclassification
         where is_deleted = 0
         and class_name = #{className}
+        and class_id not in (#{classId})
     </select>
 
     <!--统计删除商品分类子类数量-->

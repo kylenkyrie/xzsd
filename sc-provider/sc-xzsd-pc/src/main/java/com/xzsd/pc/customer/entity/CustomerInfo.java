@@ -148,9 +148,9 @@ public class CustomerInfo {
 
     public void setRole(int role) { this.role = role; }
 
-    public String getUserId() { return loginUserId; }
+    public String getloginUserId() { return loginUserId; }
 
-    public void setUserId(String userId) { this.loginUserId = userId; }
+    public void setloginUserId(String loginUserId) { this.loginUserId = loginUserId; }
 
     public int getIsDeleted() {
         return isDeleted;

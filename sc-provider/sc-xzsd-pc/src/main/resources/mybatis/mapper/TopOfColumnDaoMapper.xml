@@ -6,7 +6,7 @@
         select
             user_id userId,
             user_name userName,
-            role,
+            role role,
             image_path imagePath
         from t_sys_user
         where user_id = #{userId}

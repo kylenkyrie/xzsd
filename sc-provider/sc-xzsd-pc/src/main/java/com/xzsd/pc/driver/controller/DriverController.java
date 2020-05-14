@@ -99,8 +99,10 @@ public class DriverController {
     @RequestMapping(value = "listDriver")
     public AppResponse listDriver (DriverInfo driverInfo){
         try{
+            //获取用户id
+            String userId = SecurityUtils.getCurrentUserId();
+            driverInfo.setUserId(userId);
             return driverService.listDriverByPage(driverInfo);
-
         }catch (Exception e){
             logger.error("查询司机列表异常",e);
             System.out.println(e.toString());

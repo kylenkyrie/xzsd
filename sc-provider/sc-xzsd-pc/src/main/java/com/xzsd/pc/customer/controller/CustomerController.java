@@ -1,6 +1,7 @@
 package com.xzsd.pc.customer.controller;
 
 import com.neusoft.core.restful.AppResponse;
+import com.neusoft.security.client.utils.SecurityUtils;
 import com.xzsd.pc.customer.entity.CustomerInfo;
 import com.xzsd.pc.customer.service.CustomerService;
 import org.slf4j.Logger;
@@ -35,6 +36,9 @@ public class CustomerController {
     @RequestMapping(value = "listCustomer")
     public AppResponse listCustomer(CustomerInfo customerInfo){
         try{
+            //获取当前登录用户id
+            String userId = SecurityUtils.getCurrentUserId();
+            customerInfo.setloginUserId(userId);
             return customerService.listCustomer(customerInfo);
         }catch (Exception e){
             logger.error("查询客户列表异常",e);

@@ -12,6 +12,7 @@
         	version
         from t_sys_menu
         where is_deleted = 0
+        order by gmt_create asc
     </select>
 
     <!--查询角色菜单-->
@@ -25,6 +26,7 @@
         <if test="role == 2">
             and role = 2
         </if>
+        order by gmt_create asc
     </select>
 
     <!--删除菜单-->
@@ -61,6 +63,7 @@
             create_by,
             gmt_modified,
             last_modified_by,
+            role,
             version
           ) values (
             #{menuCode},
@@ -72,6 +75,7 @@
             #{createBy},
             now(),
             #{lastModifiedBy},
+            #{role},
             0)
     </insert>
 
@@ -82,6 +86,7 @@
         set
             menu_name = #{menuName},
             menu_url = #{menuUrl},
+            role = #{role},
             version = version + 1,
             remark = #{remark},
             gmt_modified = now(),
@@ -98,6 +103,7 @@
             menu_code,
             menu_name,
             menu_url,
+            role,
             is_deleted,
             remark,
             gmt_create,

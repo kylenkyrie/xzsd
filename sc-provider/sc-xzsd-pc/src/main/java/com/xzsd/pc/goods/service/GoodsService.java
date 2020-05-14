@@ -36,6 +36,11 @@ public class GoodsService {
      */
     @Transactional(rollbackFor = Exception.class)
     public AppResponse addGoods(GoodsInfo goodsInfo){
+        // 校验书号是否存在
+        int countBookId = goodsDao.countBookId(goodsInfo);
+        if(0 != countBookId) {
+            return AppResponse.notFound("书号已存在，请重新输入！");
+        }
         goodsInfo.setGoodsId(StringUtil.getCommonCode(3));
         goodsInfo.setIsDeleted(0);
         //新增商品
@@ -69,6 +74,11 @@ public class GoodsService {
      */
     @Transactional(rollbackFor = Exception.class)
     public AppResponse updateGoods(GoodsInfo goodsInfo) {
+        // 校验书号是否存在
+        int countBookId = goodsDao.countBookId(goodsInfo);
+        if(0 != countBookId) {
+            return AppResponse.notFound("书号已存在，请重新输入！");
+        }
         AppResponse appResponse = AppResponse.success("修改成功");
         // 修改商品信息
         int count = goodsDao.updateGoods(goodsInfo);
@@ -105,12 +115,17 @@ public class GoodsService {
         //校验商品是否被绑定
         int countGoodsId = goodsDao.countGoodsId(listCode);
         if(0 != countGoodsId) {
-            appResponse = AppResponse.notFound("商品已被绑定无法删除！");
+            // 删除商品
+            int count = goodsDao.deleteGoods(listCode,userCode);
+            if(0 == count) {
+               return AppResponse.notFound("所有商品已被绑定，删除失败，请重试！");
+            }
+            return AppResponse.notFound("部分商品已被绑定，其他商品已被删除！");
         }
         // 删除商品
         int count = goodsDao.deleteGoods(listCode,userCode);
         if(0 == count) {
-            appResponse = AppResponse.notFound("删除失败，请重试！");
+            appResponse = AppResponse.notFound("商品删除失败，请重试！");
         }
         return appResponse;
     }

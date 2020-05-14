@@ -10,7 +10,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+
+import static com.neusoft.core.page.PageUtils.getPageInfo;
 
 
 /**
@@ -47,12 +51,24 @@ public class OrderService {
      */
     @Transactional(rollbackFor = Exception.class)
     public AppResponse updateOrderStatus(OrderInfo orderInfo) {
+        List<String> listOrderId = Arrays.asList(orderInfo.getOrderId().split(","));
+        List<String> listVersion = Arrays.asList(orderInfo.getVersion().split(","));
+        List<OrderInfo> listUpdate = new ArrayList<>();
+        String orderStatus = orderInfo.getOrderStatus();
+        String updateUser = orderInfo.getLastModifiedBy();
+        for (int i = 0; i < listOrderId.size(); i++) {
+            OrderInfo orderInfo1 = new OrderInfo();
+            orderInfo1.setOrderId(listOrderId.get(i));
+            orderInfo1.setVersion(listVersion.get(i));
+            orderInfo1.setOrderStatus(orderStatus);
+            orderInfo1.setLastModifiedBy(updateUser);
+            listUpdate.add(orderInfo1);
+        }
         AppResponse appResponse = AppResponse.success("修改成功");
-        // 修改订单状态
-        int count = orderDao.updateOrderStatus(orderInfo);
+        // 修改轮播图状态信息
+        int count = orderDao.updateOrderStatus(listUpdate);
         if (0 == count) {
-            appResponse = AppResponse.versionError("数据有变化，请刷新！");
-            return appResponse;
+            appResponse = AppResponse.bizError("修改订单状态失败，请重试！");
         }
         return appResponse;
     }
@@ -65,7 +81,7 @@ public class OrderService {
      * @Date 2020-04-04
      */
     public AppResponse getOrderById(String orderId) {
-        OrderDetail orderInfo = orderDao.getOrderById(orderId);
-        return AppResponse.success("查询成功！",orderInfo);
+        List<OrderDetail> orderDetail = orderDao.getOrderById(orderId);
+        return AppResponse.success("查询成功！", getPageInfo(orderDetail));
     }
 }

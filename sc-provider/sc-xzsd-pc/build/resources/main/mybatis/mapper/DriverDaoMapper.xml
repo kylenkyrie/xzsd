@@ -71,6 +71,7 @@
         create_by,
         gmt_modified,
         last_modified_by,
+        role,
         version
         )
         values
@@ -86,8 +87,18 @@
             #{createBy},
             now(),
             #{lastModifiedBy},
+            3,
             0)
     </insert>
+
+    <!--获取当前司机的密码-->
+    <select id="getUserPassword" parameterType="java.lang.String"
+            resultType="java.lang.String">
+        select
+            user_pwd
+        from t_sys_user
+        where user_id = #{userId}
+    </select>
 
     <!--修改司机信息-->
     <update id = "updateDriver" parameterType="com.xzsd.pc.driver.entity.DriverInfo">
@@ -186,6 +197,21 @@
         </if>
         <if test="areaId != null and areaId != ''">
             and area like concat('%', #{areaId}, '%')
+        </if>
+        <if test="role == 2">
+            and driver_id in (
+            select
+            b.driver_id
+            from
+            t_sys_store a,
+            t_sys_driver b
+            where
+            a.manager_id = #{userId}
+            and a.province = b.province
+            and a.city = b.city
+            and a.area = b.area
+            and a.is_deleted = 0
+            and b.is_deleted = 0)
         </if>
     </select>
 

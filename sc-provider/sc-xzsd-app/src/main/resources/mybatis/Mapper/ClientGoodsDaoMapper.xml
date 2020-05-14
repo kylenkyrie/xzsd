@@ -36,8 +36,8 @@
         class_name classifyName
         from t_sys_goodsclassification
         where is_deleted = 0
-        and parent_id in (null,'')
-        order by gmt_create desc
+        and parent_id in (null,'','0')
+        order by gmt_create asc
     </select>
 
     <!--查询商品二级分类级商品信息(二级分类映射)-->
@@ -67,6 +67,7 @@
         FROM t_sys_goodsclassification
         WHERE parent_id = #{classifyId}
         and is_deleted = 0
+        order by gmt_create asc
     </select>
 
     <!--查询二级分类商品-->
@@ -79,6 +80,7 @@
         FROM t_sys_goodsInfo
         WHERE class_two_id = #{twoClassifyId}
         and is_deleted = 0
+        and goods_status = 1
     </select>
 
     <!--查询商品评价映射-->

@@ -56,5 +56,12 @@ public interface UserDao {
      * @return 修改结果
      */
     UserInfo getUserByUserId(@Param("userId") String userId);
+
+    /**
+     * 获取当需要修改的用户的密码
+     * @param userId
+     * @return
+     */
+    String getUserPassword(@Param("userId") String userId);
 }
 

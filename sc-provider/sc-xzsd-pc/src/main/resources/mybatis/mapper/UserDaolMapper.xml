@@ -70,7 +70,7 @@
         t_sys_user
         where is_deleted = 0
         and
-        role != 3
+        role not in (3,4)
         <if test="userAcct != null and userAcct != ''">
             and user_acct like concat('%', #{userAcct}, '%')
         </if>
@@ -103,6 +103,15 @@
             #{item}
         </foreach>
     </update>
+
+    <!--获取当前用户的密码-->
+    <select id="getUserPassword" parameterType="java.lang.String"
+            resultType="java.lang.String">
+        select
+            user_pwd
+        from t_sys_user
+        where user_id = #{userId}
+    </select>
 
     <!--修改用户信息-->
     <update id = "updateUser" parameterType="com.xzsd.pc.user.entity.UserInfo">

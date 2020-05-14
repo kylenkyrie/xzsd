@@ -43,7 +43,10 @@ public class MenuService {
      * @Date 2020-04-11
      */
     public AppResponse listRoleMenus(Menu menu){
-        List<Menu> menuRoleList = menuDao.listRoleMenus(menu);
+        List<Menu> menuRoleList = null;
+        if (menu.getRole() != 3 && menu.getRole()  != 4){
+            menuRoleList = menuDao.listRoleMenus(menu);
+        }
         return AppResponse.success("查询成功！",menuRoleList);
     }
 

@@ -22,7 +22,7 @@ public class StoreController {
     private StoreService storeService;
 
     /**
-     * demo 新增
+     * demo 新增门店
      * @param storeInfo
      * @return AppResponse
      * @author 杨明镇
@@ -31,7 +31,6 @@ public class StoreController {
     @PostMapping("addStore")
     public AppResponse addGoods(StoreInfo storeInfo){
         try{
-
             //获取当前登录用户id
             String userId = SecurityUtils.getCurrentUserId();
             storeInfo.setCreateBy(userId);
@@ -130,8 +129,10 @@ public class StoreController {
     @RequestMapping(value = "listStore")
     public AppResponse listStore (StoreInfo storeInfo){
         try{
+            //获取当前登录用户id
+            String userId = SecurityUtils.getCurrentUserId();
+            storeInfo.setLoginUserId(userId);
             return storeService.listStoreByPage(storeInfo);
-
         }catch (Exception e){
             logger.error("查询门店列表异常",e);
             System.out.println(e.toString());

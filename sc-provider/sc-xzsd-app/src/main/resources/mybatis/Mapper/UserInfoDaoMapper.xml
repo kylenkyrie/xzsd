@@ -13,7 +13,7 @@
     <select id="getStore" parameterType="java.lang.String" resultType="com.xzsd.app.userInfo.entity.UserInformation">
         select
             e.user_name userName,
-            e.image_path imagePath,
+            e.image_path userImage,
             e.role,
             a.store_id storeId,
             a.invite_code inviteCode,

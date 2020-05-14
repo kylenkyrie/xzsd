@@ -49,19 +49,22 @@
     </select>
 
     <!--修改订单状态-->
-    <update id = "updateOrderStatus" parameterType="com.xzsd.pc.order.entity.OrderInfo">
-        update
-        t_sys_order
-        set
-        order_status = #{orderStatus},
-        gmt_modified = now(),
-        last_modified_by = #{lastModifiedBy},
-        version = version + 1
-        where
-        order_id = #{orderId}
-        and
-        version = #{version}
+    <update id="updateOrderStatus" parameterType="java.util.List">
+        <foreach collection="listUpdate" item="item" index="index" open="" separator=";" close="">
+            update t_sys_order
+            <set>
+                order_status = #{item.orderStatus},
+                gmt_modified = now(),
+                last_modified_by = #{item.lastModifiedBy},
+                version = version + 1
+            </set>
+            <where>
+                order_id = #{item.orderId}
+                AND version = #{item.version}
+            </where>
+        </foreach>
     </update>
+
     <!--获取订单详情-->
     <select id="getOrderById" parameterType="java.lang.String" resultType="com.xzsd.pc.order.entity.OrderDetail">
         select
@@ -71,7 +74,7 @@
         b.goods_name goodsName,
         a.cnt goodsCnt,
         a.order_total_price orderPrice,
-        b.price,
+        b.cost_price price,
         b.sales_price salesPrice
         from
         t_sys_orderdetail a,
